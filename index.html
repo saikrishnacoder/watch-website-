@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070605" />
+    <title>HORLOGE — Tempus compositum</title>
+    <meta
+      name="description"
+      content="Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold meridian at 12."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <form name="newsletter" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input name="bot-field" />
+    </form>
+    <form name="appointment" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="boutique" />
+      <input type="text" name="date" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+    <noscript>
+      <header>
+        <p>HORLOGE — Tempus compositum. Maison Horloge, Geneva 1924.</p>
+      </header>
+      <main>
+        <p>
+          Independent Geneva watchmaking. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around
+          a gold line at 12.
+        </p>
+        <nav>
+          <a href="/collection">All watches</a>
+          <a href="/collection/heritage">Heritage</a>
+          <a href="/collection/chronograph">Chronograph</a>
+          <a href="/collection/diver">Diver</a>
+          <a href="/collection/imperial">Imperial</a>
+          <a href="/collection/meridian">Meridian</a>
+          <a href="/maison">The maison</a>
+          <a href="/privacy">Privacy</a>
+        </nav>
+      </main>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

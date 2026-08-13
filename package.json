@@ -1,0 +1,29 @@
+{
+  "name": "horloge-watch-template",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "python3 scripts/generate_animations.py",
+    "dev": "python3 scripts/generate_animations.py && vite",
+    "build": "python3 scripts/generate_animations.py && tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.12",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.8.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@netlify/vite-plugin": "^2.7.1",
+    "@types/node": "^22.17.1",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@types/three": "^0.185.4",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.9.2",
+    "vite": "^6.3.5"
+  }
+}
