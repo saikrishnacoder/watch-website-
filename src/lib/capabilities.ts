@@ -8,9 +8,11 @@ export type DeviceCapabilities = {
   coarsePointer: boolean;
   saveData: boolean;
   slowNetwork: boolean;
+  narrow: boolean;
   memory?: number;
   webgl: boolean;
   canHeavy: boolean;
+  canParallax: boolean;
 };
 
 function hasWebGL() {
@@ -30,14 +32,25 @@ export function detectCapabilities(userReduce = false): DeviceCapabilities {
   const saveData = Boolean(connection?.saveData);
   const slowNetwork = ["slow-2g", "2g"].includes(connection?.effectiveType ?? "");
   const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const narrow = window.innerWidth < 768;
   const webgl = hasWebGL();
+  const canParallax = !reduceMotion && !coarsePointer && !narrow && !saveData;
   const canHeavy =
     webgl &&
-    !reduceMotion &&
-    !saveData &&
+    canParallax &&
     !slowNetwork &&
     (memory === undefined || memory >= 4) &&
     window.innerWidth >= 900;
 
-  return { reduceMotion, coarsePointer, saveData, slowNetwork, memory, webgl, canHeavy };
+  return {
+    reduceMotion,
+    coarsePointer,
+    saveData,
+    slowNetwork,
+    narrow,
+    memory,
+    webgl,
+    canHeavy,
+    canParallax,
+  };
 }

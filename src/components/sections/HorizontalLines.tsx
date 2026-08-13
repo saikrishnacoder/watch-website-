@@ -6,7 +6,7 @@ import { useMotion } from "../../context/MotionContext";
 import { Reveal } from "../ui/Reveal";
 
 export function HorizontalLines() {
-  const { reduceMotion, coarsePointer } = useMotion();
+  const { reduceMotion, canParallax } = useMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -14,7 +14,7 @@ export function HorizontalLines() {
   });
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-72%"]);
 
-  if (reduceMotion || coarsePointer) {
+  if (reduceMotion || !canParallax) {
     return (
       <section className="section">
         <div className="section-head">

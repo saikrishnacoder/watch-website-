@@ -2,48 +2,60 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { formatPrice, site, type Product } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
+import { useMotion } from "../../context/MotionContext";
 import { WatchFace } from "../watch/WatchFace";
 
 type ProductCardProps = {
   product: Product;
   index?: number;
+  priority?: boolean;
 };
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
+export function ProductCard({ product, index = 0, priority = false }: ProductCardProps) {
   const { toggleWish, toggleCompare, wished, compared } = useCabinet();
+  const { reduceMotion } = useMotion();
   const photo = product.images[0];
 
   return (
     <motion.article
       className="product-card watch-card"
-      initial={{ opacity: 0, y: 28 }}
+      initial={reduceMotion || priority ? false : { opacity: 1, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      layout
+      transition={{ duration: 0.7, delay: reduceMotion ? 0 : index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      layout={!reduceMotion}
     >
-      <div className="product-visual anim-shimmer">
+      <div className={`product-visual ${reduceMotion ? "" : "anim-shimmer"}`}>
         {product.badge && <span className="product-badge">{product.badge}</span>}
         <div className="card-tools">
           <button
             className={wished(product.slug) ? "is-on" : ""}
-            aria-label="Wishlist"
+            aria-label={`Save ${product.name} to wishlist`}
             onClick={() => toggleWish(product.slug)}
           >
             ♥
           </button>
           <button
             className={compared(product.slug) ? "is-on" : ""}
-            aria-label="Compare"
+            aria-label={`Compare ${product.name}`}
             onClick={() => toggleCompare(product.slug)}
           >
             ⧉
           </button>
         </div>
         <Link to={`/watch/${product.slug}`} className="card-media">
-          <img src={photo} alt={product.name} className="card-photo" />
+          <img
+            src={photo}
+            alt={`${product.name}, ${product.diameter} mm ${product.material}`}
+            className="card-photo"
+            width={1600}
+            height={1067}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={priority ? "high" : "low"}
+          />
           <div className="card-watch">
-            <WatchFace {...product.design} brand={site.brand.name} size={220} />
+            <WatchFace {...product.design} brand={site.brand.name} size={220} animate={!reduceMotion} />
           </div>
         </Link>
       </div>

@@ -29,8 +29,10 @@ export function MotionProvider({ children }: { children: ReactNode }) {
           coarsePointer: false,
           saveData: false,
           slowNetwork: false,
+          narrow: false,
           webgl: false,
           canHeavy: false,
+          canParallax: false,
         }
       : detectCapabilities(userReduce),
   );

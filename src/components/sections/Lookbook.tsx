@@ -20,7 +20,7 @@ export function Lookbook() {
           <Reveal key={shot.title} delay={index * 0.1} className="look-card" y={20}>
             <button type="button" className="look-open" onClick={() => setActive(shot)}>
               <figure className="look-card">
-                <img src={shot.src} alt={shot.title} />
+                <img src={shot.src} alt={shot.title} width={1400} height={933} loading="lazy" decoding="async" />
                 <figcaption>
                   <h3>{shot.title}</h3>
                   <p>{shot.caption}</p>

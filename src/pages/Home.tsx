@@ -39,7 +39,7 @@ export function Home() {
         </div>
         <div className="product-grid">
           {novelties.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
+            <ProductCard key={product.slug} product={product} index={index} priority={index < 2} />
           ))}
         </div>
       </section>

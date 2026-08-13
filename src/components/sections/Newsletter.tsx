@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState, type FormEvent } from "react";
 import { site } from "../../config/site";
 import { MagneticButton } from "../ui/MagneticButton";
@@ -38,6 +39,9 @@ export function Newsletter() {
           <MagneticButton type="submit">{site.newsletter.cta}</MagneticButton>
         </form>
         {status && <p className="form-note">{status}</p>}
+        <p className="form-note">
+          We will not add you to a list sold onward. See <Link to="/privacy">privacy</Link>.
+        </p>
       </Reveal>
     </section>
   );

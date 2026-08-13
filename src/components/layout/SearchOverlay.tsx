@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { site } from "../../config/site";
@@ -7,6 +7,15 @@ import { useUI } from "../../context/UIContext";
 export function SearchOverlay() {
   const { searchOpen, setSearchOpen } = useUI();
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSearchOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [searchOpen, setSearchOpen]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -32,12 +41,15 @@ export function SearchOverlay() {
           />
           <motion.div
             className="search-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="search-title"
             initial={{ y: -24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -24, opacity: 0 }}
           >
             <header>
-              <h2>Search the maison</h2>
+              <h2 id="search-title">Search the maison</h2>
               <button className="icon-btn" onClick={() => setSearchOpen(false)} aria-label="Close search">
                 ×
               </button>

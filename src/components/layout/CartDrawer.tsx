@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { formatPrice, site } from "../../config/site";
@@ -9,6 +10,15 @@ import { WatchFace } from "../watch/WatchFace";
 export function CartDrawer() {
   const { cartOpen, setCartOpen } = useUI();
   const { lines, total, setQty, remove } = useCart();
+
+  useEffect(() => {
+    if (!cartOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setCartOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [cartOpen, setCartOpen]);
 
   return (
     <AnimatePresence>
@@ -23,13 +33,16 @@ export function CartDrawer() {
           />
           <motion.aside
             className="drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cart-title"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
             <header>
-              <h2>Your selection</h2>
+              <h2 id="cart-title">Your selection</h2>
               <button className="icon-btn" onClick={() => setCartOpen(false)} aria-label="Close cart">
                 ×
               </button>

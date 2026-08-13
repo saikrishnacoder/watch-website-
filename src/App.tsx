@@ -4,14 +4,17 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
+import { CookieBanner } from "./components/layout/CookieBanner";
 import { CustomCursor } from "./components/layout/CustomCursor";
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { Preloader } from "./components/layout/Preloader";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
+import { SkipLink } from "./components/layout/SkipLink";
 import { CinematicIntro } from "./components/motion/CinematicIntro";
 import { CabinetProvider } from "./context/CabinetContext";
 import { CartProvider } from "./context/CartContext";
+import { ConsentProvider } from "./context/ConsentContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
 import { UIProvider } from "./context/UIContext";
 import { track } from "./lib/analytics";
@@ -28,6 +31,7 @@ import { JournalArticle } from "./pages/JournalArticle";
 import { Maison } from "./pages/Maison";
 import { MotionLab } from "./pages/MotionLab";
 import { NotFound } from "./pages/NotFound";
+import { Privacy } from "./pages/Privacy";
 import { Product } from "./pages/Product";
 import { Services } from "./pages/Services";
 import { WatchFinder } from "./pages/WatchFinder";
@@ -38,7 +42,9 @@ const INTRO_KEY = "horloge-intro";
 export default function App() {
   return (
     <MotionProvider>
-      <AppShell />
+      <ConsentProvider>
+        <AppShell />
+      </ConsentProvider>
     </MotionProvider>
   );
 }
@@ -48,6 +54,11 @@ function AppShell() {
   const { reduceMotion } = useMotion();
   const prefersReduce = useReducedMotion();
   const quiet = reduceMotion || Boolean(prefersReduce);
+  const firstPaint = useRef(true);
+
+  useEffect(() => {
+    firstPaint.current = false;
+  }, [location.pathname]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -77,6 +88,7 @@ function AppShell() {
       <CabinetProvider>
         <UIProvider>
           <div className="app-shell">
+            <SkipLink />
             <BootSequence />
             <CustomCursor />
             <Navbar />
@@ -85,8 +97,9 @@ function AppShell() {
             <CompareBar />
             <AnimatePresence mode="wait">
               <motion.div
+                id="main"
                 key={location.pathname}
-                initial={quiet ? false : { opacity: 0, y: 16 }}
+                initial={quiet || firstPaint.current ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={quiet ? undefined : { opacity: 0, y: -12 }}
                 transition={quiet ? { duration: 0 } : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -108,11 +121,13 @@ function AppShell() {
                   <Route path="/atelier" element={<Atelier />} />
                   <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
+                  <Route path="/privacy" element={<Privacy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
               </motion.div>
             </AnimatePresence>
+            <CookieBanner />
           </div>
         </UIProvider>
       </CabinetProvider>
@@ -122,7 +137,7 @@ function AppShell() {
 
 function BootSequence() {
   const location = useLocation();
-  const { reduceMotion } = useMotion();
+  const { canParallax, saveData } = useMotion();
   const booted = useRef(false);
   const [intro, setIntro] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -140,7 +155,14 @@ function BootSequence() {
     if (location.pathname !== "/") setIntro(false);
   }, [location.pathname]);
 
-  if (intro && !reduceMotion && location.pathname === "/") {
+  useEffect(() => {
+    if (intro && (!canParallax || saveData)) {
+      sessionStorage.setItem(INTRO_KEY, "done");
+      setIntro(false);
+    }
+  }, [intro, canParallax, saveData]);
+
+  if (intro && canParallax && !saveData && location.pathname === "/") {
     return <CinematicIntro open onSkip={dismiss} />;
   }
 

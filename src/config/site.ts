@@ -414,6 +414,7 @@ export const site = {
           { label: "Appointments", href: "/boutique" },
           { label: "Warranty", href: "/services" },
           { label: "Wishlist", href: "/wishlist" },
+          { label: "Privacy", href: "/privacy" },
         ],
       },
     ],

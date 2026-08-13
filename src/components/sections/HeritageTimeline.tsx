@@ -5,7 +5,7 @@ import { site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 
 export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
-  const { reduceMotion } = useMotion();
+  const { reduceMotion, canParallax } = useMotion();
   const chapters = site.heritage;
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -14,7 +14,7 @@ export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
   });
   const index = useTransform(scrollYProgress, [0, 1], [0, Math.max(chapters.length - 1, 0)]);
 
-  if (reduceMotion) {
+  if (reduceMotion || !canParallax) {
     return (
       <section className="section heritage-static">
         <div className="section-head">
