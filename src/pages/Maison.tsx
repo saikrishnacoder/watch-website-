@@ -32,8 +32,11 @@ export function Maison() {
             </Reveal>
           ))}
         </div>
-        <div style={{ marginTop: 32 }}>
-          <MagneticButton to="/collection">See all {site.products.length} watches</MagneticButton>
+        <div className="hero-actions" style={{ marginTop: 32 }}>
+          <MagneticButton to="/heritage">Heritage timeline</MagneticButton>
+          <MagneticButton variant="ghost" to="/collection">
+            See all {site.products.length} watches
+          </MagneticButton>
         </div>
       </section>
     </div>

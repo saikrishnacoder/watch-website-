@@ -1,7 +1,9 @@
+import { WatchStudio } from "../components/motion/WatchStudio";
 import { KineticGallery } from "../components/motion/KineticGallery";
 import { CssMotionBoard } from "../components/motion/CssMotionBoard";
 import { LissajousCanvas } from "../components/motion/LissajousCanvas";
 import { ParticleField } from "../components/motion/ParticleField";
+import { site } from "../config/site";
 import { Reveal } from "../components/ui/Reveal";
 
 export function MotionLab() {
@@ -13,7 +15,7 @@ export function MotionLab() {
         <h1 className="display anim-clip-reveal">
           Motion, <em className="anim-letter-glow">engineered.</em>
         </h1>
-        <p className="lede anim-fade-up">Python generates the calibres. CSS keeps the maison alive.</p>
+        <p className="lede anim-fade-up">Python generates the calibres. CSS keeps the maison alive. WebGL, only when the device can bear it.</p>
       </section>
 
       <section className="section">
@@ -60,7 +62,21 @@ export function MotionLab() {
         <CssMotionBoard />
         <p className="motion-note">
           Wave, stagger, border-trace, typewriter, magnetic buttons and Python particle drift also run on Home, cards, and the preloader.
+          First visit opens a skippable cinematic intro. Product pages offer a lazy-loaded WebGL volume studio.
         </p>
+      </section>
+
+      <section className="section">
+        <Reveal>
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">Volume</div>
+              <h2 className="display">A watch, in space</h2>
+            </div>
+            <p>Three.js, code-split and skipped on phones, slow networks, and reduced-motion.</p>
+          </div>
+        </Reveal>
+        <WatchStudio design={site.products[0].design} />
       </section>
     </div>
   );

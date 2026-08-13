@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { MouseEvent, ReactNode } from "react";
 import { useRef } from "react";
+import { useMotion } from "../../context/MotionContext";
 
 type MagneticButtonProps = {
   children: ReactNode;
@@ -22,8 +23,10 @@ export function MagneticButton({
   className = "",
 }: MagneticButtonProps) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement | null>(null);
+  const { reduceMotion } = useMotion();
 
   const onMove = (event: MouseEvent) => {
+    if (reduceMotion) return;
     const node = ref.current;
     if (!node) return;
     const rect = node.getBoundingClientRect();

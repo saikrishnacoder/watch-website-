@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
@@ -9,28 +9,45 @@ import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { Preloader } from "./components/layout/Preloader";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
+import { CinematicIntro } from "./components/motion/CinematicIntro";
 import { CabinetProvider } from "./context/CabinetContext";
 import { CartProvider } from "./context/CartContext";
+import { MotionProvider, useMotion } from "./context/MotionContext";
 import { UIProvider } from "./context/UIContext";
+import { track } from "./lib/analytics";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
 import { Collection } from "./pages/Collection";
 import { CollectionFamily } from "./pages/CollectionFamily";
 import { Compare } from "./pages/Compare";
 import { FindWatch } from "./pages/FindWatch";
+import { Heritage } from "./pages/Heritage";
 import { Home } from "./pages/Home";
 import { Journal } from "./pages/Journal";
 import { JournalArticle } from "./pages/JournalArticle";
+import { Maison } from "./pages/Maison";
+import { MotionLab } from "./pages/MotionLab";
 import { NotFound } from "./pages/NotFound";
 import { Product } from "./pages/Product";
 import { Services } from "./pages/Services";
 import { WatchFinder } from "./pages/WatchFinder";
 import { Wishlist } from "./pages/Wishlist";
-import { Maison } from "./pages/Maison";
-import { MotionLab } from "./pages/MotionLab";
+
+const INTRO_KEY = "horloge-intro";
 
 export default function App() {
+  return (
+    <MotionProvider>
+      <AppShell />
+    </MotionProvider>
+  );
+}
+
+function AppShell() {
   const location = useLocation();
+  const { reduceMotion } = useMotion();
+  const prefersReduce = useReducedMotion();
+  const quiet = reduceMotion || Boolean(prefersReduce);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -52,15 +69,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname]);
+    window.scrollTo({ top: 0, behavior: quiet ? "auto" : "smooth" });
+  }, [location.pathname, quiet]);
 
   return (
     <CartProvider>
       <CabinetProvider>
         <UIProvider>
           <div className="app-shell">
-            <Preloader />
+            <BootSequence />
             <CustomCursor />
             <Navbar />
             <SearchOverlay />
@@ -69,10 +86,10 @@ export default function App() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
-                initial={{ opacity: 0, y: 16 }}
+                initial={quiet ? false : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                exit={quiet ? undefined : { opacity: 0, y: -12 }}
+                transition={quiet ? { duration: 0 } : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />
@@ -87,6 +104,7 @@ export default function App() {
                   <Route path="/journal/:slug" element={<JournalArticle />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/maison" element={<Maison />} />
+                  <Route path="/heritage" element={<Heritage />} />
                   <Route path="/atelier" element={<Atelier />} />
                   <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
@@ -100,4 +118,32 @@ export default function App() {
       </CabinetProvider>
     </CartProvider>
   );
+}
+
+function BootSequence() {
+  const location = useLocation();
+  const { reduceMotion } = useMotion();
+  const booted = useRef(false);
+  const [intro, setIntro] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.location.pathname === "/" && sessionStorage.getItem(INTRO_KEY) !== "done";
+  });
+
+  const dismiss = useCallback((reason: "skip" | "complete") => {
+    sessionStorage.setItem(INTRO_KEY, "done");
+    track(reason === "skip" ? "intro_skip" : "intro_complete");
+    booted.current = true;
+    setIntro(false);
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/") setIntro(false);
+  }, [location.pathname]);
+
+  if (intro && !reduceMotion && location.pathname === "/") {
+    return <CinematicIntro open onSkip={dismiss} />;
+  }
+
+  if (booted.current) return null;
+  return <Preloader />;
 }

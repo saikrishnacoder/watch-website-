@@ -5,12 +5,14 @@ import { BrandMark } from "../brand/BrandMark";
 import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
+import { useMotion } from "../../context/MotionContext";
 import { useUI } from "../../context/UIContext";
 
 export function Navbar() {
   const { count } = useCart();
   const { wish } = useCabinet();
   const { setCartOpen, setSearchOpen, menuOpen, setMenuOpen } = useUI();
+  const { reduceMotion, userReduce, setUserReduce } = useMotion();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
   const [hidden, setHidden] = useState(false);
@@ -41,8 +43,15 @@ export function Navbar() {
         <span>{site.brand.seal}</span>
         <div>
           <NavLink to="/finder">Watch Finder</NavLink>
-          <NavLink to="/boutique">Find a boutique</NavLink>
-          <NavLink to="/services">Services</NavLink>
+          <NavLink to="/heritage">Heritage</NavLink>
+          <button
+            type="button"
+            className="motion-toggle"
+            onClick={() => setUserReduce(!userReduce)}
+            aria-pressed={reduceMotion}
+          >
+            {reduceMotion ? "Motion off" : "Motion on"}
+          </button>
         </div>
       </div>
       <header
@@ -102,6 +111,7 @@ export function Navbar() {
               <NavLink to="/compare">Compare</NavLink>
               <NavLink to="/journal">Journal</NavLink>
               <NavLink to="/maison">The maison</NavLink>
+              <NavLink to="/heritage">Heritage</NavLink>
               <NavLink to="/motion">Kinetic atelier</NavLink>
             </div>
           </div>
@@ -122,6 +132,9 @@ export function Navbar() {
           </NavLink>
           <NavLink to="/maison" onClick={() => setMenuOpen(false)}>
             The maison
+          </NavLink>
+          <NavLink to="/heritage" onClick={() => setMenuOpen(false)}>
+            Heritage
           </NavLink>
           <NavLink to="/atelier" onClick={() => setMenuOpen(false)}>
             Atelier

@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { site } from "../config/site";
 import { Customizer } from "../components/sections/Customizer";
 import { Hero } from "../components/sections/Hero";
+import { HeritageTeaser } from "../components/sections/HeritageTeaser";
+import { HorizontalLines } from "../components/sections/HorizontalLines";
 import { Identity } from "../components/sections/Identity";
 import { Limited } from "../components/sections/Limited";
+import { Lookbook } from "../components/sections/Lookbook";
 import { Marquee } from "../components/sections/Marquee";
 import { Newsletter } from "../components/sections/Newsletter";
 import { Stats } from "../components/sections/Stats";
@@ -21,32 +24,8 @@ export function Home() {
       <Hero />
       <Marquee />
       <Identity />
-
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Collections</div>
-            <h2 className="display">The five lines</h2>
-            <p>{site.products.length} references, one gold meridian at 12.</p>
-          </div>
-          <Link className="section-link" to="/collection">
-            All models
-          </Link>
-        </div>
-        <div className="family-grid">
-          {site.collectionLines.map((line, index) => (
-            <Reveal key={line.slug} delay={index * 0.08} className="family-card">
-              <Link to={`/collection/${line.slug}`}>
-                <img src={line.image} alt={line.name} />
-                <div>
-                  <strong>{line.name}</strong>
-                  <span>{line.tagline}</span>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <HorizontalLines />
+      <HeritageTeaser />
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="section-head">
@@ -102,6 +81,7 @@ export function Home() {
       </section>
 
       <Customizer />
+      <Lookbook />
 
       <section className="section">
         <div className="section-head">

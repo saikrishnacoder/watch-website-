@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { useMotion } from "../../context/MotionContext";
 
 type RevealProps = {
   children: ReactNode;
@@ -9,6 +10,9 @@ type RevealProps = {
 };
 
 export function Reveal({ children, delay = 0, className, y = 36 }: RevealProps) {
+  const { reduceMotion } = useMotion();
+  if (reduceMotion) return <div className={className}>{children}</div>;
+
   return (
     <motion.div
       className={className}

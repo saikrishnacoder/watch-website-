@@ -203,6 +203,51 @@ export const site = {
     ],
   },
 
+  heritage: [
+    {
+      year: "1924",
+      title: "A maison in Geneva",
+      body: "HORLOGE opens on the Rue du Rhône. The first enamel dials carry a gold line at 12 — the Geneva meridian, drawn thinner than a hair.",
+      image: photos.bench,
+    },
+    {
+      year: "1947",
+      title: "The club chronograph",
+      body: "Timing watches for Geneva motor clubs. The column wheel, the 10:10 pose, and a tachymeter that is still on Chronograph One.",
+      image: photos.ivory,
+    },
+    {
+      year: "1969",
+      title: "We stayed mechanical",
+      body: "Quartz arrives. The atelier does not follow. Regulation in five positions becomes a rule, not a brochure line.",
+      image: photos.movement,
+    },
+    {
+      year: "1998",
+      title: "The meridian, named",
+      body: "What had been a finishing habit is written into the charter. Every dial, every line, one gold stroke at 12.",
+      image: photos.cinematic,
+    },
+    {
+      year: "2018",
+      title: "Chronograph One",
+      body: "The signature three-register. Ivory opaline, blued hands, a sapphire caseback. The maison’s most requested reference.",
+      image: photos.ivory,
+    },
+    {
+      year: "2024",
+      title: "A century",
+      body: "One hundred years of composed time. Five lines share the seal. The meridian outlasts the first owner, as intended.",
+      image: photos.classic,
+    },
+    {
+      year: "2026",
+      title: "Meridian",
+      body: "The namesake line: GMT, worldtimer, dual time. HORLOGE is named for the clock. This line is named for the line.",
+      image: photos.black,
+    },
+  ],
+
   lookbook: [
     {
       title: "Evening gold",
@@ -355,6 +400,7 @@ export const site = {
         title: "Maison",
         links: [
           { label: "The maison", href: "/maison" },
+          { label: "Heritage", href: "/heritage" },
           { label: "Kinetic atelier", href: "/motion" },
           { label: "Atelier", href: "/atelier" },
           { label: "Journal", href: "/journal" },

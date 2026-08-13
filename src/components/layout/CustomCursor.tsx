@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
+import { useMotion } from "../../context/MotionContext";
 
 export function CustomCursor() {
   const ring = useRef<HTMLDivElement>(null);
+  const { reduceMotion, coarsePointer } = useMotion();
 
   useEffect(() => {
     const node = ring.current;
-    if (!node || window.matchMedia("(pointer: coarse)").matches) return;
+    if (!node || coarsePointer || reduceMotion) return;
 
     let x = 0;
     let y = 0;
@@ -34,7 +36,9 @@ export function CustomCursor() {
       window.removeEventListener("mousemove", onMove);
       cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [coarsePointer, reduceMotion]);
+
+  if (coarsePointer || reduceMotion) return null;
 
   return <div className="cursor-ring" ref={ring} />;
 }

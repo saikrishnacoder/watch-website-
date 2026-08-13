@@ -7,6 +7,7 @@ import { WatchFace } from "../components/watch/WatchFace";
 import { useCabinet } from "../context/CabinetContext";
 import { useCart } from "../context/CartContext";
 import { useUI } from "../context/UIContext";
+import { WatchStudio } from "../components/motion/WatchStudio";
 import { NotFound } from "./NotFound";
 
 export function Product() {
@@ -16,7 +17,7 @@ export function Product() {
   const { setCartOpen } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember, recent } = useCabinet();
   const [shot, setShot] = useState(0);
-  const [studio, setStudio] = useState(false);
+  const [studio, setStudio] = useState<"photo" | "calibre" | "volume">("photo");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
@@ -24,7 +25,7 @@ export function Product() {
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
-    setStudio(false);
+    setStudio("photo");
   }, [product, remember]);
 
   useEffect(() => {
@@ -60,21 +61,26 @@ export function Product() {
       <section className="pdp">
         <div>
           <div className="pdp-stage">
-            {studio ? (
+            {studio === "volume" ? (
+              <WatchStudio design={product.design} />
+            ) : studio === "calibre" ? (
               <WatchFace {...product.design} brand={site.brand.name} size={420} />
             ) : (
               <img src={product.images[shot]} alt={product.name} />
             )}
             <div className="pdp-toggles">
-              <button className={!studio ? "is-on" : ""} onClick={() => setStudio(false)}>
+              <button className={studio === "photo" ? "is-on" : ""} onClick={() => setStudio("photo")}>
                 Photography
               </button>
-              <button className={studio ? "is-on" : ""} onClick={() => setStudio(true)}>
+              <button className={studio === "calibre" ? "is-on" : ""} onClick={() => setStudio("calibre")}>
                 Studio calibre
+              </button>
+              <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
+                Volume
               </button>
             </div>
           </div>
-          {!studio && (
+          {studio === "photo" && (
             <div className="thumbs">
               {product.images.map((src, index) => (
                 <button key={src} className={shot === index ? "is-on" : ""} onClick={() => setShot(index)}>

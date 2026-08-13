@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { site } from "../../config/site";
 import { Reveal } from "../ui/Reveal";
+import { Lightbox } from "../motion/Lightbox";
 
 export function Lookbook() {
+  const [active, setActive] = useState<(typeof site.lookbook)[number] | null>(null);
+
   return (
     <section className="section">
       <div className="section-head">
@@ -14,16 +18,25 @@ export function Lookbook() {
       <div className="lookbook">
         {site.lookbook.map((shot, index) => (
           <Reveal key={shot.title} delay={index * 0.1} className="look-card" y={20}>
-            <figure className="look-card">
-              <img src={shot.src} alt={shot.title} />
-              <figcaption>
-                <h3>{shot.title}</h3>
-                <p>{shot.caption}</p>
-              </figcaption>
-            </figure>
+            <button type="button" className="look-open" onClick={() => setActive(shot)}>
+              <figure className="look-card">
+                <img src={shot.src} alt={shot.title} />
+                <figcaption>
+                  <h3>{shot.title}</h3>
+                  <p>{shot.caption}</p>
+                </figcaption>
+              </figure>
+            </button>
           </Reveal>
         ))}
       </div>
+      <Lightbox
+        open={Boolean(active)}
+        src={active?.src ?? ""}
+        title={active?.title ?? ""}
+        caption={active?.caption}
+        onClose={() => setActive(null)}
+      />
     </section>
   );
 }
