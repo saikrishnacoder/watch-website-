@@ -2,13 +2,19 @@
 
 A fully templatised maison site for a watch brand. Swap the config, keep the atelier.
 
-The entire brand — name, palette, copy, collections, boutiques, and even the look of each watch — lives in one file:
+The entire brand — name, palette, copy, collections, boutiques, and even the look of each watch — lives in:
 
 ```
 src/config/site.ts
+src/config/catalog.ts
 ```
 
-Change that file and the homepage, collection, product pages, customizer, cart, search, newsletter, and boutique booking all update with it.
+Motion is generated in two places:
+
+- **Python** — `scripts/generate_animations.py` writes animated SVGs (gears, tourbillon, hairspring, orbits) plus particle CSS
+- **CSS** — `src/styles/css-motion.css` holds float, pulse, spin, shimmer, ken burns, clip-reveal, blob, ripple, heartbeat, and more
+
+Visit `/motion` for the kinetic atelier.
 
 ## Pages
 

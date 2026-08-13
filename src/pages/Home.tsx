@@ -7,6 +7,7 @@ import { Marquee } from "../components/sections/Marquee";
 import { Newsletter } from "../components/sections/Newsletter";
 import { Stats } from "../components/sections/Stats";
 import { Story } from "../components/sections/Story";
+import { KineticGallery } from "../components/motion/KineticGallery";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Reveal } from "../components/ui/Reveal";
 
@@ -63,6 +64,22 @@ export function Home() {
 
       <Stats />
       <Story />
+
+      <section className="section kinetic-home">
+        <div className="section-head">
+          <div>
+            <div className="eyebrow">Kinetic atelier</div>
+            <h2 className="display">Python, in motion</h2>
+          </div>
+          <Link className="section-link" to="/motion">
+            All machines
+          </Link>
+        </div>
+        <p className="lede" style={{ maxWidth: 560, marginBottom: 36 }}>
+          Escapement, tourbillon and hairspring — drawn with trigonometry in Python, then animated as living SVG.
+        </p>
+        <KineticGallery featured={["escapement.svg", "tourbillon.svg", "hairspring.svg"]} />
+      </section>
 
       <section className="section">
         <div className="section-head">

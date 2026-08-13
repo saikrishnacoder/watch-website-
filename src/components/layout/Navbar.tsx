@@ -102,6 +102,7 @@ export function Navbar() {
               <NavLink to="/find">Find your watch</NavLink>
               <NavLink to="/compare">Compare</NavLink>
               <NavLink to="/journal">Journal</NavLink>
+              <NavLink to="/motion">Kinetic atelier</NavLink>
             </div>
           </div>
         )}
@@ -121,6 +122,9 @@ export function Navbar() {
           </NavLink>
           <NavLink to="/atelier" onClick={() => setMenuOpen(false)}>
             Atelier
+          </NavLink>
+          <NavLink to="/motion" onClick={() => setMenuOpen(false)}>
+            Kinetic atelier
           </NavLink>
           <NavLink to="/journal" onClick={() => setMenuOpen(false)}>
             Journal

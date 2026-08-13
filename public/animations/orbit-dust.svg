@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" width="720" height="720" role="img" aria-label="Python-generated watch animation">
+  <rect width="100%" height="100%" fill="#070605"/>
+  <style>
+    
+  </style>
+  <ellipse cx="360" cy="360" rx="80" ry="50" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="6.0s" begin="-0.0s" repeatCount="indefinite" path="M 440 360 A 80 50 0 1 1 280 360 A 80 50 0 1 1 440 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="97" ry="63" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="7.4s" begin="-0.37s" repeatCount="indefinite" path="M 457 360 A 97 63 0 1 1 263 360 A 97 63 0 1 1 457 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="114" ry="76" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="8.8s" begin="-0.74s" repeatCount="indefinite" path="M 474 360 A 114 76 0 1 1 246 360 A 114 76 0 1 1 474 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="131" ry="89" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="10.2s" begin="-1.1099999999999999s" repeatCount="indefinite" path="M 491 360 A 131 89 0 1 1 229 360 A 131 89 0 1 1 491 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="148" ry="102" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="11.6s" begin="-1.48s" repeatCount="indefinite" path="M 508 360 A 148 102 0 1 1 212 360 A 148 102 0 1 1 508 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="165" ry="115" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="13.0s" begin="-1.85s" repeatCount="indefinite" path="M 525 360 A 165 115 0 1 1 195 360 A 165 115 0 1 1 525 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="182" ry="128" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="14.399999999999999s" begin="-2.2199999999999998s" repeatCount="indefinite" path="M 542 360 A 182 128 0 1 1 178 360 A 182 128 0 1 1 542 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="199" ry="141" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="15.799999999999999s" begin="-2.59s" repeatCount="indefinite" path="M 559 360 A 199 141 0 1 1 161 360 A 199 141 0 1 1 559 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="216" ry="154" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="17.2s" begin="-2.96s" repeatCount="indefinite" path="M 576 360 A 216 154 0 1 1 144 360 A 216 154 0 1 1 576 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="233" ry="167" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="6.0s" begin="-3.33s" repeatCount="indefinite" path="M 593 360 A 233 167 0 1 1 127 360 A 233 167 0 1 1 593 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="250" ry="180" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="7.4s" begin="-3.7s" repeatCount="indefinite" path="M 610 360 A 250 180 0 1 1 110 360 A 250 180 0 1 1 610 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="267" ry="193" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="8.8s" begin="-4.07s" repeatCount="indefinite" path="M 627 360 A 267 193 0 1 1 93 360 A 267 193 0 1 1 627 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="84" ry="206" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="10.2s" begin="-4.4399999999999995s" repeatCount="indefinite" path="M 444 360 A 84 206 0 1 1 276 360 A 84 206 0 1 1 444 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="101" ry="59" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="11.6s" begin="-4.81s" repeatCount="indefinite" path="M 461 360 A 101 59 0 1 1 259 360 A 101 59 0 1 1 461 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="118" ry="72" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="13.0s" begin="-5.18s" repeatCount="indefinite" path="M 478 360 A 118 72 0 1 1 242 360 A 118 72 0 1 1 478 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="135" ry="85" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="14.399999999999999s" begin="-5.55s" repeatCount="indefinite" path="M 495 360 A 135 85 0 1 1 225 360 A 135 85 0 1 1 495 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="152" ry="98" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="15.799999999999999s" begin="-5.92s" repeatCount="indefinite" path="M 512 360 A 152 98 0 1 1 208 360 A 152 98 0 1 1 512 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="169" ry="111" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="17.2s" begin="-6.29s" repeatCount="indefinite" path="M 529 360 A 169 111 0 1 1 191 360 A 169 111 0 1 1 529 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="186" ry="124" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="6.0s" begin="-6.66s" repeatCount="indefinite" path="M 546 360 A 186 124 0 1 1 174 360 A 186 124 0 1 1 546 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="203" ry="137" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="7.4s" begin="-7.03s" repeatCount="indefinite" path="M 563 360 A 203 137 0 1 1 157 360 A 203 137 0 1 1 563 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="220" ry="150" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="8.8s" begin="-7.4s" repeatCount="indefinite" path="M 580 360 A 220 150 0 1 1 140 360 A 220 150 0 1 1 580 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="237" ry="163" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="10.2s" begin="-7.77s" repeatCount="indefinite" path="M 597 360 A 237 163 0 1 1 123 360 A 237 163 0 1 1 597 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="254" ry="176" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="11.6s" begin="-8.14s" repeatCount="indefinite" path="M 614 360 A 254 176 0 1 1 106 360 A 254 176 0 1 1 614 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="271" ry="189" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="13.0s" begin="-8.51s" repeatCount="indefinite" path="M 631 360 A 271 189 0 1 1 89 360 A 271 189 0 1 1 631 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="88" ry="202" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="14.399999999999999s" begin="-8.879999999999999s" repeatCount="indefinite" path="M 448 360 A 88 202 0 1 1 272 360 A 88 202 0 1 1 448 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="105" ry="55" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="15.799999999999999s" begin="-9.25s" repeatCount="indefinite" path="M 465 360 A 105 55 0 1 1 255 360 A 105 55 0 1 1 465 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="122" ry="68" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="17.2s" begin="-9.62s" repeatCount="indefinite" path="M 482 360 A 122 68 0 1 1 238 360 A 122 68 0 1 1 482 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="139" ry="81" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="6.0s" begin="-9.99s" repeatCount="indefinite" path="M 499 360 A 139 81 0 1 1 221 360 A 139 81 0 1 1 499 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="156" ry="94" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="7.4s" begin="-10.36s" repeatCount="indefinite" path="M 516 360 A 156 94 0 1 1 204 360 A 156 94 0 1 1 516 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="173" ry="107" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="8.8s" begin="-10.73s" repeatCount="indefinite" path="M 533 360 A 173 107 0 1 1 187 360 A 173 107 0 1 1 533 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="190" ry="120" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="10.2s" begin="-11.1s" repeatCount="indefinite" path="M 550 360 A 190 120 0 1 1 170 360 A 190 120 0 1 1 550 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="207" ry="133" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="11.6s" begin="-11.47s" repeatCount="indefinite" path="M 567 360 A 207 133 0 1 1 153 360 A 207 133 0 1 1 567 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="224" ry="146" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="13.0s" begin="-11.84s" repeatCount="indefinite" path="M 584 360 A 224 146 0 1 1 136 360 A 224 146 0 1 1 584 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="241" ry="159" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="14.399999999999999s" begin="-12.209999999999999s" repeatCount="indefinite" path="M 601 360 A 241 159 0 1 1 119 360 A 241 159 0 1 1 601 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="258" ry="172" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="15.799999999999999s" begin="-12.58s" repeatCount="indefinite" path="M 618 360 A 258 172 0 1 1 102 360 A 258 172 0 1 1 618 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="275" ry="185" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="17.2s" begin="-12.95s" repeatCount="indefinite" path="M 635 360 A 275 185 0 1 1 85 360 A 275 185 0 1 1 635 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="92" ry="198" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="6.0s" begin="-13.32s" repeatCount="indefinite" path="M 452 360 A 92 198 0 1 1 268 360 A 92 198 0 1 1 452 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="109" ry="51" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="7.4s" begin="-13.69s" repeatCount="indefinite" path="M 469 360 A 109 51 0 1 1 251 360 A 109 51 0 1 1 469 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="126" ry="64" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="8.8s" begin="-14.06s" repeatCount="indefinite" path="M 486 360 A 126 64 0 1 1 234 360 A 126 64 0 1 1 486 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="143" ry="77" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="1.6" fill="#e8d5a3">
+  <animateMotion dur="10.2s" begin="-14.43s" repeatCount="indefinite" path="M 503 360 A 143 77 0 1 1 217 360 A 143 77 0 1 1 503 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="160" ry="90" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="2.3" fill="#c9a86c">
+  <animateMotion dur="11.6s" begin="-14.8s" repeatCount="indefinite" path="M 520 360 A 160 90 0 1 1 200 360 A 160 90 0 1 1 520 360"/>
+</circle>
+<ellipse cx="360" cy="360" rx="177" ry="103" fill="none" stroke="rgba(201,168,108,0.08)"/>
+<circle r="3.0" fill="#c9a86c">
+  <animateMotion dur="13.0s" begin="-15.17s" repeatCount="indefinite" path="M 537 360 A 177 103 0 1 1 183 360 A 177 103 0 1 1 537 360"/>
+</circle>
+</svg>

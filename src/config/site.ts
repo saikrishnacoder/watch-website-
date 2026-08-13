@@ -323,6 +323,7 @@ export const site = {
       {
         title: "Maison",
         links: [
+          { label: "Kinetic atelier", href: "/motion" },
           { label: "Atelier", href: "/atelier" },
           { label: "Journal", href: "/journal" },
           { label: "Services", href: "/services" },

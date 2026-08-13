@@ -1,3 +1,4 @@
+import { KineticGallery } from "../components/motion/KineticGallery";
 import { site } from "../config/site";
 import { Reveal } from "../components/ui/Reveal";
 import { Newsletter } from "../components/sections/Newsletter";
@@ -22,6 +23,17 @@ export function Atelier() {
             </Reveal>
           ))}
         </div>
+      </section>
+      <section className="section">
+        <Reveal>
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">The calibre, moving</div>
+              <h2 className="display">Python machines</h2>
+            </div>
+          </div>
+        </Reveal>
+        <KineticGallery featured={["balance.svg", "constellation.svg", "pendulum.svg"]} />
       </section>
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="gallery">

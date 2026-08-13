@@ -26,6 +26,7 @@ import { Product } from "./pages/Product";
 import { Services } from "./pages/Services";
 import { WatchFinder } from "./pages/WatchFinder";
 import { Wishlist } from "./pages/Wishlist";
+import { MotionLab } from "./pages/MotionLab";
 
 export default function App() {
   const location = useLocation();
@@ -85,6 +86,7 @@ export default function App() {
                   <Route path="/journal/:slug" element={<JournalArticle />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/atelier" element={<Atelier />} />
+                  <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

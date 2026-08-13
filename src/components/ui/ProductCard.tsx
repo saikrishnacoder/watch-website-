@@ -22,7 +22,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       layout
     >
-      <div className="product-visual">
+      <div className="product-visual anim-shimmer">
         {product.badge && <span className="product-badge">{product.badge}</span>}
         <div className="card-tools">
           <button
