@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HORLOGE — Luxury Watches</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #080808;
+            color: #f5f1e8;
+            font-family: "Inter", sans-serif;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 22px 6%;
+
+            background: rgba(8, 8, 8, 0.75);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            letter-spacing: 4px;
+            color: #d6b56a;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #eee;
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d6b56a;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-actions button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .cart {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+
+            width: 18px;
+            height: 18px;
+
+            background: #d6b56a;
+            color: #080808;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding: 120px 8% 60px;
+
+            background:
+                radial-gradient(circle at 70% 40%, rgba(180,140,60,0.16), transparent 35%),
+                linear-gradient(120deg, #080808, #111, #080808);
+        }
+
+        .hero-content {
+            width: 50%;
+        }
+
+        .hero-small {
+            color: #d6b56a;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 12px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(55px, 7vw, 105px);
+            line-height: 0.95;
+            font-weight: 500;
+        }
+
+        .hero h1 span {
+            color: #d6b56a;
+        }
+
+        .hero p {
+            max-width: 520px;
+            color: #aaa;
+            line-height: 1.8;
+            margin: 30px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 28px;
+            border: 1px solid #d6b56a;
+            background: #d6b56a;
+            color: #090909;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: #d6b56a;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #d6b56a;
+        }
+
+        .btn-outline:hover {
+            background: #d6b56a;
+            color: #080808;
+        }
+
+        .hero-watch {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-watch img {
+            width: min(520px, 90%);
+            filter: drop-shadow(0 40px 50px rgba(0,0,0,0.8));
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-18px);
+            }
+        }
+
+        /* ================= SECTION ================= */
+
+        section {
+            padding: 110px 7%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: 48px;
+        }
+
+        .section-subtitle {
+            color: #888;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* ================= FILTER ================= */
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid #333;
+            color: #aaa;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #d6b56a;
+            color: #080808;
+            border-color: #d6b56a;
+        }
+
+        /* ================= PRODUCTS ================= */
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product {
+            background: #101010;
+            border: 1px solid #1d1d1d;
+            transition: 0.4s;
+            overflow: hidden;
+        }
+
+        .product:hover {
+            transform: translateY(-8px);
+            border-color: #40351f;
+        }
+
+        .product-image {
+            height: 360px;
+            background:
+                radial-gradient(circle, #252525, #0b0b0b 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 78%;
+            height: 78%;
+            object-fit: contain;
+            transition: 0.5s;
+        }
+
+        .product:hover img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-category {
+            color: #d6b56a;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 10px;
+        }
+
+        .product-name {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            margin: 8px 0;
+        }
+
+        .product-price {
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 12px;
+            cursor: pointer;
+            border: 1px solid #333;
+            background: transparent;
+            color: white;
+        }
+
+        .product-actions button:hover {
+            border-color: #d6b56a;
+            color: #d6b56a;
+        }
+
+        .product-actions .add {
+            background: #d6b56a;
+            color: #080808;
+            border-color: #d6b56a;
+        }
+
+        /* ================= STORY ================= */
+
+        .story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .story-image {
+            height: 600px;
+            background:
+                linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.7)),
+                url("https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .story-content h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 55px;
+            margin-bottom: 25px;
+        }
+
+        .story-content p {
+            color: #aaa;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 35px 25px;
+            background: #101010;
+            border: 1px solid #1c1c1c;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .feature p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ================= NEWSLETTER ================= */
+
+        .newsletter {
+            text-align: center;
+            background:
+                radial-gradient(circle at center, rgba(180,140,60,0.12), transparent 55%);
+        }
+
+        .newsletter h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 550px;
+            margin: auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px;
+            background: #111;
+            border: 1px solid #333;
+            color: white;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            padding: 16px 25px;
+            background: #d6b56a;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            padding: 60px 7% 30px;
+            border-top: 1px solid #1c1c1c;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+            color: #d6b56a;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #777;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer h4 {
+            margin-bottom: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: #777;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        footer a:hover {
+            color: #d6b56a;
+        }
+
+        .copyright {
+            padding-top: 25px;
+            border-top: 1px solid #1c1c1c;
+            color: #555;
+            font-size: 11px;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #111;
+            border: 1px solid #333;
+            max-width: 800px;
+            width: 100%;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            position: relative;
+        }
+
+        .modal-image {
+            background: #080808;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .modal-image img {
+            width: 100%;
+        }
+
+        .modal-info {
+            padding: 45px;
+        }
+
+        .modal-info h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 40px;
+            margin: 15px 0;
+        }
+
+        .modal-info p {
+            color: #888;
+            line-height: 1.8;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 150px;
+            }
+
+            .hero-content,
+            .hero-watch {
+                width: 100%;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .story {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .hero h1 {
+                font-size: 55px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 40px;
+                margin-bottom: 15px;
+            }
+
+            .newsletter h2 {
+                font-size: 40px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-content {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+    <div class="logo">HORLOGE</div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+
+        <button onclick="searchWatch()">⌕</button>
+
+        <button class="cart" onclick="showCart()">
+            🛒
+            <span class="cart-count" id="cartCount">0</span>
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            The Art of Time
+        </div>
+
+        <h1>
+            TIME<br>
+            <span>REDEFINED.</span>
+        </h1>
+
+        <p>
+            Precision engineering meets timeless design.
+            Discover watches crafted for those who appreciate
+            exceptional detail, performance and character.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#collection" class="btn">Explore Collection</a>
+            <a href="#story" class="btn btn-outline">Our Story</a>
+        </div>
+
+    </div>
+
+    <div class="hero-watch">
+
+        <img
+            src="https://pngimg.com/uploads/watches/watches_PNG101480.png"
+            alt="Luxury Watch"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- ================= COLLECTION ================= -->
+
+<section id="collection">
+
+    <div class="section-header">
+
+        <div>
+            <div class="hero-small">The Collection</div>
+            <h2 class="section-title">
+                Signature Watches
+            </h2>
+        </div>
+
+        <p class="section-subtitle">
+            Designed with precision. Built with purpose.
+            Every HORLOGE timepiece represents a balance
+            between mechanical engineering and refined aesthetics.
+        </p>
+
+    </div>
+
+
+    <div class="filters">
+
+        <button class="filter-btn active" onclick="filterProducts('all', this)">
+            All
+        </button>
+
+        <button class="filter-btn" onclick="filterProducts('classic', this)">
+            Classic
+        </button>
+
+        <button class="filter-btn" onclick="filterProducts('sport', this)">
+            Sport
+        </button>
+
+        <button class="filter-btn" onclick="filterProducts('premium', this)">
+            Premium
+        </button>
+
+    </div>
+
+
+    <div class="products" id="products">
+
+        <!-- WATCH 1 -->
+
+        <div class="product" data-category="classic">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101480.png"
+                    alt="Chronograph One"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Classic
+                </div>
+
+                <div class="product-name">
+                    Chronograph One
+                </div>
+
+                <div class="product-price">
+                    ₹89,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Chronograph One',
+                        '₹89,900',
+                        'Classic',
+                        'https://pngimg.com/uploads/watches/watches_PNG101480.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATCH 2 -->
+
+        <div class="product" data-category="sport">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101482.png"
+                    alt="Apex Sport"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Sport
+                </div>
+
+                <div class="product-name">
+                    Apex Sport
+                </div>
+
+                <div class="product-price">
+                    ₹1,24,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Apex Sport',
+                        '₹1,24,900',
+                        'Sport',
+                        'https://pngimg.com/uploads/watches/watches_PNG101482.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATCH 3 -->
+
+        <div class="product" data-category="premium">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101481.png"
+                    alt="Imperial Gold"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Premium
+                </div>
+
+                <div class="product-name">
+                    Imperial Gold
+                </div>
+
+                <div class="product-price">
+                    ₹2,49,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Imperial Gold',
+                        '₹2,49,900',
+                        'Premium',
+                        'https://pngimg.com/uploads/watches/watches_PNG101481.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATCH 4 -->
+
+        <div class="product" data-category="classic">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101484.png"
+                    alt="Heritage"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Classic
+                </div>
+
+                <div class="product-name">
+                    Heritage
+                </div>
+
+                <div class="product-price">
+                    ₹74,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Heritage',
+                        '₹74,900',
+                        'Classic',
+                        'https://pngimg.com/uploads/watches/watches_PNG101484.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATCH 5 -->
+
+        <div class="product" data-category="sport">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101483.png"
+                    alt="Velocity"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Sport
+                </div>
+
+                <div class="product-name">
+                    Velocity
+                </div>
+
+                <div class="product-price">
+                    ₹1,39,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Velocity',
+                        '₹1,39,900',
+                        'Sport',
+                        'https://pngimg.com/uploads/watches/watches_PNG101483.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- WATCH 6 -->
+
+        <div class="product" data-category="premium">
+
+            <div class="product-image">
+
+                <img
+                    src="https://pngimg.com/uploads/watches/watches_PNG101485.png"
+                    alt="Noir"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <div class="product-category">
+                    Premium
+                </div>
+
+                <div class="product-name">
+                    Noir
+                </div>
+
+                <div class="product-price">
+                    ₹3,19,900
+                </div>
+
+                <div class="product-actions">
+
+                    <button onclick="openModal(
+                        'Noir',
+                        '₹3,19,900',
+                        'Premium',
+                        'https://pngimg.com/uploads/watches/watches_PNG101485.png'
+                    )">
+                        View
+                    </button>
+
+                    <button class="add" onclick="addToCart()">
+                        Add
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STORY ================= -->
+
+<section id="story">
+
+    <div class="story">
+
+        <div class="story-image"></div>
+
+        <div class="story-content">
+
+            <div class="hero-small">
+                Our Philosophy
+            </div>
+
+            <h2>
+                Crafted for<br>
+                generations.
+            </h2>
+
+            <p>
+                HORLOGE was founded around one simple belief:
+                a watch should be more than an instrument for
+                measuring time.
+            </p>
+
+            <p>
+                It should represent personality, precision and
+                craftsmanship. Every component is selected,
+                engineered and assembled with obsessive attention
+                to detail.
+            </p>
+
+            <a href="#collection" class="btn">
+                Discover HORLOGE
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section>
+
+    <div class="section-header">
+
+        <div>
+            <div class="hero-small">Why HORLOGE</div>
+
+            <h2 class="section-title">
+                Built Different.
+            </h2>
+        </div>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">◈</div>
+
+            <h3>
+                Swiss Movement
+            </h3>
+
+            <p>
+                Precision mechanical movements engineered
+                for exceptional accuracy and reliability.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">◇</div>
+
+            <h3>
+                Sapphire Crystal
+            </h3>
+
+            <p>
+                Highly scratch-resistant sapphire crystal
+                protects every HORLOGE dial.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">◉</div>
+
+            <h3>
+                Water Resistant
+            </h3>
+
+            <p>
+                Engineered cases provide dependable protection
+                against everyday exposure to water.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">✦</div>
+
+            <h3>
+                Lifetime Service
+            </h3>
+
+            <p>
+                Dedicated after-sales support to preserve
+                your timepiece for years to come.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NEWSLETTER ================= -->
+
+<section class="newsletter" id="contact">
+
+    <div class="hero-small">
+        Join HORLOGE
+    </div>
+
+    <h2>
+        Stay ahead of time.
+    </h2>
+
+    <p>
+        Receive collection launches, private events and
+        exclusive HORLOGE releases.
+    </p>
+
+    <form class="newsletter-form" onsubmit="subscribe(event)">
+
+        <input
+            type="email"
+            placeholder="Your email address"
+            required
+        >
+
+        <button type="submit">
+            Subscribe
+        </button>
+
+    </form>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <div class="footer-logo">
+                HORLOGE
+            </div>
+
+            <p>
+                Independent watchmaking focused on precision,
+                craftsmanship and timeless design.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h4>Collection</h4>
+
+            <ul>
+                <li><a href="#">Classic</a></li>
+                <li><a href="#">Sport</a></li>
+                <li><a href="#">Premium</a></li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h4>Company</h4>
+
+            <ul>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Craftsmanship</a></li>
+                <li><a href="#">Journal</a></li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h4>Support</h4>
+
+            <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Shipping</a></li>
+                <li><a href="#">Warranty</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 HORLOGE. All rights reserved.
+    </div>
+
+</footer>
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div class="modal" id="productModal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal()">
+            ×
+        </button>
+
+        <div class="modal-image">
+
+            <img id="modalImage" src="" alt="Watch">
+
+        </div>
+
+        <div class="modal-info">
+
+            <div class="product-category" id="modalCategory"></div>
+
+            <h2 id="modalName"></h2>
+
+            <h3 id="modalPrice"></h3>
+
+            <br>
+
+            <p>
+                A precision-crafted timepiece combining
+                contemporary aesthetics with traditional
+                watchmaking excellence.
+            </p>
+
+            <br>
+
+            <button
+                class="btn"
+                onclick="addToCart(); closeModal();"
+            >
+                Add to Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* ================= CART ================= */
+
+    let cart = 0;
+
+    function addToCart() {
+
+        cart++;
+
+        document.getElementById("cartCount").textContent = cart;
+
+        alert("Watch added to cart.");
+
+    }
+
+
+    function showCart() {
+
+        if (cart === 0) {
+
+            alert("Your cart is empty.");
+
+        } else {
+
+            alert(
+                "You have " +
+                cart +
+                " item(s) in your cart."
+            );
+
+        }
+
+    }
+
+
+    /* ================= FILTER ================= */
+
+    function filterProducts(category, button) {
+
+        const products =
+            document.querySelectorAll(".product");
+
+        const buttons =
+            document.querySelectorAll(".filter-btn");
+
+        buttons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        products.forEach(product => {
+
+            if (
+                category === "all" ||
+                product.dataset.category === category
+            ) {
+
+                product.style.display = "block";
+
+            } else {
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    /* ================= PRODUCT MODAL ================= */
+
+    function openModal(name, price, category, image) {
+
+        document.getElementById("modalName").textContent = name;
+
+        document.getElementById("modalPrice").textContent = price;
+
+        document.getElementById("modalCategory").textContent = category;
+
+        document.getElementById("modalImage").src = image;
+
+        document
+            .getElementById("productModal")
+            .classList.add("active");
+
+    }
+
+
+    function closeModal() {
+
+        document
+            .getElementById("productModal")
+            .classList.remove("active");
+
+    }
+
+
+    /* Close modal by clicking outside */
+
+    document
+        .getElementById("productModal")
+        .addEventListener("click", function(e) {
+
+            if (e.target === this) {
+                closeModal();
+            }
+
+        });
+
+
+    /* ================= SEARCH ================= */
+
+    function searchWatch() {
+
+        const search =
+            prompt("Search for a watch:");
+
+        if (!search) return;
+
+        const products =
+            document.querySelectorAll(".product");
+
+        products.forEach(product => {
+
+            const name =
+                product
+                    .querySelector(".product-name")
+                    .textContent
+                    .toLowerCase();
+
+            if (name.includes(search.toLowerCase())) {
+
+                product.style.display = "block";
+
+                product.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            } else {
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+
+    /* ================= NEWSLETTER ================= */
+
+    function subscribe(event) {
+
+        event.preventDefault();
+
+        alert(
+            "Thank you for joining the HORLOGE community."
+        );
+
+        event.target.reset();
+
+    }
+
+</script>
+
+</body>
+</html>
