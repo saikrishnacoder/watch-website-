@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { site } from "../config/site";
 import { Customizer } from "../components/sections/Customizer";
 import { Hero } from "../components/sections/Hero";
+import { Identity } from "../components/sections/Identity";
 import { Limited } from "../components/sections/Limited";
 import { Marquee } from "../components/sections/Marquee";
 import { Newsletter } from "../components/sections/Newsletter";
@@ -13,18 +14,20 @@ import { Reveal } from "../components/ui/Reveal";
 
 export function Home() {
   const novelties = site.products.filter((product) => product.novelty);
-  const featured = site.products.filter((product) => !product.novelty).slice(0, 3);
+  const featured = site.products.filter((product) => !product.novelty).slice(0, 6);
 
   return (
     <div className="page">
       <Hero />
       <Marquee />
+      <Identity />
 
       <section className="section">
         <div className="section-head">
           <div>
             <div className="eyebrow">Collections</div>
-            <h2 className="display">The four lines</h2>
+            <h2 className="display">The five lines</h2>
+            <p>{site.products.length} references, one gold meridian at 12.</p>
           </div>
           <Link className="section-link" to="/collection">
             All models

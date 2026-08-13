@@ -3,9 +3,16 @@ import { site } from "../../config/site";
 import { Reveal } from "../ui/Reveal";
 
 export function Stats() {
+  const stats = [
+    { value: site.brand.founded, suffix: "", label: `Founded in ${site.brand.city}` },
+    { value: site.collectionLines.length, suffix: "", label: "Collection lines" },
+    { value: site.products.length, suffix: "", label: "Current references" },
+    { value: 12, suffix: "", label: "Months of finishing" },
+  ];
+
   return (
     <div className="stats">
-      {site.stats.map((stat) => (
+      {stats.map((stat) => (
         <Reveal key={stat.label} className="stat">
           <strong>
             <CountUp value={stat.value} />

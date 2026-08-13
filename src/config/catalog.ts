@@ -23,7 +23,7 @@ export const photos = {
   cinematic: "https://images.unsplash.com/photo-1609587312208-cea54be969e7?auto=format&fit=crop&w=2000&q=80",
 };
 
-function watch(
+export function watch(
   data: Omit<Product, "specGroups"> & { specGroups?: Product["specGroups"] },
 ): Product {
   const specGroups = data.specGroups ?? [
@@ -98,6 +98,14 @@ export const collectionLines: CollectionLine[] = [
     description:
       "Yellow gold, rose gold and black DLC. Numbered editions and moonphases for evenings that last longer than the night.",
     image: photos.gold,
+  },
+  {
+    slug: "meridian",
+    name: "Meridian",
+    tagline: "The namesake line",
+    description:
+      "GMT, worldtimer and dual time — watches built around the gold meridian at 12. HORLOGE is named for the clock. This line is named for the line.",
+    image: photos.cinematic,
   },
 ];
 
@@ -530,9 +538,22 @@ export const products: Product[] = [
 ];
 
 export const journal = [
-  {
-    slug: "column-wheel",
-    title: "Why we still insist on a column wheel",
+    {
+      slug: "the-meridian",
+      title: "Why every dial carries a gold line at 12",
+      date: "4 April 2026",
+      category: "Identity",
+      excerpt:
+        "The meridian is not a logo applied to a watch. It is the watch’s thesis: a single, vertical agreement with Geneva.",
+      image: photos.cinematic,
+      body: [
+        "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
+        "You will find it on Heritage enamel and on a Diver 500. If it is missing, it is not ours.",
+      ],
+    },
+    {
+      slug: "column-wheel",
+      title: "Why we still insist on a column wheel",
     date: "12 March 2026",
     category: "Calibres",
     excerpt:
@@ -603,10 +624,11 @@ export const quiz = [
     key: "occasion",
     question: "How will you wear it most?",
     options: [
-      { id: "everyday", label: "Every day", collections: ["Heritage", "Chronograph"] },
+      { id: "everyday", label: "Every day", collections: ["Heritage", "Chronograph", "Meridian"] },
       { id: "water", label: "Near water, or in it", collections: ["Diver"] },
       { id: "evening", label: "Evenings and occasions", collections: ["Imperial", "Heritage"] },
       { id: "timing", label: "I like to time things", collections: ["Chronograph"] },
+      { id: "travel", label: "I live in more than one city", collections: ["Meridian"] },
     ],
   },
   {

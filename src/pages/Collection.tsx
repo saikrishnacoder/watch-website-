@@ -25,7 +25,7 @@ export function Collection() {
         <div className="eyebrow">The collection</div>
         <h1 className="display">All models</h1>
         <p className="lede">
-          Twelve current references across four families. Filter here, or use the{" "}
+          {site.products.length} current references across {site.collectionLines.length} families. Filter here, or use the{" "}
           <Link to="/finder" style={{ color: "var(--gold)" }}>
             Watch Finder
           </Link>{" "}

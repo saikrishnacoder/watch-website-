@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BrandMark } from "../brand/BrandMark";
 import { site } from "../../config/site";
 
 export function Footer() {
@@ -6,7 +7,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <div className="footer-logo">{site.brand.wordmark}</div>
+          <BrandMark to="/" />
           <p>{site.footer.blurb}</p>
         </div>
         {site.footer.columns.map((column) => (

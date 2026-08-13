@@ -17,10 +17,12 @@ export type {
   WatchDesign,
 } from "./types";
 
-import { collectionLines, journal, photos, products, quiz, services } from "./catalog";
+import { extraProducts } from "./products-extra";
+import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
 import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
 
-export { collectionLines, journal, photos, products, quiz, services };
+export { collectionLines, journal, photos, quiz, services };
+export const products = [...coreProducts, ...extraProducts];
 
 export const site = {
   brand: {
@@ -28,16 +30,43 @@ export const site = {
     wordmark: "HORLOGE",
     short: "H",
     founded: 1924,
+    city: "Geneva",
     tagline: "The art of time",
+    motto: "Tempus compositum",
+    mottoEn: "Time, composed",
+    seal: "Maison Horloge · Genève · 1924",
+    signature: "The Meridian",
+    signatureNote:
+      "A gold line at 12 on every dial — the maison’s mark, taken from the Geneva meridian and drawn thinner than a hair.",
     description:
-      "Independent watchmaking focused on precision, craftsmanship and timeless design.",
+      "Independent Geneva watchmaking. Five lines, one meridian. Watches composed for those who measure life in moments, not minutes.",
     url: "https://horloge.example",
+    pillars: [
+      {
+        title: "Silence",
+        body: "No ambassadors. No shouting. A HORLOGE should be noticed second, and remembered first.",
+      },
+      {
+        title: "Measure",
+        body: "Every calibre is regulated in five positions. We time the watch until it agrees with Geneva.",
+      },
+      {
+        title: "Inherit",
+        body: "Cases are finished to be refinished. The meridian is designed to outlast the first owner.",
+      },
+    ],
+    palette: [
+      { name: "Encre", hex: "#070605", use: "Atelier black — grounds, cases, night" },
+      { name: "Ivoire", hex: "#f4efe6", use: "Paper, enamel, type" },
+      { name: "Or de Genève", hex: "#c9a86c", use: "The meridian, the seal, the metal" },
+      { name: "Bordeaux", hex: "#6b1d2a", use: "Seconds hands, limited marks" },
+    ],
   },
 
   seo: {
-    title: "HORLOGE — Luxury Watches",
+    title: "HORLOGE — Tempus compositum",
     description:
-      "Precision engineering meets timeless design. Discover watches crafted for those who appreciate exceptional detail, performance and character.",
+      "Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold line at 12.",
   },
 
   locale: "en-US",
@@ -60,15 +89,15 @@ export const site = {
   nav: [
     { label: "Watches", href: "/collection" },
     { label: "Watch Finder", href: "/finder" },
-    { label: "World of HORLOGE", href: "/atelier" },
+    { label: "World of HORLOGE", href: "/maison" },
     { label: "Boutiques", href: "/boutique" },
   ],
 
   hero: {
-    eyebrow: "Maison est. 1924 — Geneva",
+    eyebrow: "Maison Horloge · Genève · 1924",
     title: "Time",
-    accent: "redefined.",
-    body: "Precision engineering meets timeless design. Discover watches crafted for those who appreciate exceptional detail, performance and character.",
+    accent: "composed.",
+    body: "Independent Geneva watchmaking since 1924. Five lines, one gold meridian at 12. Watches for those who measure life in moments, not minutes.",
     primaryCta: { label: "Find your watch", href: "/finder" },
     secondaryCta: { label: "Explore the collection", href: "/collection" },
     featuredSlug: "chronograph-one",
@@ -76,13 +105,14 @@ export const site = {
   },
 
   marquee: [
+    "Tempus compositum",
+    "The gold meridian",
+    "Geneva 1924",
     "Swiss movement",
     "Sapphire crystal",
-    "100m water resistance",
     "Hand-assembled",
-    "Limited series",
+    "Five lines, one maison",
     "Lifetime service",
-    "Geneva finishing",
   ],
 
   stats: [
@@ -119,8 +149,8 @@ export const site = {
     eyebrow: "Our philosophy",
     title: "Crafted for generations.",
     paragraphs: [
-      "HORLOGE was founded around one simple belief: a watch should be more than an instrument for measuring time.",
-      "It should represent personality, precision and craftsmanship. Every component is selected, engineered and assembled with obsessive attention to detail — from the first sketch in Geneva to the final regulation.",
+      "HORLOGE was founded in Geneva in 1924 around a single idea: time should be composed, not merely counted. The gold meridian at 12 is that idea, drawn on every dial.",
+      "Five lines — Heritage, Chronograph, Diver, Imperial, Meridian — share one mark, one city, and a refusal to rush the finishing.",
     ],
     image:
       "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1400&q=80",
@@ -300,7 +330,7 @@ export const site = {
 
   footer: {
     blurb:
-      "Independent watchmaking focused on precision, craftsmanship and timeless design.",
+      "Maison Horloge, Geneva. Tempus compositum — time, composed. Five lines around a gold meridian at 12.",
     columns: [
       {
         title: "Collection",
@@ -318,11 +348,13 @@ export const site = {
           { label: "Chronograph", href: "/collection/chronograph" },
           { label: "Diver", href: "/collection/diver" },
           { label: "Imperial", href: "/collection/imperial" },
+          { label: "Meridian", href: "/collection/meridian" },
         ],
       },
       {
         title: "Maison",
         links: [
+          { label: "The maison", href: "/maison" },
           { label: "Kinetic atelier", href: "/motion" },
           { label: "Atelier", href: "/atelier" },
           { label: "Journal", href: "/journal" },

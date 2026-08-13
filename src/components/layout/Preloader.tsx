@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { site } from "../../config/site";
+import { BrandMark } from "../brand/BrandMark";
 
 export function Preloader() {
   const [show, setShow] = useState(true);
@@ -19,10 +19,7 @@ export function Preloader() {
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="preloader-mark">
-            <div className="preloader-dial" aria-hidden>
-              <i />
-            </div>
-            <div className="preloader-word">{site.brand.wordmark}</div>
+            <BrandMark to={false} stacked size={64} />
             <div className="preloader-line">
               <motion.span
                 initial={{ scaleX: 0 }}

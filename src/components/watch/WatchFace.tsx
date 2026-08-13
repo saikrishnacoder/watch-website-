@@ -275,8 +275,12 @@ export function WatchFace({
           letterSpacing="2"
           fontFamily="Outfit, sans-serif"
         >
-          GENEVE
+          GENÈVE
         </text>
+        <polygon
+          points={`${cx},${cy - 86} ${cx - 4},${cy - 76} ${cx + 4},${cy - 76}`}
+          fill="#c9a86c"
+        />
 
         {dateWindow && (
           <g>

@@ -208,12 +208,140 @@ img {
   transform: translateY(-110%);
 }
 
-.logo {
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-copy strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.28em;
+  font-weight: 500;
+}
+
+.brand-copy small {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.brand-mark.is-stacked {
+  flex-direction: column;
+  text-align: center;
+}
+
+.brand-mark.is-stacked .brand-copy strong {
+  font-size: 36px;
+  letter-spacing: 0.32em;
+}
+
+.identity {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.identity:not(:has(.identity-crest)) {
+  grid-template-columns: 1fr;
+}
+
+.identity-crest {
+  text-align: center;
+  color: var(--gold);
+}
+
+.identity-motto {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 42px);
+  font-style: italic;
+  margin: 18px 0 6px;
+  color: var(--ink);
+}
+
+.identity-en,
+.identity-seal {
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.identity-body h2 {
+  font-size: clamp(28px, 3.4vw, 44px);
+  margin: 8px 0 32px;
+  max-width: 18ch;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.pillars h3 {
   font-family: var(--font-display);
   font-size: 26px;
-  letter-spacing: 0.32em;
-  color: var(--gold);
   font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.pillars p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.swatch-card i {
+  display: block;
+  height: 72px;
+  border: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+
+.swatch-card strong {
+  display: block;
+  font-size: 13px;
+}
+
+.swatch-card span,
+.swatch-card em {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.maison-hero {
+  text-align: center;
+  color: var(--gold);
+}
+
+.maison-hero .display,
+.maison-hero .lede,
+.maison-hero .eyebrow {
+  color: var(--ink);
+  margin-inline: auto;
 }
 
 .nav-links {
@@ -1491,7 +1619,11 @@ img {
   .footer-grid,
   .boutique-grid,
   .gallery,
-  .fields {
+  .fields,
+  .family-grid,
+  .line-tiles,
+  .pillars,
+  .palette {
     grid-template-columns: 1fr;
   }
 
@@ -1624,7 +1756,7 @@ a.icon-btn {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: repeat(4, 1fr) 180px;
+  grid-template-columns: repeat(5, 1fr) 160px;
   gap: 16px;
   padding: 28px 5% 32px;
 }
@@ -1803,7 +1935,7 @@ a.icon-btn {
 .family-grid,
 .line-tiles {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
 }
 
@@ -2262,9 +2394,18 @@ a.icon-btn {
 
 @media (max-width: 1024px) {
   .family-grid,
-  .journal-grid,
-  .service-grid,
   .line-tiles {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .journal-grid,
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .identity,
+  .pillars,
+  .palette {
     grid-template-columns: 1fr;
   }
 

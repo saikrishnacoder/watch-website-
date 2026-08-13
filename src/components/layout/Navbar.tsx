@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { BrandMark } from "../brand/BrandMark";
 import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
@@ -37,7 +38,7 @@ export function Navbar() {
   return (
     <>
       <div className="utility-bar">
-        <span>Official maison · Geneva 1924</span>
+        <span>{site.brand.seal}</span>
         <div>
           <NavLink to="/finder">Watch Finder</NavLink>
           <NavLink to="/boutique">Find a boutique</NavLink>
@@ -48,9 +49,7 @@ export function Navbar() {
         className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""}`}
         onMouseLeave={() => setMega(false)}
       >
-        <NavLink to="/" className="logo">
-          {site.brand.wordmark}
-        </NavLink>
+        <BrandMark />
         <ul className="nav-links">
           <li>
             <button className={mega ? "active" : ""} onMouseEnter={() => setMega(true)}>
@@ -61,7 +60,7 @@ export function Navbar() {
             <NavLink to="/finder">Watch Finder</NavLink>
           </li>
           <li>
-            <NavLink to="/atelier">World of {site.brand.name}</NavLink>
+            <NavLink to="/maison">World of {site.brand.name}</NavLink>
           </li>
           <li>
             <NavLink to="/boutique">Boutiques</NavLink>
@@ -102,6 +101,7 @@ export function Navbar() {
               <NavLink to="/find">Find your watch</NavLink>
               <NavLink to="/compare">Compare</NavLink>
               <NavLink to="/journal">Journal</NavLink>
+              <NavLink to="/maison">The maison</NavLink>
               <NavLink to="/motion">Kinetic atelier</NavLink>
             </div>
           </div>
@@ -119,6 +119,9 @@ export function Navbar() {
           ))}
           <NavLink to="/finder" onClick={() => setMenuOpen(false)}>
             Watch Finder
+          </NavLink>
+          <NavLink to="/maison" onClick={() => setMenuOpen(false)}>
+            The maison
           </NavLink>
           <NavLink to="/atelier" onClick={() => setMenuOpen(false)}>
             Atelier
