@@ -20,6 +20,7 @@ import { UIProvider } from "./context/UIContext";
 import { track } from "./lib/analytics";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
+import { Checkout } from "./pages/Checkout";
 import { Collection } from "./pages/Collection";
 import { CollectionFamily } from "./pages/CollectionFamily";
 import { Compare } from "./pages/Compare";
@@ -111,6 +112,7 @@ function AppShell() {
                   <Route path="/watch/:slug" element={<Product />} />
                   <Route path="/finder" element={<WatchFinder />} />
                   <Route path="/find" element={<FindWatch />} />
+                  <Route path="/checkout" element={<Checkout />} />
                   <Route path="/compare" element={<Compare />} />
                   <Route path="/wishlist" element={<Wishlist />} />
                   <Route path="/journal" element={<Journal />} />

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../config/site";
-import { ProductCard } from "../components/ui/ProductCard";
+import { ProductGrid } from "../components/ui/ProductGrid";
 
 export function Collection() {
   const [params] = useSearchParams();
@@ -67,11 +67,7 @@ export function Collection() {
           </select>
         </div>
         <p className="finder-count">{products.length} timepieces</p>
-        <div className="product-grid">
-          {products.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
-          ))}
-        </div>
+        <ProductGrid products={products} />
       </section>
     </div>
   );

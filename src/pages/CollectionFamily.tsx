@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { getCollection, productsIn } from "../config/site";
-import { ProductCard } from "../components/ui/ProductCard";
+import { ProductGrid } from "../components/ui/ProductGrid";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { NotFound } from "./NotFound";
 
@@ -27,11 +27,7 @@ export function CollectionFamily() {
             All watches
           </Link>
         </div>
-        <div className="product-grid">
-          {watches.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
-          ))}
-        </div>
+        <ProductGrid products={watches} />
       </section>
     </div>
   );

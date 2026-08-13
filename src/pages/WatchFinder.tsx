@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../config/site";
-import { ProductCard } from "../components/ui/ProductCard";
+import { ProductGrid } from "../components/ui/ProductGrid";
 
 const diameters = ["All", "34–36", "38–41", "42+"];
 const materials = ["All", "Steel", "Gold", "Titanium", "DLC"];
@@ -15,7 +15,11 @@ export function WatchFinder() {
   const [material, setMaterial] = useState("All");
   const [movement, setMovement] = useState("All");
   const [depth, setDepth] = useState("All");
-  const [maxPrice, setMaxPrice] = useState(40000);
+  const ceiling = useMemo(
+    () => Math.max(...site.products.map((product) => product.price)),
+    [],
+  );
+  const [maxPrice, setMaxPrice] = useState(ceiling);
 
   const results = useMemo(() => {
     return site.products.filter((product) => {
@@ -53,11 +57,11 @@ export function WatchFinder() {
           <Filter label="Movement" value={movement} onChange={setMovement} options={movements} />
           <Filter label="Water resistance" value={depth} onChange={setDepth} options={water} />
           <label className="finder-label">
-            Price up to {maxPrice === 40000 ? "any" : `$${maxPrice.toLocaleString()}`}
+            Price up to {maxPrice >= ceiling ? "any" : `$${maxPrice.toLocaleString()}`}
             <input
               type="range"
               min={7000}
-              max={40000}
+              max={ceiling}
               step={1000}
               value={maxPrice}
               onChange={(event) => setMaxPrice(Number(event.target.value))}
@@ -69,11 +73,7 @@ export function WatchFinder() {
         </aside>
         <div>
           <p className="finder-count">{results.length} timepieces</p>
-          <div className="product-grid">
-            {results.map((product, index) => (
-              <ProductCard key={product.slug} product={product} index={index} />
-            ))}
-          </div>
+          <ProductGrid products={results} />
           {results.length === 0 && <p className="empty">No watches match those filters. Relax a criterion.</p>}
         </div>
       </section>

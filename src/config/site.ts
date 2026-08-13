@@ -18,11 +18,12 @@ export type {
 } from "./types";
 
 import { extraProducts } from "./products-extra";
+import { atelierProducts } from "./generate-catalogue";
 import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
 import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
 
 export { collectionLines, journal, photos, quiz, services };
-export const products = [...coreProducts, ...extraProducts];
+export const products = [...coreProducts, ...extraProducts, ...atelierProducts];
 
 export const site = {
   brand: {
@@ -383,7 +384,7 @@ export const site = {
           { label: "All watches", href: "/collection" },
           { label: "Watch Finder", href: "/finder" },
           { label: "Find your watch", href: "/find" },
-          { label: "Compare", href: "/compare" },
+          { label: "Checkout preview", href: "/checkout" },
         ],
       },
       {
@@ -430,6 +431,8 @@ export const site = {
 
 export type SiteConfig = typeof site;
 
+const productBySlug = new Map(products.map((product) => [product.slug, product]));
+
 export function formatPrice(amount: number) {
   return new Intl.NumberFormat(site.locale, {
     style: "currency",
@@ -439,7 +442,7 @@ export function formatPrice(amount: number) {
 }
 
 export function getProduct(slug: string): Product | undefined {
-  return site.products.find((product) => product.slug === slug);
+  return productBySlug.get(slug);
 }
 
 export function getCollection(slug: string) {

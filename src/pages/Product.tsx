@@ -55,6 +55,9 @@ export function Product() {
           >
             Add to tray
           </MagneticButton>
+          <MagneticButton variant="ghost" to="/checkout" onClick={() => add(product.slug)}>
+            Buy — preview
+          </MagneticButton>
         </div>
       )}
 
@@ -121,8 +124,12 @@ export function Product() {
             >
               Add to tray
             </MagneticButton>
-            <MagneticButton variant="ghost" to={`/boutique?watch=${product.slug}`}>
-              Contact a boutique
+            <MagneticButton
+              variant="ghost"
+              to="/checkout"
+              onClick={() => add(product.slug)}
+            >
+              Buy — preview
             </MagneticButton>
           </div>
           <div className="pdp-tools">
@@ -132,6 +139,7 @@ export function Product() {
             <button className={compared(product.slug) ? "is-on" : ""} onClick={() => toggleCompare(product.slug)}>
               {compared(product.slug) ? "Added to compare" : "Compare"}
             </button>
+            <Link to={`/boutique?watch=${product.slug}`}>Boutique</Link>
           </div>
 
           <div className="specs">

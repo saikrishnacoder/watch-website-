@@ -76,14 +76,14 @@ export function CartDrawer() {
                 <strong>{formatPrice(total)}</strong>
               </div>
               <MagneticButton
-                to={lines.length ? "/boutique" : "/collection"}
+                to={lines.length ? "/checkout" : "/collection"}
                 onClick={() => setCartOpen(false)}
               >
-                {lines.length ? "Reserve in boutique" : "Browse collection"}
+                {lines.length ? "Checkout preview" : "Browse collection"}
               </MagneticButton>
               <div style={{ height: 10 }} />
-              <MagneticButton variant="ghost" to="/collection" onClick={() => setCartOpen(false)}>
-                Continue
+              <MagneticButton variant="ghost" to="/boutique" onClick={() => setCartOpen(false)}>
+                Reserve in boutique
               </MagneticButton>
               <p className="form-note">
                 Reservations are confirmed by your nearest maison.{" "}

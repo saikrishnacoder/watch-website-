@@ -19,13 +19,15 @@ export function SearchOverlay() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return site.products.slice(0, 5);
-    return site.products.filter((product) =>
-      [product.name, product.collection, product.tagline, product.reference, product.material]
-        .join(" ")
-        .toLowerCase()
-        .includes(q),
-    );
+    if (!q) return site.products.slice(0, 8);
+    return site.products
+      .filter((product) =>
+        [product.name, product.collection, product.tagline, product.reference, product.material]
+          .join(" ")
+          .toLowerCase()
+          .includes(q),
+      )
+      .slice(0, 12);
   }, [query]);
 
   return (
