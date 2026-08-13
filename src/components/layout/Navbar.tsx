@@ -2,20 +2,24 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { site } from "../../config/site";
+import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
 import { useUI } from "../../context/UIContext";
 
 export function Navbar() {
   const { count } = useCart();
+  const { wish } = useCabinet();
   const { setCartOpen, setSearchOpen, menuOpen, setMenuOpen } = useUI();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mega, setMega] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     setMenuOpen(false);
+    setMega(false);
   }, [location.pathname, setMenuOpen]);
 
   useEffect(() => {
@@ -23,27 +27,50 @@ export function Navbar() {
     const onScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 12);
-      setHidden(y > last && y > 120);
+      setHidden(y > last && y > 160 && !mega);
       last = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [mega]);
 
   return (
     <>
-      <header className={`nav ${scrolled ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""}`}>
+      <div className="utility-bar">
+        <span>Official maison · Geneva 1924</span>
+        <div>
+          <NavLink to="/finder">Watch Finder</NavLink>
+          <NavLink to="/boutique">Find a boutique</NavLink>
+          <NavLink to="/services">Services</NavLink>
+        </div>
+      </div>
+      <header
+        className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""}`}
+        onMouseLeave={() => setMega(false)}
+      >
         <NavLink to="/" className="logo">
           {site.brand.wordmark}
         </NavLink>
         <ul className="nav-links">
-          {site.nav.map((item) => (
-            <li key={item.href}>
-              <NavLink to={item.href}>{item.label}</NavLink>
-            </li>
-          ))}
+          <li>
+            <button className={mega ? "active" : ""} onMouseEnter={() => setMega(true)}>
+              Watches
+            </button>
+          </li>
+          <li>
+            <NavLink to="/finder">Watch Finder</NavLink>
+          </li>
+          <li>
+            <NavLink to="/atelier">World of {site.brand.name}</NavLink>
+          </li>
+          <li>
+            <NavLink to="/boutique">Boutiques</NavLink>
+          </li>
         </ul>
         <div className="nav-actions">
+          <NavLink to="/wishlist" className="icon-btn" aria-label="Wishlist">
+            ♥{wish.length > 0 && <span className="cart-count">{wish.length}</span>}
+          </NavLink>
           <button className="icon-btn" aria-label="Search" onClick={() => setSearchOpen(true)}>
             <SearchIcon />
           </button>
@@ -58,17 +85,52 @@ export function Navbar() {
           </button>
         </div>
         <motion.div className="scroll-progress" style={{ scaleX: progress }} />
+        {mega && (
+          <div className="mega">
+            {site.collectionLines.map((line) => (
+              <NavLink key={line.slug} to={`/collection/${line.slug}`} className="mega-card">
+                <img src={line.image} alt="" />
+                <div>
+                  <strong>{line.name}</strong>
+                  <span>{line.tagline}</span>
+                </div>
+              </NavLink>
+            ))}
+            <div className="mega-links">
+              <NavLink to="/collection">All watches</NavLink>
+              <NavLink to="/finder">Watch Finder</NavLink>
+              <NavLink to="/find">Find your watch</NavLink>
+              <NavLink to="/compare">Compare</NavLink>
+              <NavLink to="/journal">Journal</NavLink>
+            </div>
+          </div>
+        )}
       </header>
       {menuOpen && (
         <nav className="mobile-menu">
           <NavLink to="/" onClick={() => setMenuOpen(false)}>
             Home
           </NavLink>
-          {site.nav.map((item) => (
-            <NavLink key={item.href} to={item.href} onClick={() => setMenuOpen(false)}>
-              {item.label}
+          {site.collectionLines.map((line) => (
+            <NavLink key={line.slug} to={`/collection/${line.slug}`} onClick={() => setMenuOpen(false)}>
+              {line.name}
             </NavLink>
           ))}
+          <NavLink to="/finder" onClick={() => setMenuOpen(false)}>
+            Watch Finder
+          </NavLink>
+          <NavLink to="/atelier" onClick={() => setMenuOpen(false)}>
+            Atelier
+          </NavLink>
+          <NavLink to="/journal" onClick={() => setMenuOpen(false)}>
+            Journal
+          </NavLink>
+          <NavLink to="/services" onClick={() => setMenuOpen(false)}>
+            Services
+          </NavLink>
+          <NavLink to="/boutique" onClick={() => setMenuOpen(false)}>
+            Boutiques
+          </NavLink>
         </nav>
       )}
     </>

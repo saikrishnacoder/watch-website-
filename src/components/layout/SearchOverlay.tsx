@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { formatPrice, site } from "../../config/site";
+import { site } from "../../config/site";
 import { useUI } from "../../context/UIContext";
 
 export function SearchOverlay() {
@@ -10,9 +10,12 @@ export function SearchOverlay() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return site.products.slice(0, 4);
+    if (!q) return site.products.slice(0, 5);
     return site.products.filter((product) =>
-      [product.name, product.collection, product.tagline].join(" ").toLowerCase().includes(q),
+      [product.name, product.collection, product.tagline, product.reference, product.material]
+        .join(" ")
+        .toLowerCase()
+        .includes(q),
     );
   }, [query]);
 
@@ -55,7 +58,7 @@ export function SearchOverlay() {
                 >
                   <strong>{product.name}</strong>
                   <span>
-                    {product.collection} · {formatPrice(product.price)}
+                    {product.collection} · {product.reference}
                   </span>
                 </Link>
               ))}

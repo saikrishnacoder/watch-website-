@@ -12,11 +12,20 @@ Change that file and the homepage, collection, product pages, customizer, cart, 
 
 ## Pages
 
-- `/` — cinematic home: preloader, hero, marquee, collection, stats, story, features, live watch customizer, lookbook, limited-edition countdown, testimonials, newsletter
-- `/collection` — filterable, sortable catalogue
-- `/watch/:slug` — product detail with live analog watch, specs, related pieces
-- `/atelier` — craftsmanship timeline and gallery
-- `/boutique` — maisons + Netlify Forms appointment request
+- `/` — cinematic home (Rolex-style hero, collection families, novelties, journal)
+- `/collection` — all models with family tiles
+- `/collection/:line` — Heritage, Chronograph, Diver, Imperial
+- `/finder` — Watch Finder (diameter, metal, movement, water resistance, price)
+- `/find` — guided matching quiz
+- `/watch/:slug` — photography gallery, studio calibre view, spec sheets, wrist preview, sticky bar
+- `/compare` — side-by-side technical comparison (up to 3)
+- `/wishlist` — saved pieces
+- `/journal` — maison editorial
+- `/atelier` — craftsmanship
+- `/services` — maintenance, warranty, registration
+- `/boutique` — five maisons + appointment request
+
+Catalogue and copy live in `src/config/site.ts` and `src/config/catalog.ts`.
 
 ## Features
 

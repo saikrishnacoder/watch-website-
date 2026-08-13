@@ -1,42 +1,26 @@
 /**
  * HORLOGE Watch Maison — site template configuration.
  *
- * Swap this file to rebrand the entire website: name, palette, copy,
- * collections, boutiques, and product designs. Components read from here
- * and nowhere else for marketing content.
+ * Swap this file (and `catalog.ts`) to rebrand the entire website.
  */
 
-export type CaseMetal = "steel" | "gold" | "rose" | "black";
-export type MarkerStyle = "baton" | "roman" | "arabic" | "dots";
-export type HandStyle = "dauphine" | "sword" | "sport";
-export type BezelStyle = "none" | "fluted" | "tachymeter" | "ceramic";
-export type StrapStyle = "leather" | "bracelet" | "nato";
+export type {
+  Availability,
+  BezelStyle,
+  CaseMetal,
+  HandStyle,
+  MarkerStyle,
+  MovementType,
+  Product,
+  SpecGroup,
+  StrapStyle,
+  WatchDesign,
+} from "./types";
 
-export type WatchDesign = {
-  caseMetal: CaseMetal;
-  dial: string;
-  dialText: string;
-  markers: MarkerStyle;
-  hands: HandStyle;
-  bezel: BezelStyle;
-  strap: StrapStyle;
-  strapColor: string;
-  chronograph?: boolean;
-  dateWindow?: boolean;
-};
+import { collectionLines, journal, photos, products, quiz, services } from "./catalog";
+import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
 
-export type Product = {
-  slug: string;
-  name: string;
-  collection: string;
-  price: number;
-  limited?: boolean;
-  badge?: string;
-  tagline: string;
-  description: string;
-  specs: { label: string; value: string }[];
-  design: WatchDesign;
-};
+export { collectionLines, journal, photos, products, quiz, services };
 
 export const site = {
   brand: {
@@ -74,9 +58,10 @@ export const site = {
   },
 
   nav: [
-    { label: "Collection", href: "/collection" },
-    { label: "Atelier", href: "/atelier" },
-    { label: "Boutique", href: "/boutique" },
+    { label: "Watches", href: "/collection" },
+    { label: "Watch Finder", href: "/finder" },
+    { label: "World of HORLOGE", href: "/atelier" },
+    { label: "Boutiques", href: "/boutique" },
   ],
 
   hero: {
@@ -84,9 +69,10 @@ export const site = {
     title: "Time",
     accent: "redefined.",
     body: "Precision engineering meets timeless design. Discover watches crafted for those who appreciate exceptional detail, performance and character.",
-    primaryCta: { label: "Explore collection", href: "/collection" },
-    secondaryCta: { label: "Visit the atelier", href: "/atelier" },
+    primaryCta: { label: "Find your watch", href: "/finder" },
+    secondaryCta: { label: "Explore the collection", href: "/collection" },
     featuredSlug: "chronograph-one",
+    image: photos.cinematic,
   },
 
   marquee: [
@@ -264,183 +250,11 @@ export const site = {
     ] as { id: StrapStyle; label: string; color: string }[],
   },
 
-  collections: ["All", "Classic", "Sport", "Premium"],
-
-  products: [
-    {
-      slug: "chronograph-one",
-      name: "Chronograph One",
-      collection: "Classic",
-      price: 8900,
-      tagline: "The signature three-register.",
-      description:
-        "A precision-crafted chronograph combining contemporary proportions with traditional finishing. Ivory opaline dial, blued steel hands, and a column-wheel calibre visible through the sapphire caseback.",
-      specs: [
-        { label: "Movement", value: "H-72 automatic chronograph" },
-        { label: "Power reserve", value: "48 hours" },
-        { label: "Case", value: "40.5mm stainless steel" },
-        { label: "Crystal", value: "Double-domed sapphire" },
-        { label: "Water resistance", value: "100 metres" },
-        { label: "Strap", value: "Hand-stitched alligator" },
-      ],
-      design: {
-        caseMetal: "steel",
-        dial: "#f3ead8",
-        dialText: "#1a1814",
-        markers: "baton",
-        hands: "dauphine",
-        bezel: "none",
-        strap: "leather",
-        strapColor: "#2a1f18",
-        chronograph: true,
-        dateWindow: true,
-      },
-    },
-    {
-      slug: "apex-sport",
-      name: "Apex Sport",
-      collection: "Sport",
-      price: 12400,
-      badge: "New",
-      tagline: "Built for velocity, finished for life.",
-      description:
-        "A ceramic-bezel sport watch with a tachymeter scale and a high-contrast dial. The Apex is equally at home on a night drive or a linen cuff.",
-      specs: [
-        { label: "Movement", value: "H-90 automatic" },
-        { label: "Power reserve", value: "70 hours" },
-        { label: "Case", value: "41mm steel, ceramic bezel" },
-        { label: "Crystal", value: "Sapphire, AR coated" },
-        { label: "Water resistance", value: "200 metres" },
-        { label: "Strap", value: "Integrated bracelet" },
-      ],
-      design: {
-        caseMetal: "steel",
-        dial: "#12151c",
-        dialText: "#f4efe6",
-        markers: "baton",
-        hands: "sport",
-        bezel: "tachymeter",
-        strap: "bracelet",
-        strapColor: "#c5c7ca",
-        chronograph: false,
-        dateWindow: true,
-      },
-    },
-    {
-      slug: "imperial-gold",
-      name: "Imperial Gold",
-      collection: "Premium",
-      price: 24900,
-      tagline: "Warm metal. Quiet authority.",
-      description:
-        "Eighteen-karat yellow gold with a champagne sunray dial and applied Roman numerals. A dress watch in the classical sense — thin, luminous, and meant to be inherited.",
-      specs: [
-        { label: "Movement", value: "H-12 extra-thin automatic" },
-        { label: "Power reserve", value: "42 hours" },
-        { label: "Case", value: "38mm 18k yellow gold" },
-        { label: "Crystal", value: "Box sapphire" },
-        { label: "Water resistance", value: "50 metres" },
-        { label: "Strap", value: "Glazed alligator, gold buckle" },
-      ],
-      design: {
-        caseMetal: "gold",
-        dial: "#c5a46a",
-        dialText: "#3a2a12",
-        markers: "roman",
-        hands: "dauphine",
-        bezel: "fluted",
-        strap: "leather",
-        strapColor: "#3b2418",
-        dateWindow: true,
-      },
-    },
-    {
-      slug: "heritage",
-      name: "Heritage",
-      collection: "Classic",
-      price: 7400,
-      tagline: "Railroad minutes. Modern heart.",
-      description:
-        "A tribute to early maison pocket watches, re-proportioned for the wrist. Enamel-white dial, railroad chapter ring, and heat-blued feuille hands.",
-      specs: [
-        { label: "Movement", value: "H-08 manual wind" },
-        { label: "Power reserve", value: "38 hours" },
-        { label: "Case", value: "36mm stainless steel" },
-        { label: "Crystal", value: "Box sapphire" },
-        { label: "Water resistance", value: "30 metres" },
-        { label: "Strap", value: "Honey calf" },
-      ],
-      design: {
-        caseMetal: "steel",
-        dial: "#f7f4ee",
-        dialText: "#1c1a16",
-        markers: "arabic",
-        hands: "dauphine",
-        bezel: "none",
-        strap: "leather",
-        strapColor: "#8a5a32",
-        dateWindow: false,
-      },
-    },
-    {
-      slug: "velocity",
-      name: "Velocity",
-      collection: "Sport",
-      price: 13900,
-      tagline: "Titanium, distilled.",
-      description:
-        "Grade-5 titanium with a forest-green sandwich dial and a textile strap. Light on the wrist, serious in the water, unapologetic after midnight.",
-      specs: [
-        { label: "Movement", value: "H-90T automatic" },
-        { label: "Power reserve", value: "70 hours" },
-        { label: "Case", value: "42mm grade-5 titanium" },
-        { label: "Crystal", value: "Sapphire, AR coated" },
-        { label: "Water resistance", value: "200 metres" },
-        { label: "Strap", value: "Woven textile" },
-      ],
-      design: {
-        caseMetal: "black",
-        dial: "#1e3a34",
-        dialText: "#e8f0ea",
-        markers: "dots",
-        hands: "sport",
-        bezel: "ceramic",
-        strap: "nato",
-        strapColor: "#1c2430",
-        dateWindow: true,
-      },
-    },
-    {
-      slug: "noir",
-      name: "Noir",
-      collection: "Premium",
-      price: 31900,
-      limited: true,
-      badge: "192 pcs",
-      tagline: "Midnight, in gold.",
-      description:
-        "Black DLC over steel, a sunray midnight dial, and yellow-gold dauphine hands. An atelier edition of 192 numbered pieces. When they are gone, the reference closes.",
-      specs: [
-        { label: "Movement", value: "H-12G automatic" },
-        { label: "Power reserve", value: "42 hours" },
-        { label: "Case", value: "39mm steel, black DLC" },
-        { label: "Crystal", value: "Double-domed sapphire" },
-        { label: "Water resistance", value: "50 metres" },
-        { label: "Strap", value: "Black alligator" },
-      ],
-      design: {
-        caseMetal: "black",
-        dial: "#0e1420",
-        dialText: "#e8d5a3",
-        markers: "baton",
-        hands: "dauphine",
-        bezel: "fluted",
-        strap: "leather",
-        strapColor: "#14110f",
-        dateWindow: true,
-      },
-    },
-  ] as Product[],
+  collectionLines,
+  products,
+  journal,
+  services,
+  quiz,
 
   boutiques: [
     {
@@ -461,6 +275,18 @@ export const site = {
       hours: "Mon–Sat, 10:00–18:00",
       phone: "+1 212 555 1924",
     },
+    {
+      city: "London",
+      address: "14 Old Bond Street, W1S 4PP",
+      hours: "Mon–Sat, 10:00–18:00",
+      phone: "+44 20 7946 1924",
+    },
+    {
+      city: "Tokyo",
+      address: "6-8-3 Ginza, Chuo-ku",
+      hours: "Wed–Mon, 11:00–19:00",
+      phone: "+81 3 5551 1924",
+    },
   ],
 
   newsletter: {
@@ -479,25 +305,36 @@ export const site = {
       {
         title: "Collection",
         links: [
-          { label: "Classic", href: "/collection?line=Classic" },
-          { label: "Sport", href: "/collection?line=Sport" },
-          { label: "Premium", href: "/collection?line=Premium" },
+          { label: "All watches", href: "/collection" },
+          { label: "Watch Finder", href: "/finder" },
+          { label: "Find your watch", href: "/find" },
+          { label: "Compare", href: "/compare" },
+        ],
+      },
+      {
+        title: "Collections",
+        links: [
+          { label: "Heritage", href: "/collection/heritage" },
+          { label: "Chronograph", href: "/collection/chronograph" },
+          { label: "Diver", href: "/collection/diver" },
+          { label: "Imperial", href: "/collection/imperial" },
         ],
       },
       {
         title: "Maison",
         links: [
           { label: "Atelier", href: "/atelier" },
+          { label: "Journal", href: "/journal" },
+          { label: "Services", href: "/services" },
           { label: "Boutiques", href: "/boutique" },
-          { label: "Journal", href: "/atelier" },
         ],
       },
       {
         title: "Support",
         links: [
           { label: "Appointments", href: "/boutique" },
-          { label: "Shipping", href: "/boutique" },
-          { label: "Warranty", href: "/atelier" },
+          { label: "Warranty", href: "/services" },
+          { label: "Wishlist", href: "/wishlist" },
         ],
       },
     ],
@@ -525,9 +362,17 @@ export function getProduct(slug: string): Product | undefined {
   return site.products.find((product) => product.slug === slug);
 }
 
+export function getCollection(slug: string) {
+  return collectionLines.find((line) => line.slug === slug);
+}
+
+export function productsIn(slug: string) {
+  return products.filter((product) => product.collectionSlug === slug);
+}
+
 export function relatedProducts(slug: string, count = 3) {
   const current = getProduct(slug);
-  const rest = site.products.filter((product) => product.slug !== slug);
+  const rest = products.filter((product) => product.slug !== slug);
   const same = rest.filter((product) => product.collection === current?.collection);
   return [...same, ...rest.filter((p) => !same.includes(p))].slice(0, count);
 }

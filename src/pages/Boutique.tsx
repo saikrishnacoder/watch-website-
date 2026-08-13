@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from "react";
-import { site } from "../config/site";
+import { useSearchParams } from "react-router-dom";
+import { getProduct, site } from "../config/site";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
 
 export function Boutique() {
   const [status, setStatus] = useState("");
+  const [params] = useSearchParams();
+  const requested = getProduct(params.get("watch") ?? "");
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +30,7 @@ export function Boutique() {
         <div className="eyebrow">Boutiques</div>
         <h1 className="display">Come closer to the work.</h1>
         <p className="lede">
-          Three maisons. Private viewings by appointment. Tea, a tray of signatures, and as much silence as you need.
+        Three maisons across Europe, New York and Tokyo. Private viewings by appointment.
         </p>
       </section>
       <section className="section" style={{ paddingTop: 0 }}>
@@ -84,7 +87,15 @@ export function Boutique() {
                 <input type="date" name="date" required />
               </label>
               <label className="field full">
-                <textarea name="message" placeholder="Which timepiece would you like to see?" />
+                <textarea
+                  name="message"
+                  defaultValue={
+                    requested
+                      ? `I would like to see ${requested.name} (${requested.reference}).`
+                      : ""
+                  }
+                  placeholder="Which timepiece would you like to see?"
+                />
               </label>
             </div>
             <div style={{ height: 16 }} />
