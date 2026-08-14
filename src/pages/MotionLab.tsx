@@ -63,7 +63,7 @@ export function MotionLab() {
         <p className="motion-note">
           Wave, stagger, border-trace, typewriter, magnetic buttons and Python particle drift also run on Home, cards, and the preloader.
           First visit opens a skippable cinematic intro — Chronograph One, the gold meridian, then the maison. Product
-          pages offer a lazy-loaded WebGL volume studio.
+          pages open an inspect studio: rotate, zoom, and five numbered marks on the case.
         </p>
       </section>
 
@@ -71,13 +71,13 @@ export function MotionLab() {
         <Reveal>
           <div className="section-head">
             <div>
-              <div className="eyebrow">Volume</div>
+              <div className="eyebrow">Inspect</div>
               <h2 className="display">A watch, in space</h2>
             </div>
-            <p>Three.js, code-split and skipped on phones, slow networks, and reduced-motion.</p>
+            <p>Drag to rotate, scroll to zoom, double-click to inspect. Five hotspots open the technical notes.</p>
           </div>
         </Reveal>
-        <WatchStudio design={site.products[0].design} />
+        <WatchStudio product={site.products[0]} />
       </section>
     </div>
   );

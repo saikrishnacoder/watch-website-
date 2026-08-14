@@ -14,6 +14,7 @@ import { Stats } from "../components/sections/Stats";
 import { Story } from "../components/sections/Story";
 import { Testimonials } from "../components/sections/Testimonials";
 import { KineticGallery } from "../components/motion/KineticGallery";
+import { WatchStudio } from "../components/motion/WatchStudio";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Reveal } from "../components/ui/Reveal";
 
@@ -41,6 +42,22 @@ export function Home() {
             <ProductCard key={product.slug} product={product} index={index} priority={index < 3} />
           ))}
         </div>
+      </section>
+
+      <section className="section inspect-home">
+        <div className="section-head">
+          <div>
+            <div className="eyebrow">Volume</div>
+            <h2 className="display">Turn it in the light.</h2>
+          </div>
+          <Link className="section-link" to={`/watch/${featured[0]?.slug ?? "chronograph-one"}`}>
+            Inspect a reference
+          </Link>
+        </div>
+        <p className="lede" style={{ maxWidth: 560, marginBottom: 36 }}>
+          Drag to rotate. Scroll to zoom. Double-click a point to inspect. Five marks on the case open the atelier notes.
+        </p>
+        <WatchStudio product={featured[0] ?? site.products[0]} />
       </section>
 
       <Identity />

@@ -25,7 +25,7 @@ export function Product() {
   const { setCartOpen, setToast } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember } = useCabinet();
   const [shot, setShot] = useState(0);
-  const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("render");
+  const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("volume");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
@@ -37,7 +37,7 @@ export function Product() {
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
-    setStudio("render");
+    setStudio("volume");
   }, [product, remember]);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export function Product() {
         <div>
           <div className="pdp-stage">
             {studio === "volume" ? (
-              <WatchStudio design={product.design} />
+              <WatchStudio product={product} />
             ) : studio === "calibre" ? (
               <WatchFace {...product.design} brand={site.brand.name} size={420} />
             ) : studio === "render" ? (
@@ -109,6 +109,9 @@ export function Product() {
               </button>
             )}
             <div className="pdp-toggles">
+              <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
+                Inspect
+              </button>
               <button className={studio === "render" ? "is-on" : ""} onClick={() => setStudio("render")}>
                 Studio render
               </button>
@@ -117,9 +120,6 @@ export function Product() {
               </button>
               <button className={studio === "calibre" ? "is-on" : ""} onClick={() => setStudio("calibre")}>
                 Studio calibre
-              </button>
-              <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
-                Volume
               </button>
             </div>
           </div>
