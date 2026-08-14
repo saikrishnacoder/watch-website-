@@ -8,6 +8,7 @@ import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
 import { useMotion } from "../../context/MotionContext";
+import { useTheme } from "../../context/ThemeContext";
 import { useUI } from "../../context/UIContext";
 
 export function Navbar() {
@@ -15,6 +16,7 @@ export function Navbar() {
   const { wish } = useCabinet();
   const { setCartOpen, setSearchOpen, menuOpen, setMenuOpen } = useUI();
   const { reduceMotion, userReduce, setUserReduce } = useMotion();
+  const { theme, toggleTheme } = useTheme();
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 20 });
   const [hidden, setHidden] = useState(false);
@@ -50,6 +52,14 @@ export function Navbar() {
           <CurrencySwitch />
           <NavLink to="/finder">Watch Finder</NavLink>
           <NavLink to="/heritage">Heritage</NavLink>
+          <button
+            type="button"
+            className="motion-toggle"
+            onClick={toggleTheme}
+            aria-pressed={theme === "ivoire"}
+          >
+            {theme === "ivoire" ? "Ivoire" : "Encre"}
+          </button>
           <button
             type="button"
             className="motion-toggle"
@@ -158,6 +168,9 @@ export function Navbar() {
             Boutiques
           </NavLink>
           <CurrencySwitch compact />
+          <button type="button" className="motion-toggle" onClick={toggleTheme}>
+            {theme === "ivoire" ? "Paper · Ivoire" : "Night · Encre"}
+          </button>
         </nav>
       )}
     </>

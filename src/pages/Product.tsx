@@ -11,6 +11,9 @@ import { useCart } from "../context/CartContext";
 import { useMoney } from "../context/CurrencyContext";
 import { useUI } from "../context/UIContext";
 import { WatchStudio } from "../components/motion/WatchStudio";
+import { Lightbox } from "../components/motion/Lightbox";
+import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
+import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 import { NotFound } from "./NotFound";
 
 export function Product() {
@@ -19,13 +22,16 @@ export function Product() {
   const { add, addOnce } = useCart();
   const { formatPrice } = useMoney();
   const { setCartOpen, setToast } = useUI();
-  const { toggleWish, toggleCompare, wished, compared, remember, recent } = useCabinet();
+  const { toggleWish, toggleCompare, wished, compared, remember } = useCabinet();
   const [shot, setShot] = useState(0);
   const [studio, setStudio] = useState<"photo" | "calibre" | "volume">("photo");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
   const [engraving, setEngraving] = useState("");
+  const [lightbox, setLightbox] = useState(false);
+  const [waitStatus, setWaitStatus] = useState("");
+  const { open: sizeOpen, openGuide, closeGuide } = useSizeGuide();
 
   useEffect(() => {
     if (product) remember(product.slug);
@@ -43,11 +49,23 @@ export function Product() {
 
   const waitlisted = product.availability === "Waitlist";
   const boutiqueTo = `/boutique?watch=${product.slug}`;
-
-  const recentWatches = recent
-    .filter((item) => item !== product.slug)
-    .map((item) => getProduct(item))
-    .filter(Boolean);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    sku: product.reference,
+    brand: { "@type": "Brand", name: site.brand.name },
+    description: product.description,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CHF",
+      price: product.price,
+      availability:
+        product.availability === "Waitlist"
+          ? "https://schema.org/PreOrder"
+          : "https://schema.org/InStock",
+    },
+  };
 
   return (
     <div className="page">
@@ -83,7 +101,9 @@ export function Product() {
             ) : studio === "calibre" ? (
               <WatchFace {...product.design} brand={site.brand.name} size={420} />
             ) : (
-              <img src={product.images[shot]} alt={product.name} />
+              <button type="button" className="pdp-photo" onClick={() => setLightbox(true)}>
+                <img src={product.images[shot]} alt={product.name} />
+              </button>
             )}
             <div className="pdp-toggles">
               <button className={studio === "photo" ? "is-on" : ""} onClick={() => setStudio("photo")}>
@@ -148,6 +168,46 @@ export function Product() {
               </MagneticButton>
             )}
           </div>
+          {waitlisted && (
+            <form
+              className="waitlist-form"
+              name="waitlist"
+              method="POST"
+              data-netlify="true"
+              onSubmit={async (event) => {
+                event.preventDefault();
+                const form = event.currentTarget;
+                const data = new FormData(form);
+                const params = new URLSearchParams();
+                data.forEach((value, key) => params.append(key, String(value)));
+                await fetch("/", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                  body: params.toString(),
+                });
+                setWaitStatus("You are on the maison waitlist. We write when a piece is released.");
+                form.reset();
+              }}
+            >
+              <input type="hidden" name="form-name" value="waitlist" />
+              <input type="hidden" name="watch" value={product.slug} />
+              <p hidden>
+                <label>
+                  Don’t fill this out: <input name="bot-field" />
+                </label>
+              </p>
+              <div className="fields">
+                <label className="field">
+                  <input name="name" required placeholder="Full name" />
+                </label>
+                <label className="field">
+                  <input type="email" name="email" required placeholder="Email" />
+                </label>
+              </div>
+              <MagneticButton type="submit">Join the waitlist</MagneticButton>
+              {waitStatus && <p className="form-note">{waitStatus}</p>}
+            </form>
+          )}
           <div className="pdp-tools">
             <button className={wished(product.slug) ? "is-on" : ""} onClick={() => toggleWish(product.slug)}>
               {wished(product.slug) ? "In wishlist" : "Save to wishlist"}
@@ -167,6 +227,9 @@ export function Product() {
               }}
             >
               Share
+            </button>
+            <button type="button" onClick={openGuide}>
+              Size guide
             </button>
             <Link to={boutiqueTo}>Boutique</Link>
           </div>
@@ -222,6 +285,9 @@ export function Product() {
                 onChange={(event) => setWrist(Number(event.target.value))}
               />
             </label>
+            <button type="button" className="text-link" onClick={openGuide}>
+              Open the size guide
+            </button>
           </div>
         </div>
       </section>
@@ -272,18 +338,16 @@ export function Product() {
         </div>
       </section>
 
-      {recentWatches.length > 0 && (
-        <section className="related">
-          <div className="section-head">
-            <h2 className="display">Recently viewed</h2>
-          </div>
-          <div className="product-grid">
-            {recentWatches.slice(0, 3).map((item, index) => (
-              <ProductCard key={item!.slug} product={item!} index={index} />
-            ))}
-          </div>
-        </section>
-      )}
+      <RecentlyViewed exclude={product.slug} />
+      <Lightbox
+        open={lightbox}
+        src={product.images[shot]}
+        title={product.name}
+        caption={`${product.reference} · ${product.material}`}
+        onClose={() => setLightbox(false)}
+      />
+      <SizeGuide open={sizeOpen} onClose={closeGuide} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );
 }

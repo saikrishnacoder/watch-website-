@@ -15,7 +15,7 @@ export function JournalArticle() {
           <span>/</span>
           <span>{article.category}</span>
         </div>
-        <div className="eyebrow">{article.date}</div>
+        <div className="eyebrow">{article.date} · {Math.max(2, Math.round(article.body.join(" ").split(/\s+/).length / 180))} min</div>
         <h1 className="display">{article.title}</h1>
         <img src={article.image} alt="" className="article-hero" />
         {article.body.map((paragraph) => (

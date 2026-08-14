@@ -29,6 +29,9 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
     >
       <div className={`product-visual ${reduceMotion ? "" : "anim-shimmer"}`}>
         {product.badge && <span className="product-badge">{product.badge}</span>}
+        {product.availability === "Waitlist" && !product.badge && (
+          <span className="product-badge is-wait">Waitlist</span>
+        )}
         <div className="card-tools">
           <button
             className={wished(product.slug) ? "is-on" : ""}
@@ -70,6 +73,9 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
         </h3>
         <p className="card-meta">
           {product.diameter} mm · {product.material}
+        </p>
+        <p className={`card-avail is-${product.availability.replace(/\s/g, "-").toLowerCase()}`}>
+          {product.availability}
         </p>
         <div className="product-price">{formatPrice(product.price)}</div>
         <div className="product-actions">

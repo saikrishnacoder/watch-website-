@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../config/site";
 import { ProductGrid } from "../components/ui/ProductGrid";
+import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 
 export function Collection() {
   const [params] = useSearchParams();
@@ -68,6 +69,7 @@ export function Collection() {
         </div>
         <p className="finder-count">{products.length} timepieces</p>
         <ProductGrid products={products} />
+        <RecentlyViewed />
       </section>
     </div>
   );

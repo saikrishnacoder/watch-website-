@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getProduct, site } from "../config/site";
+import { boutiqueOpen, zonedNow } from "../lib/boutiqueHours";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
 
@@ -40,13 +41,20 @@ export function Boutique() {
         <div className="eyebrow">Boutiques</div>
         <h1 className="display">Come closer to the work.</h1>
         <p className="lede">
-        Three maisons across Europe, New York and Tokyo. Private viewings by appointment.
+          Five maisons across Geneva, Paris, London, New York and Tokyo. Private viewings by appointment. Local time on
+          each door.
         </p>
       </section>
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="boutique-grid">
           {site.boutiques.map((house, index) => (
             <Reveal key={house.city} delay={index * 0.08} className="boutique-card">
+              <div className="boutique-status">
+                <em>{zonedNow(house.zone).clock}</em>
+                <span className={boutiqueOpen(house) ? "is-open" : ""}>
+                  {boutiqueOpen(house) ? "Open now" : "By appointment"}
+                </span>
+              </div>
               <h3>{house.city}</h3>
               <p>{house.address}</p>
               <p>{house.hours}</p>

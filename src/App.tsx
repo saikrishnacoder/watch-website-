@@ -19,8 +19,10 @@ import { CartProvider } from "./context/CartContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
-import { UIProvider } from "./context/UIContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import { UIProvider, useUI } from "./context/UIContext";
 import { track } from "./lib/analytics";
+import { documentTitle } from "./lib/titles";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
 import { Checkout } from "./pages/Checkout";
@@ -47,7 +49,9 @@ export default function App() {
   return (
     <MotionProvider>
       <ConsentProvider>
-        <AppShell />
+        <ThemeProvider>
+          <AppShell />
+        </ThemeProvider>
       </ConsentProvider>
     </MotionProvider>
   );
@@ -65,23 +69,10 @@ function AppShell() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const root = document.documentElement;
-    const theme = site.theme;
-    root.style.setProperty("--bg", theme.bg);
-    root.style.setProperty("--bg-elevated", theme.bgElevated);
-    root.style.setProperty("--bg-soft", theme.bgSoft);
-    root.style.setProperty("--ink", theme.ink);
-    root.style.setProperty("--muted", theme.muted);
-    root.style.setProperty("--gold", theme.gold);
-    root.style.setProperty("--gold-soft", theme.goldSoft);
-    root.style.setProperty("--line", theme.line);
-    root.style.setProperty("--danger", theme.danger);
-    root.style.setProperty("--font-display", theme.fontDisplay);
-    root.style.setProperty("--font-body", theme.fontBody);
-    document.title = site.seo.title;
+    document.title = documentTitle(location.pathname);
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", site.seo.description);
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: quiet ? "auto" : "smooth" });
@@ -95,6 +86,7 @@ function AppShell() {
           <div className="app-shell">
             <SkipLink />
             <BootSequence />
+            <Shortcuts />
             <CustomCursor />
             <Navbar />
             <SearchOverlay />
@@ -177,4 +169,38 @@ function BootSequence() {
 
   if (booted.current) return null;
   return <Preloader />;
+}
+
+function Shortcuts() {
+  const { searchOpen, setSearchOpen, setMenuOpen } = useUI();
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const node = event.target as HTMLElement | null;
+      const typing =
+        node &&
+        (node.tagName === "INPUT" ||
+          node.tagName === "TEXTAREA" ||
+          node.tagName === "SELECT" ||
+          node.isContentEditable);
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setSearchOpen(true);
+        return;
+      }
+      if (event.key === "/" && !typing) {
+        event.preventDefault();
+        setSearchOpen(true);
+        return;
+      }
+      if (event.key === "Escape") {
+        if (searchOpen) setSearchOpen(false);
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [searchOpen, setSearchOpen, setMenuOpen]);
+
+  return null;
 }
