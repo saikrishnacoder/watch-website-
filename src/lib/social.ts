@@ -1,4 +1,4 @@
-import { collectionLines, photos, site } from "../config/site";
+import { collectionLines, getProduct, photos, site } from "../config/site";
 import { copyForRoute } from "./route-static";
 
 export type SocialTags = {
@@ -14,6 +14,12 @@ export function ogImageForRoute(route: string) {
   if (key.startsWith("collection/")) {
     const slug = key.split("/")[1] ?? "";
     image = collectionLines.find((line) => line.slug === slug)?.ogImage ?? photos.cinematic;
+  } else if (key.startsWith("journal/")) {
+    const article = site.journal.find((item) => item.slug === key.slice("journal/".length));
+    image = article?.image ?? photos.cinematic;
+  } else if (key.startsWith("watch/")) {
+    const product = getProduct(key.replace(/^watch\//, "").replace(/\/craft$/, ""));
+    image = product?.images[0] ?? photos.luxury;
   } else if (key === "collection") image = photos.luxury;
   else if (key === "maison" || key === "heritage") image = photos.bench;
   else if (key === "atelier") image = photos.movement;

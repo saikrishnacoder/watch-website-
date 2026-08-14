@@ -228,17 +228,17 @@ export const site = {
     ],
     gallery: [
       {
-        src: "/media/maison-bench.jpg",
+        src: photos.bench,
         alt: "Watchmaker’s bench in Geneva",
         caption: "The bench",
       },
       {
-        src: "/media/maison-meridian.jpg",
+        src: photos.cinematic,
         alt: "Gold meridian at 12 on a HORLOGE dial",
         caption: "The meridian",
       },
       {
-        src: "/lines/chronograph.jpg",
+        src: photos.ivory,
         alt: "Chronograph One in studio light",
         caption: "The wrist",
       },

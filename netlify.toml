@@ -5,47 +5,15 @@
 [build.environment]
   NODE_VERSION = "22"
 
-[[redirects]]
-  from = "/collection"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/collection/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/chronograph"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/diver"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/imperial"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/meridian"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/maison"
-  to = "/index.html"
-  status = 200
-
+# Privacy is a standalone document. force=true so it is never the SPA shell.
 [[redirects]]
   from = "/privacy"
   to = "/privacy/index.html"
   status = 200
   force = true
 
+# Existing files win (collection/index.html, maison/index.html, journal notes, signature watches).
+# This catch-all is only for client routes that have no stamped HTML (atelier SKUs, craft sheets).
 [[redirects]]
   from = "/*"
   to = "/index.html"

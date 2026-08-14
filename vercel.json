@@ -3,9 +3,10 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [
     {

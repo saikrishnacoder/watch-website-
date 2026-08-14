@@ -1,5 +1,6 @@
 import { crumbsForPath } from "./breadcrumbs";
-import { collectionLines, signatureProducts, site } from "../config/site";
+import { craftDisclaimer, productionCalibres } from "../config/calibres";
+import { collectionLines, getProduct, signatureProducts, site } from "../config/site";
 
 export type RouteNavLink = { href: string; label: string };
 
@@ -330,7 +331,44 @@ export const routeCopy: Record<string, RouteCopy> = {
 
 export function copyForRoute(route: string): RouteCopy {
   const key = route.replace(/^\//, "").replace(/\/$/, "") || "home";
-  return routeCopy[key] ?? {
+  if (routeCopy[key]) return routeCopy[key];
+
+  if (key.startsWith("journal/")) {
+    const article = site.journal.find((item) => item.slug === key.slice("journal/".length));
+    if (article) {
+      return {
+        title: `${article.title} — HORLOGE`,
+        description: article.excerpt,
+        heading: article.title,
+        body: article.excerpt,
+        nav: [
+          { href: `/journal/${article.slug}`, label: article.title },
+          { href: "/journal", label: "All notes" },
+          { href: "/maison", label: "The Maison" },
+        ],
+      };
+    }
+  }
+
+  if (key.startsWith("watch/")) {
+    const slug = key.replace(/^watch\//, "").replace(/\/craft$/, "");
+    const product = getProduct(slug);
+    if (product) {
+      return {
+        title: `${product.name} — HORLOGE`,
+        description: `${product.name}, ${product.reference}. ${product.tagline}`,
+        heading: product.name,
+        body: product.description,
+        nav: [
+          { href: `/watch/${product.slug}`, label: product.name },
+          { href: `/collection/${product.collectionSlug}`, label: product.collection },
+          { href: "/boutique", label: "Private Viewing" },
+        ],
+      };
+    }
+  }
+
+  return {
     ...routeCopy.home,
     title: "Lost time — HORLOGE",
     heading: "Lost time",
@@ -338,6 +376,41 @@ export function copyForRoute(route: string): RouteCopy {
     nav: MAISON_NAV,
   };
 }
+
+export function spaStampRoutes() {
+  const notes = site.journal.map((item) => `journal/${item.slug}`);
+  const watches = signatureProducts().map((item) => `watch/${item.slug}`);
+  return [...SPA_STAMP_BASE, ...notes, ...watches];
+}
+
+export const SPA_STAMP_BASE = [
+  "collection",
+  "collection/heritage",
+  "collection/chronograph",
+  "collection/diver",
+  "collection/imperial",
+  "collection/meridian",
+  "chronograph",
+  "diver",
+  "imperial",
+  "meridian",
+  "maison",
+  "privacy",
+  "finder",
+  "find",
+  "boutique",
+  "contact",
+  "heritage",
+  "atelier",
+  "journal",
+  "services",
+  "checkout",
+  "wishlist",
+  "cabinet",
+  "compose",
+  "compare",
+  "motion",
+] as const;
 
 export function staticPageMarkup(copy: RouteCopy, path: string) {
   const nav = copy.nav
@@ -374,6 +447,21 @@ ${nav}
 }
 
 function uniqueBodyHtml(path: string) {
+  if (path === "/") {
+    const lines = collectionLines
+      .map(
+        (line) =>
+          `          <li><a href="/collection/${escapeHtml(line.slug)}">${escapeHtml(line.name)}</a> — ${escapeHtml(line.tagline)}</li>`,
+      )
+      .join("\n");
+    return `<section aria-label="Five lines">
+          <h2>Five atmospheres. One meridian.</h2>
+          <ul>
+${lines}
+          </ul>
+        </section>`;
+  }
+
   if (path === "/collection") {
     const articles = collectionLines
       .map(
@@ -416,6 +504,12 @@ ${watches}
     const story = site.maisonPage.founding
       .map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`)
       .join("\n");
+    const people = site.people
+      .map(
+        (person) =>
+          `          <article><h3>${escapeHtml(person.name)}</h3><p>${escapeHtml(person.role)}. ${escapeHtml(person.note)}</p></article>`,
+      )
+      .join("\n");
     return `<article aria-label="Founding">
           <h2>Composed, not assembled.</h2>
 ${story}
@@ -423,6 +517,122 @@ ${story}
           <p>${escapeHtml(site.maisonPage.independence.body)}</p>
           <h2>${escapeHtml(site.maisonPage.craft.title)}</h2>
           <p>${escapeHtml(site.maisonPage.craft.body)}</p>
+        </article>
+        <section aria-label="The bench">
+          <h2>Three pairs of hands.</h2>
+${people}
+        </section>`;
+  }
+
+  if (path === "/atelier") {
+    const chapters = site.atelier.chapters
+      .map(
+        (chapter) =>
+          `          <article><h3>${escapeHtml(chapter.title)}</h3><p>${escapeHtml(chapter.body)}</p></article>`,
+      )
+      .join("\n");
+    const calibres = productionCalibres
+      .map(
+        (item) =>
+          `          <article><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.line)}. ${escapeHtml(item.winding)}. ${escapeHtml(item.note)}</p></article>`,
+      )
+      .join("\n");
+    return `<p>${escapeHtml(site.atelier.intro)}</p>
+        <section aria-label="On the bench">
+${chapters}
+        </section>
+        <section aria-label="Production calibres">
+          <h2>Five production calibres</h2>
+${calibres}
+          <p>${escapeHtml(craftDisclaimer)}</p>
+        </section>`;
+  }
+
+  if (path === "/journal") {
+    const notes = site.journal
+      .map(
+        (item) => `          <article>
+            <h2><a href="/journal/${escapeHtml(item.slug)}">${escapeHtml(item.title)}</a></h2>
+            <p>${escapeHtml(item.category)} · ${escapeHtml(item.date)}</p>
+            <p>${escapeHtml(item.excerpt)}</p>
+          </article>`,
+      )
+      .join("\n");
+    return `<section aria-label="Notes">
+${notes}
+        </section>`;
+  }
+
+  if (path.startsWith("/journal/")) {
+    const article = site.journal.find((item) => item.slug === path.slice("/journal/".length));
+    if (!article) return "";
+    const paragraphs = article.body.map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`).join("\n");
+    return `<article>
+          <p>${escapeHtml(article.category)} · ${escapeHtml(article.date)}</p>
+${paragraphs}
+        </article>`;
+  }
+
+  if (path === "/heritage") {
+    const years = site.heritage
+      .map(
+        (item) =>
+          `          <article><h2>${escapeHtml(item.year)} · ${escapeHtml(item.title)}</h2><p>${escapeHtml(item.body)}</p></article>`,
+      )
+      .join("\n");
+    return `<section aria-label="A century">
+${years}
+        </section>`;
+  }
+
+  if (path === "/boutique") {
+    const houses = site.boutiques
+      .map(
+        (house) =>
+          `          <article><h3>${escapeHtml(house.city)}</h3><p>${escapeHtml(house.address)}</p><p>${escapeHtml(house.hours)}</p><p>${escapeHtml(house.phone)}</p></article>`,
+      )
+      .join("\n");
+    return `<section aria-label="Maisons">
+          <p>Five maisons. A tray, the papers, and an hour. We do not sell across a counter if the wrist has not met the watch.</p>
+${houses}
+        </section>`;
+  }
+
+  if (path === "/contact") {
+    const houses = site.boutiques
+      .map(
+        (house) =>
+          `          <article><h3>${escapeHtml(house.city)}</h3><p>${escapeHtml(house.address)} · ${escapeHtml(house.phone)}</p></article>`,
+      )
+      .join("\n");
+    return `<section aria-label="Specialist">
+          <p>Ask a specialist, or leave a note for the maison. There is no generic inbox.</p>
+${houses}
+        </section>`;
+  }
+
+  if (path === "/services") {
+    const items = site.services
+      .map(
+        (item) =>
+          `          <article><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.duration)}. ${escapeHtml(item.body)}</p></article>`,
+      )
+      .join("\n");
+    return `<section aria-label="Care">
+${items}
+        </section>`;
+  }
+
+  if (path.startsWith("/watch/")) {
+    const slug = path.replace(/^\/watch\//, "").replace(/\/craft$/, "");
+    const product = getProduct(slug);
+    if (!product) return "";
+    return `<article>
+          <p>${escapeHtml(product.collection)} · ${escapeHtml(product.reference)}</p>
+          <p>${escapeHtml(product.tagline)}</p>
+          <p>${product.diameter} mm · ${escapeHtml(product.material)} · ${product.waterResistance} m · ${escapeHtml(product.movement)}</p>
+          <p>${escapeHtml(product.description)}</p>
+          <p><a href="/collection/${escapeHtml(product.collectionSlug)}">${escapeHtml(product.collection)} collection</a></p>
         </article>`;
   }
 

@@ -42,7 +42,7 @@ export function Home() {
         <div className="section-head">
           <div>
             <div className="eyebrow">Journal</div>
-            <h2 className="display">Four notes from the maison.</h2>
+            <h2 className="display">From the journal.</h2>
           </div>
           <Link className="section-link" to="/journal">
             The Journal

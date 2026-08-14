@@ -97,82 +97,26 @@ export function Maison() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Five lines</div>
-            <h2 className="display">One meridian.</h2>
-          </div>
-          <Link className="section-link" to="/collection">
-            The Collection
+      <section className="section maison-continue">
+        <div className="eyebrow">Continue</div>
+        <h2 className="display">The rest of the maison lives on its own pages.</h2>
+        <div className="maison-continue-grid">
+          <Link to="/collection">
+            <strong>The Collection</strong>
+            <span>Five lines. Essays and signatures, not a homepage strip.</span>
           </Link>
-        </div>
-        <div className="line-tiles">
-          {site.collectionLines.map((line) => (
-            <Link key={line.slug} to={`/collection/${line.slug}`} className="line-tile">
-              <img src={line.image} alt="" />
-              <div>
-                <strong>{line.name}</strong>
-                <span>{line.tagline}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Maisons</div>
-            <h2 className="display">Come closer to the work.</h2>
-          </div>
-          <Link className="section-link" to="/boutique">
-            Book a viewing
+          <Link to="/atelier">
+            <strong>Craft</strong>
+            <span>The exploded calibre and the loupe — opened only here.</span>
           </Link>
-        </div>
-        <div className="boutique-grid">
-          {site.boutiques.map((house) => (
-            <Link key={house.city} to="/boutique" className="boutique-card">
-              <h3>{house.city}</h3>
-              <p>{house.address}</p>
-              <p>{house.hours}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Journal</div>
-            <h2 className="display">Notes from the bench.</h2>
-          </div>
-          <Link className="section-link" to="/journal">
-            All stories
+          <Link to="/journal">
+            <strong>Journal</strong>
+            <span>Four notes from the bench, at full length.</span>
           </Link>
-        </div>
-        <div className="journal-grid">
-          {site.journal.map((article) => (
-            <Link key={article.slug} to={`/journal/${article.slug}`} className="journal-card">
-              <img src={article.image} alt="" />
-              <div>
-                <div className="product-line">
-                  {article.category} · {article.date}
-                </div>
-                <h3>{article.title}</h3>
-                <p>{article.excerpt}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="hero-actions">
-          <MagneticButton to="/collection">See the collection</MagneticButton>
-          <MagneticButton variant="ghost" to="/heritage">
-            Heritage timeline
-          </MagneticButton>
+          <Link to="/boutique">
+            <strong>Private Viewing</strong>
+            <span>Five maisons, a tray, an hour.</span>
+          </Link>
         </div>
       </section>
     </div>

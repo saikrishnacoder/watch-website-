@@ -600,8 +600,10 @@ export const journal = [
     image: photos.cinematic,
     body: [
       "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
-      "The stroke is not applied after the watch is finished. It is the first decision. From that vertical, the chapter ring, the hands, the case, and the movement are composed outward.",
-      "You will find it on Heritage enamel and on a Diver. If it is missing, it is not ours.",
+      "The stroke is not applied after the watch is finished. It is the last act on the dial, and the first decision in the design. From that vertical, the chapter ring, the hands, the case, and the movement are composed outward.",
+      "Gold, not printed ink. A line that will still read when the enamel has been lived with, when the first owner is not the last. Six would have been easier. Twelve is the hour a city names.",
+      "You will find it on Heritage enamel and on a Diver 500. Depth does not excuse a missing mark. If it is absent, the watch is not ours.",
+      "This note is not a manifesto for a logo. It is a workshop habit, written down so the next pair of hands knows where to begin.",
     ],
   },
   {
@@ -615,7 +617,9 @@ export const journal = [
     body: [
       "The atelier is not a factory. Cases are finished by hand. Movements are regulated individually, not by batch. This is slower than industrial watchmaking — deliberately so.",
       "Grand feu enamel is unforgiving. About four in ten dials crack in the kiln. The rest become Heritage. Dust, a draught, a slightly thick pour — any of these can ruin a day of work.",
-      "We do not outsource this. The kiln sits eight metres from the casing bench, on purpose.",
+      "We do not outsource this. The kiln sits eight metres from the casing bench, on purpose. Heat and casing should share a room, so a cracked dial never travels as if it were finished.",
+      "A watch leaves those benches through fewer than twelve pairs of hands. One watchmaker owns it from casing to final timing. Their punch mark sits inside the caseback — ours, and theirs.",
+      "The exploded drawing on the Craft page is a teaching calibre, HO-01. Wrist watches use H-08, H-72, H-90, H-12 and H-24. Do not confuse the study with the movement that leaves Geneva.",
     ],
   },
   {
@@ -627,9 +631,11 @@ export const journal = [
       "Case, crystal, dial, hands, movement. Opened in that order, then returned to silence. A short anatomy of how a HORLOGE is composed.",
     image: photos.movement,
     body: [
-      "A mechanical watch is a small architecture. The case holds the volume. The crystal admits light. The dial carries the meridian. The hands spend the hours. The movement is the reason any of it is true.",
-      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct mechanical events — not like pressing a plastic shutter.",
-      "Wrist watches use H-08, H-72, H-90, H-12 and H-24. HO-01, drawn on this site, is a teaching calibre — a concept architecture, not a production specification.",
+      "A mechanical watch is a small architecture. Opened in this order: case, crystal, dial, hands, movement — then returned to silence. The case holds the volume. The crystal admits light. The dial carries the meridian. The hands spend the hours. The movement is the reason any of it is true.",
+      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct mechanical events — not like pressing a plastic shutter. Chronograph One still uses that architecture.",
+      "Heritage keeps H-08 extra-thin. Diver keeps H-90, finished like a dress calibre even when the water is black. Imperial keeps H-12 for cases that will be refinished. Meridian keeps H-24 so a second hour can sit beside the gold stroke at 12.",
+      "HO-01, drawn on the Craft page, is a teaching calibre — a concept architecture, not a production specification. Figures on a product sheet belong to the watch on the wrist.",
+      "If you only remember one sequence: compose the meridian last on the dial, first in the design. Everything else is furniture around that line.",
     ],
   },
   {
@@ -641,9 +647,11 @@ export const journal = [
       "Founded in Geneva in 1924. Still independent. No conglomerate owns our movements, our case designs, or our name.",
     image: photos.gold,
     body: [
-      "Horloge was founded in Geneva in 1924 by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled.",
-      "We remain an independent maison. Each collection is developed in-house, in the same workshop the Maison has occupied since its founding.",
-      "One hundred years on, the line at twelve has not moved. Everything else has been composed around it.",
+      "The first bench sat on the Rue du Rhône, a room that still holds the same northern light. A lathe, a loupe, and the patience to treat the hour as a sentence.",
+      "We remain an independent maison. No conglomerate owns our movements, our case designs, or our name. Each collection is developed in-house, in the same workshop the maison has occupied since 1924.",
+      "Quartz arrived. We stayed mechanical. Regulation in five positions became a rule, not a brochure line. After-sales was written as a duty: a piece leaves Geneva once, and comes back for oil.",
+      "Independence is not a mood. It is who may refuse a batch, who may scrap a dial, who may take fourteen days to agree with a rate. Those decisions stay in Geneva.",
+      "The century is not a slogan on the Maison page. It is the same gold stroke, drawn last, on watches that will be refinished by owners we will not meet.",
     ],
   },
 ];

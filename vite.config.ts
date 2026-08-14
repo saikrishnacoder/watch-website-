@@ -5,37 +5,8 @@ import react from "@vitejs/plugin-react";
 import netlify from "@netlify/vite-plugin";
 import { brandedNotFoundHtml } from "./src/lib/not-found-html";
 import { brandedPrivacyHtml } from "./src/lib/privacy-html";
-import { copyForRoute, staticPageMarkup } from "./src/lib/route-static";
+import { copyForRoute, spaStampRoutes, staticPageMarkup } from "./src/lib/route-static";
 import { socialMetaMarkup } from "./src/lib/social";
-
-const SPA_ROUTES = [
-  "collection",
-  "collection/heritage",
-  "collection/chronograph",
-  "collection/diver",
-  "collection/imperial",
-  "collection/meridian",
-  "chronograph",
-  "diver",
-  "imperial",
-  "meridian",
-  "maison",
-  "privacy",
-  "finder",
-  "find",
-  "boutique",
-  "contact",
-  "heritage",
-  "atelier",
-  "journal",
-  "services",
-  "checkout",
-  "wishlist",
-  "cabinet",
-  "compose",
-  "compare",
-  "motion",
-];
 
 function writeHtml(file: string, html: string) {
   fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -73,7 +44,7 @@ function spaFallbackPages(): Plugin {
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
       writeHtml(index, stampRoute(html, "home"));
-      for (const route of SPA_ROUTES) {
+      for (const route of spaStampRoutes()) {
         const page = route === "privacy" ? brandedPrivacyHtml(html) : stampRoute(html, route);
         writeHtml(path.join(dist, `${route}.html`), page);
         writeHtml(path.join(dist, route, "index.html"), page);
