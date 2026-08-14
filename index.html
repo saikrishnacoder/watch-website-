@@ -16,6 +16,23 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script>
+      (function () {
+        var path = location.pathname.replace(/\/+$/, "") || "/";
+        if (/\/index\.html$/i.test(path)) path = path.replace(/\/index\.html$/i, "") || "/";
+        else if (/\.html$/i.test(path)) path = path.replace(/\.html$/i, "");
+        var aliases = {
+          "/chronograph": "/collection/chronograph",
+          "/diver": "/collection/diver",
+          "/imperial": "/collection/imperial",
+          "/meridian": "/collection/meridian",
+        };
+        if (aliases[path]) path = aliases[path];
+        if (path && path !== "/" && !location.hash) {
+          location.replace("/#" + path + location.search);
+        }
+      })();
+    </script>
   </head>
   <body>
     <form name="newsletter" netlify netlify-honeypot="bot-field" hidden>

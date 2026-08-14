@@ -150,7 +150,7 @@ function BootSequence() {
   const booted = useRef(false);
   const [intro, setIntro] = useState(() => {
     if (typeof window === "undefined") return false;
-    return window.location.pathname === "/" && sessionStorage.getItem(INTRO_KEY) !== "done";
+    return sessionStorage.getItem(INTRO_KEY) !== "done";
   });
 
   const dismiss = useCallback((reason: "skip" | "complete") => {

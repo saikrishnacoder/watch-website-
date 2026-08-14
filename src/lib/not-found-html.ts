@@ -184,14 +184,22 @@ export function brandedNotFoundHtml(indexHtml: string): string {
     <div id="root"></div>
     <script>
       (function () {
+        var path = location.pathname.replace(/\\/+$/, "") || "/";
+        if (/\\/index\\.html$/i.test(path)) path = path.replace(/\\/index\\.html$/i, "") || "/";
+        else if (/\\.html$/i.test(path)) path = path.replace(/\\.html$/i, "");
+        var aliases = { "/chronograph": "/collection/chronograph", "/diver": "/collection/diver", "/imperial": "/collection/imperial", "/meridian": "/collection/meridian" };
+        if (aliases[path]) path = aliases[path];
+        if (path && path !== "/" && !location.hash) {
+          location.replace("/#" + path + location.search);
+          return;
+        }
         var shell = document.getElementById("lost-shell");
         var root = document.getElementById("root");
-        var p = location.pathname.replace(/\\/+$/, "") || "/";
-        var known = /^\\/(collection|maison|privacy|watch|finder|find|boutique|heritage|atelier|journal|services|checkout|wishlist|compare|motion|chronograph|diver|imperial|meridian)(\\/|$)/.test(p);
+        var known = /^\\/(collection|maison|privacy|watch|finder|find|boutique|heritage|atelier|journal|services|checkout|wishlist|compare|motion|chronograph|diver|imperial|meridian)(\\/|$)/.test(path);
         function hide() {
           if (shell) shell.hidden = true;
         }
-        if (known) hide();
+        if (known || (location.hash && location.hash !== "#/" && location.hash !== "#")) hide();
         if (root && window.MutationObserver) {
           new MutationObserver(function () {
             if (root.childNodes.length) hide();

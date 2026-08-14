@@ -1336,15 +1336,34 @@ img {
   font-weight: 500;
 }
 
+.nav.is-open {
+  z-index: 48;
+  transform: none;
+}
+
 .mobile-menu {
   position: fixed;
   inset: 0;
   z-index: 45;
   background: var(--bg);
-  padding: 120px 8%;
+  padding: 120px 8% 48px;
   display: flex;
   flex-direction: column;
   gap: 22px;
+  overflow-y: auto;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: calc(var(--nav-h) + 36px);
+  right: 8%;
+  background: none;
+  border: 0;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 11px;
+  cursor: pointer;
 }
 
 .mobile-menu a {
@@ -2316,8 +2335,6 @@ a.icon-btn {
   margin: 8px 0 28px;
   font-size: 15px;
   font-weight: 300;
-  display: block;
-  overflow-x: auto;
 }
 
 .privacy-table th,

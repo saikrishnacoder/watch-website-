@@ -30,6 +30,13 @@ export function Navbar() {
   }, [location.pathname, setMenuOpen]);
 
   useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     let last = 0;
     const onScroll = () => {
       const y = window.scrollY;
@@ -71,7 +78,7 @@ export function Navbar() {
         </div>
       </div>
       <header
-        className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""}`}
+        className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""} ${menuOpen ? "is-open" : ""}`}
         onMouseLeave={() => setMega(false)}
       >
         <BrandMark />
@@ -106,7 +113,13 @@ export function Navbar() {
             <BagIcon />
             {count > 0 && <span className="cart-count">{count}</span>}
           </button>
-          <button className="burger" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)}>
+          <button
+            className="burger"
+            aria-label={menuOpen ? "Close menu" : "Menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             <span />
             <span />
             <span />
@@ -138,7 +151,10 @@ export function Navbar() {
         )}
       </header>
       {menuOpen && (
-        <nav className="mobile-menu">
+        <nav className="mobile-menu" id="mobile-menu">
+          <button type="button" className="mobile-menu-close" onClick={() => setMenuOpen(false)}>
+            Close
+          </button>
           <NavLink to="/" onClick={() => setMenuOpen(false)}>
             Home
           </NavLink>
@@ -170,6 +186,12 @@ export function Navbar() {
           </NavLink>
           <NavLink to="/boutique" onClick={() => setMenuOpen(false)}>
             Boutiques
+          </NavLink>
+          <NavLink to="/checkout" onClick={() => setMenuOpen(false)}>
+            Checkout preview
+          </NavLink>
+          <NavLink to="/privacy" onClick={() => setMenuOpen(false)}>
+            Privacy
           </NavLink>
           <CurrencySwitch compact />
           <button type="button" className="motion-toggle" onClick={toggleTheme}>
