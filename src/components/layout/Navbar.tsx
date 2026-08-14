@@ -145,6 +145,9 @@ export function Navbar() {
               <NavLink to="/journal">Journal</NavLink>
               <NavLink to="/maison">The maison</NavLink>
               <NavLink to="/heritage">Heritage</NavLink>
+              <NavLink to="/atelier">Atelier</NavLink>
+              <NavLink to="/compose">Composer</NavLink>
+              <NavLink to="/cabinet">Cabinet</NavLink>
               <NavLink to="/motion">Kinetic atelier</NavLink>
             </div>
           </div>
@@ -183,6 +186,12 @@ export function Navbar() {
           </NavLink>
           <NavLink to="/services" onClick={() => setMenuOpen(false)}>
             Services
+          </NavLink>
+          <NavLink to="/cabinet" onClick={() => setMenuOpen(false)}>
+            Cabinet
+          </NavLink>
+          <NavLink to="/compose" onClick={() => setMenuOpen(false)}>
+            Composer
           </NavLink>
           <NavLink to="/boutique" onClick={() => setMenuOpen(false)}>
             Boutiques

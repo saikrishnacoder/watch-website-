@@ -27,6 +27,8 @@ const SPA_ROUTES = [
   "services",
   "checkout",
   "wishlist",
+  "cabinet",
+  "compose",
   "compare",
   "motion",
 ];
@@ -54,6 +56,8 @@ const PAGE_TITLES: Record<string, string> = {
   journal: "Journal — HORLOGE",
   services: "Services — HORLOGE",
   wishlist: "Wishlist — HORLOGE",
+  cabinet: "Cabinet — HORLOGE",
+  compose: "Composer — HORLOGE",
   compare: "Compare — HORLOGE",
   motion: "Kinetic atelier — HORLOGE",
 };

@@ -9,6 +9,7 @@ export function Boutique() {
   const [status, setStatus] = useState("");
   const [params] = useSearchParams();
   const requested = getProduct(params.get("watch") ?? "");
+  const composition = params.get("compose");
   const [card, setCard] = useState<{ name: string; boutique: string; date: string; watch: string } | null>(null);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -110,7 +111,9 @@ export function Boutique() {
                   defaultValue={
                     requested
                       ? `I would like to see ${requested.name} (${requested.reference}).`
-                      : ""
+                      : composition
+                        ? `I would like to discuss study composition ${composition}. It is a preview, not a catalogue SKU.`
+                        : ""
                   }
                   placeholder="Which timepiece would you like to see?"
                 />

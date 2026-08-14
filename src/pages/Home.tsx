@@ -3,7 +3,7 @@ import { signatureProducts, site } from "../config/site";
 import { Customizer } from "../components/sections/Customizer";
 import { Features } from "../components/sections/Features";
 import { Hero } from "../components/sections/Hero";
-import { HeritageTeaser } from "../components/sections/HeritageTeaser";
+import { HeritageTimeline } from "../components/sections/HeritageTimeline";
 import { HorizontalLines } from "../components/sections/HorizontalLines";
 import { Identity } from "../components/sections/Identity";
 import { Limited } from "../components/sections/Limited";
@@ -15,6 +15,7 @@ import { Story } from "../components/sections/Story";
 import { Testimonials } from "../components/sections/Testimonials";
 import { KineticGallery } from "../components/motion/KineticGallery";
 import { WatchStudio } from "../components/motion/WatchStudio";
+import { CraftLoupe } from "../components/motion/CraftLoupe";
 import { ExplodedCalibre } from "../components/motion/ExplodedCalibre";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Reveal } from "../components/ui/Reveal";
@@ -45,7 +46,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section inspect-home">
+      <section className="section inspect-home" data-meridian="volume" data-meridian-label="Volume">
         <div className="section-head">
           <div>
             <div className="eyebrow">Volume</div>
@@ -62,10 +63,14 @@ export function Home() {
       </section>
 
       <ExplodedCalibre />
+      <CraftLoupe />
 
       <Identity />
       <HorizontalLines />
-      <HeritageTeaser />
+      <HeritageTimeline
+        compact
+        chapters={site.heritage.filter((chapter) => ["1924", "1998", "2024", "2026"].includes(chapter.year))}
+      />
 
       <Stats />
       <Features />

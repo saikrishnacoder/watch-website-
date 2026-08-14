@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { site } from "../config/site";
 import { Monogram } from "../components/brand/Monogram";
+import { HeritageTimeline } from "../components/sections/HeritageTimeline";
 import { Identity } from "../components/sections/Identity";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
@@ -8,7 +9,7 @@ import { Reveal } from "../components/ui/Reveal";
 export function Maison() {
   return (
     <div className="page">
-      <section className="maison-hero-still">
+      <section className="maison-hero-still" data-meridian="origin" data-meridian-label="Origin">
         <img src="/media/maison-meridian.jpg" alt="The gold meridian at 12 on a HORLOGE dial" />
         <div className="maison-hero-copy">
           <Monogram size={72} />
@@ -61,6 +62,7 @@ export function Maison() {
       </section>
 
       <Identity showCrest={false} />
+      <HeritageTimeline compact />
 
       <section className="section">
         <div className="section-head">

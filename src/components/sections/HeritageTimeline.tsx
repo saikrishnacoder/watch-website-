@@ -4,9 +4,14 @@ import { Link } from "react-router-dom";
 import { site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 
-export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
+export function HeritageTimeline({
+  compact = false,
+  chapters = site.heritage,
+}: {
+  compact?: boolean;
+  chapters?: typeof site.heritage;
+}) {
   const { reduceMotion, canParallax } = useMotion();
-  const chapters = site.heritage;
   const trackRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -16,7 +21,7 @@ export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
 
   if (reduceMotion || !canParallax) {
     return (
-      <section className="section heritage-static">
+      <section className="section heritage-static" data-meridian="heritage" data-meridian-label="Heritage">
         <div className="section-head">
           <div>
             <div className="eyebrow">Heritage</div>
@@ -43,7 +48,7 @@ export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
     );
   }
 
-  const height = `${chapters.length * 100}vh`;
+  const height = `${chapters.length * (compact ? 72 : 100)}vh`;
 
   return (
     <section
@@ -51,6 +56,8 @@ export function HeritageTimeline({ compact = false }: { compact?: boolean }) {
       className={`heritage-track ${compact ? "is-compact" : ""}`}
       style={{ height }}
       aria-label="Maison heritage timeline"
+      data-meridian="heritage"
+      data-meridian-label="Heritage"
     >
       <div className="heritage-sticky">
         {chapters.map((chapter, i) => (

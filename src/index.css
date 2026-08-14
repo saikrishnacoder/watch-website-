@@ -3334,6 +3334,126 @@ a.icon-btn {
   }
 }
 
+.loupe-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.loupe-bench {
+  position: relative;
+  overflow: hidden;
+  background: #12100e;
+  cursor: none;
+}
+
+.loupe-plate {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.loupe-rake {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.loupe-spot {
+  position: absolute;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: rgba(7, 6, 5, 0.72);
+  color: var(--gold);
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.loupe-spot.is-on {
+  background: var(--gold);
+  color: #070605;
+}
+
+.loupe-glass {
+  position: absolute;
+  z-index: 3;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  border: 8px solid #c9a86c;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.loupe-zoom {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.loupe-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.loupe-legend button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 8px 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.loupe-legend button.is-on {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.cabinet-list,
+.cabinet-compose-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  padding: 0;
+}
+
+.cabinet-card {
+  border: 1px solid var(--line);
+  padding: 24px;
+  background: var(--bg-elevated);
+}
+
+.cabinet-card svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  .loupe-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .loupe-bench {
+    cursor: crosshair;
+  }
+}
+
 @media (max-width: 1024px) {
   .heritage-years {
     grid-template-columns: 1fr 1fr;
@@ -3884,6 +4004,81 @@ a.icon-btn {
   margin: 8px 0 12px;
 }
 
+.concierge-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.concierge-tabs button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.concierge-tabs button.is-on {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.concierge-ask {
+  max-height: min(52vh, 420px);
+  overflow: auto;
+}
+
+.concierge-log {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.concierge-turn {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.concierge-turn.is-you p {
+  color: var(--ink);
+}
+
+.concierge-turn span {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.concierge-turn a {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 6px;
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.concierge-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.concierge-suggestions button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
 .concierge-panel p,
 .concierge-panel .section-link {
   color: var(--muted);
@@ -4111,21 +4306,61 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
 
 .meridian-rail {
   position: fixed;
-  left: max(16px, calc(5vw - 18px));
+  left: max(12px, calc(5vw - 22px));
   top: 0;
   height: 100vh;
-  width: 1px;
+  width: 16px;
   z-index: 34;
   pointer-events: none;
-  background: color-mix(in srgb, var(--gold) 22%, transparent);
 }
 
 .meridian-rail i {
   display: block;
+  position: absolute;
+  left: 7px;
   width: 1px;
   height: 100%;
   background: var(--gold);
   transform-origin: top center;
+}
+
+.meridian-rail::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: color-mix(in srgb, var(--gold) 22%, transparent);
+}
+
+.meridian-ticks {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.meridian-ticks li {
+  position: absolute;
+  left: 2px;
+  transform: translateY(-50%);
+}
+
+.meridian-ticks button {
+  pointer-events: auto;
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.meridian-ticks button.is-on {
+  background: var(--gold);
 }
 
 .watch-meridian {

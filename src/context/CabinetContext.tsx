@@ -1,14 +1,27 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { Composition } from "../lib/composition";
 
 const KEY = "horloge-cabinet";
+
+export type RegisteredPiece = {
+  id: string;
+  reference: string;
+  serial: string;
+  owner: string;
+  registeredAt: string;
+};
+
+export type SavedComposition = Composition & { savedAt: string };
 
 type Cabinet = {
   wish: string[];
   compare: string[];
   recent: string[];
+  pieces: RegisteredPiece[];
+  compositions: SavedComposition[];
 };
 
-const empty: Cabinet = { wish: [], compare: [], recent: [] };
+const empty: Cabinet = { wish: [], compare: [], recent: [], pieces: [], compositions: [] };
 
 type CabinetContextValue = Cabinet & {
   toggleWish: (slug: string) => void;
@@ -17,6 +30,10 @@ type CabinetContextValue = Cabinet & {
   remember: (slug: string) => void;
   wished: (slug: string) => boolean;
   compared: (slug: string) => boolean;
+  registerPiece: (piece: Omit<RegisteredPiece, "id" | "registeredAt">) => void;
+  removePiece: (id: string) => void;
+  saveComposition: (composition: Composition) => void;
+  removeComposition: (savedAt: string) => void;
 };
 
 const CabinetContext = createContext<CabinetContextValue | null>(null);
@@ -24,7 +41,14 @@ const CabinetContext = createContext<CabinetContextValue | null>(null);
 function read(): Cabinet {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? { ...empty, ...JSON.parse(raw) } : empty;
+    if (!raw) return empty;
+    const parsed = JSON.parse(raw) as Partial<Cabinet>;
+    return {
+      ...empty,
+      ...parsed,
+      pieces: parsed.pieces ?? [],
+      compositions: parsed.compositions ?? [],
+    };
   } catch {
     return empty;
   }
@@ -73,6 +97,30 @@ export function CabinetProvider({ children }: { children: ReactNode }) {
         }),
       wished: (slug) => state.wish.includes(slug),
       compared: (slug) => state.compare.includes(slug),
+      registerPiece: (piece) =>
+        setState((current) => ({
+          ...current,
+          pieces: [
+            {
+              ...piece,
+              id: `${piece.reference}-${piece.serial}-${Date.now()}`,
+              registeredAt: new Date().toISOString(),
+            },
+            ...current.pieces,
+          ].slice(0, 24),
+        })),
+      removePiece: (id) =>
+        setState((current) => ({ ...current, pieces: current.pieces.filter((item) => item.id !== id) })),
+      saveComposition: (composition) =>
+        setState((current) => ({
+          ...current,
+          compositions: [{ ...composition, savedAt: new Date().toISOString() }, ...current.compositions].slice(0, 12),
+        })),
+      removeComposition: (savedAt) =>
+        setState((current) => ({
+          ...current,
+          compositions: current.compositions.filter((item) => item.savedAt !== savedAt),
+        })),
     }),
     [state],
   );

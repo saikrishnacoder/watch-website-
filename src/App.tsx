@@ -26,10 +26,12 @@ import { track } from "./lib/analytics";
 import { documentTitle } from "./lib/titles";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
+import { Cabinet } from "./pages/Cabinet";
 import { Checkout } from "./pages/Checkout";
 import { Collection } from "./pages/Collection";
 import { CollectionFamily } from "./pages/CollectionFamily";
 import { Compare } from "./pages/Compare";
+import { Compose } from "./pages/Compose";
 import { FindWatch } from "./pages/FindWatch";
 import { Heritage } from "./pages/Heritage";
 import { Home } from "./pages/Home";
@@ -118,6 +120,8 @@ function AppShell() {
                   <Route path="/checkout" element={<Checkout />} />
                   <Route path="/compare" element={<Compare />} />
                   <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/cabinet" element={<Cabinet />} />
+                  <Route path="/compose" element={<Compose />} />
                   <Route path="/journal" element={<Journal />} />
                   <Route path="/journal/:slug" element={<JournalArticle />} />
                   <Route path="/services" element={<Services />} />

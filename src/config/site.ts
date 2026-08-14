@@ -21,7 +21,7 @@ import { extraProducts } from "./products-extra";
 import { atelierProducts } from "./generate-catalogue";
 import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
 import { DEFAULT_CURRENCY, formatMoney } from "./money";
-import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
+import type { BezelStyle, CaseMetal, HandStyle, MarkerStyle, Product, StrapStyle } from "./types";
 
 export { collectionLines, journal, photos, quiz, services };
 export const products = [...coreProducts, ...extraProducts, ...atelierProducts];
@@ -306,7 +306,7 @@ export const site = {
   customizer: {
     eyebrow: "Compose yours",
     title: "A watch, in your register.",
-    body: "Case, dial, markers and strap — preview a HORLOGE made to your eye. The atelier will confirm availability within two days.",
+    body: "Case, dial, markers, hands, bezel and strap — a study composition, not a stock-keeping unit. The atelier will say whether it can be made.",
     cases: [
       { id: "steel", label: "Steel" },
       { id: "gold", label: "Yellow gold" },
@@ -326,6 +326,17 @@ export const site = {
       { id: "arabic", label: "Arabic" },
       { id: "dots", label: "Dots" },
     ] as { id: MarkerStyle; label: string }[],
+    hands: [
+      { id: "dauphine", label: "Dauphine" },
+      { id: "sword", label: "Sword" },
+      { id: "sport", label: "Sport" },
+    ] as { id: HandStyle; label: string }[],
+    bezels: [
+      { id: "none", label: "Smooth" },
+      { id: "fluted", label: "Fluted" },
+      { id: "tachymeter", label: "Tachymeter" },
+      { id: "ceramic", label: "Ceramic" },
+    ] as { id: BezelStyle; label: string }[],
     straps: [
       { id: "leather", label: "Alligator", color: "#2a1f18" },
       { id: "bracelet", label: "Bracelet", color: "#c5c7ca" },
@@ -459,6 +470,8 @@ export const site = {
         links: [
           { label: "Appointments", href: "/boutique" },
           { label: "Warranty", href: "/services" },
+          { label: "Cabinet", href: "/cabinet" },
+          { label: "Composer", href: "/compose" },
           { label: "Wishlist", href: "/wishlist" },
           { label: "Privacy", href: "/privacy" },
         ],

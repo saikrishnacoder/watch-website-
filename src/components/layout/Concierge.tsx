@@ -1,12 +1,20 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getProduct, site } from "../../config/site";
+import { briefFromCatalogue, catalogueContext, conciergeSuggestions } from "../../lib/horology-brief";
 import { MagneticButton } from "../ui/MagneticButton";
+
+type Tab = "ask" | "write";
+type ChatTurn = { role: "you" | "maison"; text: string; source?: "catalogue" | "model"; links?: { label: string; href: string }[] };
 
 export function Concierge() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
+  const [tab, setTab] = useState<Tab>("ask");
   const [status, setStatus] = useState("");
+  const [question, setQuestion] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [chat, setChat] = useState<ChatTurn[]>([]);
   const slug = location.pathname.startsWith("/watch/") ? location.pathname.split("/")[2] : "";
   const watching = slug ? getProduct(slug) : undefined;
 
@@ -30,6 +38,37 @@ export function Concierge() {
     form.reset();
   };
 
+  const ask = async (text: string) => {
+    const q = text.trim();
+    if (!q || busy) return;
+    setBusy(true);
+    setQuestion("");
+    setChat((current) => [...current, { role: "you", text: q }]);
+    const local = briefFromCatalogue(q, watching);
+    try {
+      const response = await fetch("/api/concierge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q, context: catalogueContext(watching) }),
+      });
+      if (response.ok) {
+        const data = (await response.json()) as { answer?: string };
+        if (data.answer) {
+          setChat((current) => [
+            ...current,
+            { role: "maison", text: data.answer ?? "", source: "model", links: local.links },
+          ]);
+          setBusy(false);
+          return;
+        }
+      }
+    } catch {
+      /* catalogue brief is the public fallback */
+    }
+    setChat((current) => [...current, { role: "maison", text: local.answer, source: "catalogue", links: local.links }]);
+    setBusy(false);
+  };
+
   return (
     <>
       <button
@@ -45,11 +84,60 @@ export function Concierge() {
         <aside id="concierge-panel" className="concierge-panel" role="dialog" aria-labelledby="concierge-title">
           <div className="eyebrow">Client advisor</div>
           <h2 id="concierge-title">A quiet word.</h2>
-          <p>
-            Availability, a second strap, or an hour in Geneva — a maison advisor, not a queue.
-            {watching ? ` You are looking at ${watching.name}.` : ""}
-          </p>
-          {status ? (
+          <div className="concierge-tabs">
+            <button type="button" className={tab === "ask" ? "is-on" : ""} onClick={() => setTab("ask")}>
+              Ask
+            </button>
+            <button type="button" className={tab === "write" ? "is-on" : ""} onClick={() => setTab("write")}>
+              Write
+            </button>
+          </div>
+          {tab === "ask" ? (
+            <div className="concierge-ask">
+              <p>
+                A brief from the catalogue
+                {watching ? ` — you are looking at ${watching.name}` : ""}. If an atelier model is available it will
+                answer; otherwise this page reads the maison itself.
+              </p>
+              <div className="concierge-log">
+                {chat.map((turn, index) => (
+                  <div key={`${turn.role}-${index}`} className={`concierge-turn is-${turn.role}`}>
+                    <p>{turn.text}</p>
+                    {turn.source === "catalogue" ? <span>Catalogue brief</span> : null}
+                    {turn.source === "model" ? <span>Atelier model</span> : null}
+                    {turn.links?.map((link) => (
+                      <Link key={link.href} to={link.href} onClick={() => setOpen(false)}>
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div className="concierge-suggestions">
+                {conciergeSuggestions.map((item) => (
+                  <button key={item} type="button" onClick={() => void ask(item)}>
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  void ask(question);
+                }}
+              >
+                <label className="field">
+                  <span>Ask</span>
+                  <input
+                    value={question}
+                    onChange={(event) => setQuestion(event.target.value)}
+                    placeholder="The meridian, a line, a boutique…"
+                  />
+                </label>
+                <MagneticButton type="submit">{busy ? "Looking…" : "Ask"}</MagneticButton>
+              </form>
+            </div>
+          ) : status ? (
             <p className="form-note">{status}</p>
           ) : (
             <form name="advisor" method="POST" data-netlify="true" onSubmit={onSubmit}>

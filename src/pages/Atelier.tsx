@@ -1,4 +1,5 @@
 import { KineticGallery } from "../components/motion/KineticGallery";
+import { CraftLoupe } from "../components/motion/CraftLoupe";
 import { ExplodedCalibre } from "../components/motion/ExplodedCalibre";
 import { site } from "../config/site";
 import { Reveal } from "../components/ui/Reveal";
@@ -13,6 +14,7 @@ export function Atelier() {
         <p className="lede">{site.atelier.intro}</p>
       </section>
       <ExplodedCalibre />
+      <CraftLoupe />
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="timeline">
           {site.atelier.chapters.map((chapter, index) => (

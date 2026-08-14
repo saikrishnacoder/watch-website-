@@ -75,8 +75,11 @@ export function Privacy() {
               <td>Necessary for the site to work</td>
             </tr>
             <tr>
-              <td>Wishlist, compare list, recently viewed</td>
-              <td>Keep a cabinet of references between visits.</td>
+              <td>Wishlist, compare, recently viewed, registered pieces, study compositions</td>
+              <td>
+                Keep a cabinet of references and finishing studies between visits. Registered serials stay on this
+                device until you erase them.
+              </td>
               <td>Necessary for a feature you use</td>
             </tr>
             <tr>

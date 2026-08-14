@@ -22,6 +22,8 @@ export function documentTitle(pathname: string) {
     "/checkout": `Preview checkout — ${site.brand.name}`,
     "/compare": `Compare — ${site.brand.name}`,
     "/wishlist": `Wishlist — ${site.brand.name}`,
+    "/cabinet": `Cabinet — ${site.brand.name}`,
+    "/compose": `Composer — ${site.brand.name}`,
     "/journal": `Journal — ${site.brand.name}`,
     "/services": `Services — ${site.brand.name}`,
     "/maison": `The maison — ${site.brand.name}`,
