@@ -18,11 +18,56 @@ export type {
 } from "./types";
 
 import { extraProducts } from "./products-extra";
-import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
-import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
+import { atelierProducts } from "./generate-catalogue";
+import { collectionLines as lineRecords, photos, products as coreProducts, quiz, services } from "./catalog";
+import { journalNotes, lineEssay, essay, headingSections, heritageYears } from "../content/load";
+import { DEFAULT_CURRENCY, formatMoney } from "./money";
+import type { BezelStyle, CaseMetal, HandStyle, MarkerStyle, Product, StrapStyle } from "./types";
 
-export { collectionLines, journal, photos, quiz, services };
-export const products = [...coreProducts, ...extraProducts];
+export { photos, quiz, services };
+export { altFor, photoAlt, galleryFor, type GalleryFrame } from "./catalog";
+
+export const collectionLines = lineRecords.map((line) => {
+  const doc = lineEssay(line.slug);
+  return {
+    ...line,
+    chapterTitle: doc.meta.chapter || line.chapterTitle,
+    indexBlurb: doc.meta.blurb || line.indexBlurb,
+    essay: doc.paragraphs.length ? doc.paragraphs : line.essay,
+  };
+});
+
+export const journal = journalNotes().map((doc) => ({
+  slug: doc.slug,
+  title: doc.meta.title,
+  date: doc.meta.date ?? "",
+  category: doc.meta.category ?? "",
+  excerpt: doc.meta.excerpt ?? doc.paragraphs[0] ?? "",
+  image: doc.meta.image || photos.cinematic,
+  imageAlt: doc.meta.imageAlt || doc.meta.title,
+  body: doc.paragraphs,
+  html: doc.html,
+}));
+
+const collectionDoc = essay("collection");
+const maisonDoc = essay("maison");
+const atelierDoc = essay("atelier");
+const boutiqueDoc = essay("boutique");
+const heritageDoc = essay("heritage");
+
+const heritageImages: Record<string, string> = {
+  "1924": photos.bench,
+  "1938": photos.classic,
+  "1947": photos.ivory,
+  "1969": photos.movement,
+  "1984": photos.bench,
+  "1998": photos.cinematic,
+  "2018": photos.ivory,
+  "2024": photos.classic,
+  "2026": photos.black,
+};
+
+export const products = [...coreProducts, ...extraProducts, ...atelierProducts];
 
 export const site = {
   brand: {
@@ -69,8 +114,15 @@ export const site = {
       "Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold line at 12.",
   },
 
-  locale: "en-US",
-  currency: "USD",
+  privacy: {
+    updated: "14 August 2026",
+    email: "privacy@horloge.example",
+    entity: "Maison Horloge",
+    address: "12 Rue du Rhône, 1204 Geneva, Switzerland",
+  },
+
+  locale: "de-CH",
+  currency: "CHF",
 
   theme: {
     bg: "#070605",
@@ -87,21 +139,28 @@ export const site = {
   },
 
   nav: [
-    { label: "Watches", href: "/collection" },
-    { label: "Watch Finder", href: "/finder" },
-    { label: "World of HORLOGE", href: "/maison" },
-    { label: "Boutiques", href: "/boutique" },
+    { label: "Collections", href: "/collection" },
+    { label: "The Maison", href: "/maison" },
+    { label: "Craft", href: "/atelier" },
+    { label: "Journal", href: "/journal" },
+    { label: "Private Viewing", href: "/boutique" },
   ],
 
   hero: {
-    eyebrow: "Maison Horloge · Genève · 1924",
-    title: "Time",
-    accent: "composed.",
-    body: "Independent Geneva watchmaking since 1924. Five lines, one gold meridian at 12. Watches for those who measure life in moments, not minutes.",
-    primaryCta: { label: "Find your watch", href: "/finder" },
-    secondaryCta: { label: "Explore the collection", href: "/collection" },
+    eyebrow: "HORLOGE",
+    title: "HORLOGE",
+    accent: "Tempus compositum",
+    body: "Every composition begins from a gold line at 12.",
+    primaryCta: { label: "Explore the Collection", href: "/collection" },
+    secondaryCta: { label: "Private Viewing", href: "/boutique" },
     featuredSlug: "chronograph-one",
-    image: photos.cinematic,
+    image: "/media/maison-meridian.jpg",
+  },
+
+  homeMaison: {
+    title: "Geneva · 1924",
+    body: "Independent Geneva watchmaking. No conglomerate owns our movements, our cases, or our name. The full history lives with the Maison.",
+    cta: "Discover The Maison",
   },
 
   marquee: [
@@ -152,153 +211,81 @@ export const site = {
       "HORLOGE was founded in Geneva in 1924 around a single idea: time should be composed, not merely counted. The gold meridian at 12 is that idea, drawn on every dial.",
       "Five lines — Heritage, Chronograph, Diver, Imperial, Meridian — share one mark, one city, and a refusal to rush the finishing.",
     ],
-    image:
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Close study of a luxury watch dial",
+    image: "/lines/heritage.jpg",
+    imageAlt: "Heritage enamel dial with the gold meridian at 12",
+  },
+
+  collectionPage: {
+    title: collectionDoc.meta.title || "The Collection",
+    lede: collectionDoc.meta.lede || "",
+    gridIntro: collectionDoc.paragraphs[0] || "",
+  },
+
+  maisonPage: {
+    title: maisonDoc.meta.title || "The Maison",
+    lede: maisonDoc.meta.lede || "",
+  },
+
+  boutiquePage: {
+    title: boutiqueDoc.meta.title || "Private Viewing",
+    lede: boutiqueDoc.meta.lede || "",
+    note: boutiqueDoc.paragraphs[0] || "",
+  },
+
+  heritagePage: {
+    title: heritageDoc.meta.title || "A century in years",
+    lede: heritageDoc.meta.lede || "",
   },
 
   atelier: {
     eyebrow: "The atelier",
-    title: "Where hours become heirlooms.",
-    intro:
-      "Behind each HORLOGE signature is a quiet room, a loupe, and a pair of hands that refuse to rush. This is not a factory. It is a maison.",
-    chapters: [
-      {
-        year: "01",
-        title: "Design",
-        body: "Proportions are drawn by hand before they ever meet CAD. The 10:10 pose, the lume plot, the negative space of a dial — all decided here.",
-      },
-      {
-        year: "02",
-        title: "Movement",
-        body: "Plates are beveled, wheels are circular-grained, and every jewel is seated by eye. Regulation happens in five positions over fourteen days.",
-      },
-      {
-        year: "03",
-        title: "Case & crystal",
-        body: "Steel, gold or DLC is machined, brushed, and polished in alternating planes. The sapphire is double-domed so the dial seems to float.",
-      },
-      {
-        year: "04",
-        title: "Assembly",
-        body: "A single watchmaker owns a piece from casing to final timing. Their punch mark sits inside the caseback. Ours, and theirs.",
-      },
-    ],
+    title: atelierDoc.meta.title || "Where hours become heirlooms.",
+    intro: atelierDoc.meta.lede || atelierDoc.paragraphs[0] || "",
+    chapters: headingSections("atelier").map((section, index) => ({
+      year: String(index + 1).padStart(2, "0"),
+      title: section.title,
+      body: section.body,
+    })),
     gallery: [
       {
-        src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1200&q=80",
-        alt: "Watchmaker at the bench",
+        src: photos.bench,
+        alt: "Watchmaker’s bench in Geneva",
         caption: "The bench",
       },
       {
-        src: "https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=1200&q=80",
-        alt: "Watch movement macro",
-        caption: "The calibre",
+        src: photos.cinematic,
+        alt: "Gold meridian at 12 on a HORLOGE dial",
+        caption: "The meridian",
       },
       {
-        src: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1200&q=80",
-        alt: "Wristwatch in natural light",
+        src: photos.ivory,
+        alt: "Chronograph One in studio light",
         caption: "The wrist",
       },
     ],
   },
 
-  heritage: [
-    {
-      year: "1924",
-      title: "A maison in Geneva",
-      body: "HORLOGE opens on the Rue du Rhône. The first enamel dials carry a gold line at 12 — the Geneva meridian, drawn thinner than a hair.",
-      image: photos.bench,
-    },
-    {
-      year: "1947",
-      title: "The club chronograph",
-      body: "Timing watches for Geneva motor clubs. The column wheel, the 10:10 pose, and a tachymeter that is still on Chronograph One.",
-      image: photos.ivory,
-    },
-    {
-      year: "1969",
-      title: "We stayed mechanical",
-      body: "Quartz arrives. The atelier does not follow. Regulation in five positions becomes a rule, not a brochure line.",
-      image: photos.movement,
-    },
-    {
-      year: "1998",
-      title: "The meridian, named",
-      body: "What had been a finishing habit is written into the charter. Every dial, every line, one gold stroke at 12.",
-      image: photos.cinematic,
-    },
-    {
-      year: "2018",
-      title: "Chronograph One",
-      body: "The signature three-register. Ivory opaline, blued hands, a sapphire caseback. The maison’s most requested reference.",
-      image: photos.ivory,
-    },
-    {
-      year: "2024",
-      title: "A century",
-      body: "One hundred years of composed time. Five lines share the seal. The meridian outlasts the first owner, as intended.",
-      image: photos.classic,
-    },
-    {
-      year: "2026",
-      title: "Meridian",
-      body: "The namesake line: GMT, worldtimer, dual time. HORLOGE is named for the clock. This line is named for the line.",
-      image: photos.black,
-    },
-  ],
+  heritage: heritageYears().map((item) => ({
+    ...item,
+    image: heritageImages[item.year] ?? photos.cinematic,
+  })),
 
-  lookbook: [
-    {
-      title: "Evening gold",
-      caption: "Imperial Gold photographed at dusk, Place de la Fusterie.",
-      src: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1400&q=80",
-    },
-    {
-      title: "Apex, in motion",
-      caption: "The sport line, built for the commute and the coast.",
-      src: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1400&q=80",
-    },
-    {
-      title: "Noir study",
-      caption: "A midnight dial under atelier lamps.",
-      src: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1400&q=80",
-    },
-  ],
-
-  testimonials: [
-    {
-      quote:
-        "It is the first watch I have owned that feels like it was waiting for me, rather than the other way around.",
-      name: "Amelia Voss",
-      role: "Architect, Copenhagen",
-    },
-    {
-      quote:
-        "Quiet on the wrist, loud in the details. The finishing on the Chronograph One is obsessive in the best sense.",
-      name: "Julian Park",
-      role: "Collector, Seoul",
-    },
-    {
-      quote:
-        "I bought Heritage for my father. He said it was the first object in years that made him slow down.",
-      name: "Noor Rahman",
-      role: "Editor, London",
-    },
-  ],
-
-  limited: {
-    slug: "noir",
-    eyebrow: "Atelier edition — 192 pieces",
-    title: "Noir is almost gone.",
-    body: "A black-DLC case, a midnight sunray dial, and gold dauphine hands. When 192 are spoken for, the reference closes forever.",
-    endsAt: "2026-12-31T23:59:59Z",
+  press: {
+    eyebrow: "As noted",
+    title: "In print.",
+    items: [
+      { name: "The Geneva Review", line: "The meridian, drawn" },
+      { name: "Rue du Rhône", line: "A maison that stayed mechanical" },
+      { name: "Atelier Quarterly", line: "Five positions, fourteen days" },
+      { name: "Chronos Letter", line: "Chronograph One, as requested" },
+      { name: "Horological Record", line: "A century, composed" },
+    ],
   },
 
   customizer: {
     eyebrow: "Compose yours",
     title: "A watch, in your register.",
-    body: "Case, dial, markers and strap — preview a HORLOGE made to your eye. The atelier will confirm availability within two days.",
+    body: "Case, dial, markers, hands, bezel and strap — a study composition, not a stock-keeping unit. The atelier will say whether it can be made.",
     cases: [
       { id: "steel", label: "Steel" },
       { id: "gold", label: "Yellow gold" },
@@ -318,6 +305,17 @@ export const site = {
       { id: "arabic", label: "Arabic" },
       { id: "dots", label: "Dots" },
     ] as { id: MarkerStyle; label: string }[],
+    hands: [
+      { id: "dauphine", label: "Dauphine" },
+      { id: "sword", label: "Sword" },
+      { id: "sport", label: "Sport" },
+    ] as { id: HandStyle; label: string }[],
+    bezels: [
+      { id: "none", label: "Smooth" },
+      { id: "fluted", label: "Fluted" },
+      { id: "tachymeter", label: "Tachymeter" },
+      { id: "ceramic", label: "Ceramic" },
+    ] as { id: BezelStyle; label: string }[],
     straps: [
       { id: "leather", label: "Alligator", color: "#2a1f18" },
       { id: "bracelet", label: "Bracelet", color: "#c5c7ca" },
@@ -331,46 +329,85 @@ export const site = {
   services,
   quiz,
 
+  people: [
+    {
+      name: "Élise Moreau",
+      role: "Master watchmaker",
+      note: "Owns each Heritage from casing to final timing. Her punch mark sits inside the caseback.",
+    },
+    {
+      name: "Kenji Arai",
+      role: "Regulator",
+      note: "Five positions, fourteen days. He does not sign a watch until Geneva agrees with it.",
+    },
+    {
+      name: "Clara Voss",
+      role: "Dial painter",
+      note: "The meridian is drawn last, thinner than a hair, in gold that will outlast the first owner.",
+    },
+  ],
+
   boutiques: [
     {
       city: "Geneva",
       address: "12 Rue du Rhône, 1204",
       hours: "Tue–Sat, 10:00–18:30",
       phone: "+41 22 555 1924",
+      zone: "Europe/Zurich",
+      days: [2, 3, 4, 5, 6],
+      opens: "10:00",
+      closes: "18:30",
     },
     {
       city: "Paris",
       address: "18 Place Vendôme, 75001",
       hours: "Mon–Sat, 11:00–19:00",
       phone: "+33 1 55 00 19 24",
+      zone: "Europe/Paris",
+      days: [1, 2, 3, 4, 5, 6],
+      opens: "11:00",
+      closes: "19:00",
     },
     {
       city: "New York",
       address: "727 Fifth Avenue, NY 10022",
       hours: "Mon–Sat, 10:00–18:00",
       phone: "+1 212 555 1924",
+      zone: "America/New_York",
+      days: [1, 2, 3, 4, 5, 6],
+      opens: "10:00",
+      closes: "18:00",
     },
     {
       city: "London",
       address: "14 Old Bond Street, W1S 4PP",
       hours: "Mon–Sat, 10:00–18:00",
       phone: "+44 20 7946 1924",
+      zone: "Europe/London",
+      days: [1, 2, 3, 4, 5, 6],
+      opens: "10:00",
+      closes: "18:00",
     },
     {
       city: "Tokyo",
       address: "6-8-3 Ginza, Chuo-ku",
       hours: "Wed–Mon, 11:00–19:00",
       phone: "+81 3 5551 1924",
+      zone: "Asia/Tokyo",
+      days: [0, 1, 3, 4, 5, 6],
+      opens: "11:00",
+      closes: "19:00",
     },
   ],
 
   newsletter: {
-    eyebrow: "Join the maison",
-    title: "Stay ahead of time.",
-    body: "Collection launches, private views, and atelier notes — never more than a letter a month.",
+    eyebrow: "Early access",
+    title: "Join for the Meridian collection.",
+    magnet: "Early access to Meridian.",
+    body: "First look at new Meridian pieces, private views, and the gold line at 12 — never more than a letter a month.",
     placeholder: "Your email address",
-    cta: "Subscribe",
-    success: "Welcome to HORLOGE. We will write when it matters.",
+    cta: "Request access",
+    success: "You are on the Meridian list. We write when a piece is ready to be seen.",
   },
 
   footer: {
@@ -378,17 +415,9 @@ export const site = {
       "Maison Horloge, Geneva. Tempus compositum — time, composed. Five lines around a gold meridian at 12.",
     columns: [
       {
-        title: "Collection",
-        links: [
-          { label: "All watches", href: "/collection" },
-          { label: "Watch Finder", href: "/finder" },
-          { label: "Find your watch", href: "/find" },
-          { label: "Compare", href: "/compare" },
-        ],
-      },
-      {
         title: "Collections",
         links: [
+          { label: "The Collection", href: "/collection" },
           { label: "Heritage", href: "/collection/heritage" },
           { label: "Chronograph", href: "/collection/chronograph" },
           { label: "Diver", href: "/collection/diver" },
@@ -399,22 +428,10 @@ export const site = {
       {
         title: "Maison",
         links: [
-          { label: "The maison", href: "/maison" },
-          { label: "Heritage", href: "/heritage" },
-          { label: "Kinetic atelier", href: "/motion" },
-          { label: "Atelier", href: "/atelier" },
+          { label: "The Maison", href: "/maison" },
+          { label: "Craft", href: "/atelier" },
           { label: "Journal", href: "/journal" },
-          { label: "Services", href: "/services" },
-          { label: "Boutiques", href: "/boutique" },
-        ],
-      },
-      {
-        title: "Support",
-        links: [
-          { label: "Appointments", href: "/boutique" },
-          { label: "Warranty", href: "/services" },
-          { label: "Wishlist", href: "/wishlist" },
-          { label: "Privacy", href: "/privacy" },
+          { label: "Private Viewing", href: "/boutique" },
         ],
       },
     ],
@@ -430,16 +447,14 @@ export const site = {
 
 export type SiteConfig = typeof site;
 
+const productBySlug = new Map(products.map((product) => [product.slug, product]));
+
 export function formatPrice(amount: number) {
-  return new Intl.NumberFormat(site.locale, {
-    style: "currency",
-    currency: site.currency,
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatMoney(amount, DEFAULT_CURRENCY);
 }
 
 export function getProduct(slug: string): Product | undefined {
-  return site.products.find((product) => product.slug === slug);
+  return productBySlug.get(slug);
 }
 
 export function getCollection(slug: string) {
@@ -448,6 +463,11 @@ export function getCollection(slug: string) {
 
 export function productsIn(slug: string) {
   return products.filter((product) => product.collectionSlug === slug);
+}
+
+export function signatureProducts(slug?: string) {
+  const list = slug ? coreProducts.filter((product) => product.collectionSlug === slug) : coreProducts;
+  return list;
 }
 
 export function relatedProducts(slug: string, count = 3) {

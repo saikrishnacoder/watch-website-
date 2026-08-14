@@ -4,12 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "generate": "python3 scripts/generate_animations.py",
+    "generate": "python3 scripts/generate_animations.py && python3 scripts/generate_gallery.py",
     "dev": "python3 scripts/generate_animations.py && vite",
     "build": "python3 scripts/generate_animations.py && tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.23.12",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

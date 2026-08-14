@@ -1,78 +1,73 @@
-import { useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { site } from "../config/site";
+import { Link } from "react-router-dom";
+import { altFor, photos, signatureProducts, site } from "../config/site";
 import { ProductCard } from "../components/ui/ProductCard";
+import { FrameImage } from "../components/ui/FrameImage";
+import { Reveal } from "../components/ui/Reveal";
+import { Newsletter } from "../components/sections/Newsletter";
+import { PressStrip } from "../components/sections/PressStrip";
 
 export function Collection() {
-  const [params] = useSearchParams();
-  const initial = params.get("line") ?? "All";
-  const names = ["All", ...site.collectionLines.map((line) => line.name)];
-  const [line, setLine] = useState(names.includes(initial) ? initial : "All");
-  const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc" | "size">("featured");
-
-  const products = useMemo(() => {
-    const filtered =
-      line === "All" ? [...site.products] : site.products.filter((product) => product.collection === line);
-    if (sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") filtered.sort((a, b) => b.price - a.price);
-    if (sort === "size") filtered.sort((a, b) => a.diameter - b.diameter);
-    return filtered;
-  }, [line, sort]);
+  const signatures = site.collectionLines
+    .map((line) => signatureProducts(line.slug)[0])
+    .filter((product): product is NonNullable<typeof product> => Boolean(product));
 
   return (
     <div className="page">
-      <section className="page-hero">
-        <div className="eyebrow">The collection</div>
-        <h1 className="display">All models</h1>
-        <p className="lede">
-          {site.products.length} current references across {site.collectionLines.length} families. Filter here, or use the{" "}
-          <Link to="/finder" style={{ color: "var(--gold)" }}>
-            Watch Finder
-          </Link>{" "}
-          for diameter, metal and depth.
-        </p>
+      <section className="collection-hero">
+        <FrameImage src={photos.luxury} alt={altFor(photos.luxury, "HORLOGE collection still")} />
+        <div>
+          <div className="eyebrow">Five lines · one meridian</div>
+          <h1 className="display">{site.collectionPage.title}</h1>
+          <p className="lede">{site.collectionPage.lede}</p>
+        </div>
       </section>
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="line-tiles">
-          {site.collectionLines.map((family) => (
-            <Link key={family.slug} to={`/collection/${family.slug}`} className="line-tile">
-              <img src={family.image} alt="" />
+
+      <PressStrip compact />
+
+      <section className="section">
+        <p className="lede collection-grid-intro">{site.collectionPage.gridIntro}</p>
+        <div className="line-index">
+          {site.collectionLines.map((family, index) => (
+            <Reveal key={family.slug} delay={index * 0.04} className="line-index-card">
+              <Link to={`/collection/${family.slug}`} className="line-index-media">
+                <FrameImage src={family.image} alt={altFor(family.image, family.name)} />
+              </Link>
               <div>
-                <strong>{family.name}</strong>
-                <span>{family.tagline}</span>
+                <div className="eyebrow">
+                  {family.name} · {family.calibre}
+                </div>
+                <h2 className="display">{family.chapterTitle}</h2>
+                <p>{family.indexBlurb}</p>
+                <p className="line-index-finish">{family.finishing}</p>
+                <Link className="section-link" to={`/collection/${family.slug}`}>
+                  Enter {family.name}
+                </Link>
               </div>
-            </Link>
-          ))}
-        </div>
-        <div className="filters">
-          {names.map((item) => (
-            <button
-              key={item}
-              className={`filter-btn ${line === item ? "is-on" : ""}`}
-              onClick={() => setLine(item)}
-            >
-              {item}
-            </button>
-          ))}
-          <select
-            className="filter-btn"
-            value={sort}
-            onChange={(event) => setSort(event.target.value as typeof sort)}
-            aria-label="Sort"
-          >
-            <option value="featured">Featured</option>
-            <option value="size">Diameter</option>
-            <option value="price-asc">Price · low</option>
-            <option value="price-desc">Price · high</option>
-          </select>
-        </div>
-        <p className="finder-count">{products.length} timepieces</p>
-        <div className="product-grid">
-          {products.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} />
+            </Reveal>
           ))}
         </div>
       </section>
+
+      {signatures.length > 0 && (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">One from each line</div>
+              <h2 className="display">Five signatures.</h2>
+            </div>
+            <Link className="section-link" to="/finder">
+              Watch Finder
+            </Link>
+          </div>
+          <div className="product-grid">
+            {signatures.map((product, index) => (
+              <ProductCard key={product.slug} product={product} index={index} priority={index < 2} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <Newsletter source="collection" />
     </div>
   );
 }

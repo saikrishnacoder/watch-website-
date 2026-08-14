@@ -1,0 +1,9 @@
+/collection       /index.html   200
+/collection/*     /index.html   200
+/chronograph      /index.html   200
+/diver            /index.html   200
+/imperial         /index.html   200
+/meridian         /index.html   200
+/maison           /index.html   200
+/privacy          /privacy/index.html   200!
+/*                /index.html   200

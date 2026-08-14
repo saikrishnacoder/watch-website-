@@ -1,75 +1,132 @@
-import { useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { getProduct, site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 import { MagneticButton } from "../ui/MagneticButton";
 import { WatchFace } from "../watch/WatchFace";
-import { ParticleField } from "../motion/ParticleField";
+
+const HERO_KEY = "horloge-hero";
+const ease = [0.22, 1, 0.36, 1] as const;
+const LETTERS = site.brand.wordmark.split("");
 
 export function Hero() {
   const featured = getProduct(site.hero.featuredSlug) ?? site.products[0];
-  const { reduceMotion, canParallax } = useMotion();
-  const [paused, setPaused] = useState(false);
-  const { scrollY } = useScroll();
-  const quiet = reduceMotion || paused || !canParallax;
-  const y = useTransform(scrollY, [0, 720], [0, quiet ? 0 : 160]);
-  const scale = useTransform(scrollY, [0, 720], [1, quiet ? 1 : 1.08]);
+  const { reduceMotion } = useMotion();
+  const [settled, setSettled] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return reduceMotion || sessionStorage.getItem(HERO_KEY) === "done";
+  });
+
+  useEffect(() => {
+    if (reduceMotion) setSettled(true);
+  }, [reduceMotion]);
+
+  const persist = () => {
+    sessionStorage.setItem(HERO_KEY, "done");
+  };
+
+  const skip = () => {
+    persist();
+    setSettled(true);
+  };
+
+  const instant = settled || reduceMotion;
 
   return (
-    <section className="cinema-hero" id="home">
-      <motion.img
-        className="cinema-bg"
-        src={site.hero.image}
-        alt={`${site.brand.name} ${featured.name} in the atelier`}
-        width={2000}
-        height={1333}
-        fetchPriority="high"
-        decoding="async"
-        style={quiet ? undefined : { y, scale }}
-      />
-      <div className="cinema-veil" />
-      {!quiet && <ParticleField />}
-      {!quiet && (
-        <div className="hero-orbits" aria-hidden>
-          <span className="anim-orbit">
-            <i />
-          </span>
-          <span className="anim-orbit anim-spin-reverse" style={{ inset: "18%" }}>
-            <i />
-          </span>
+    <section
+      className={`cinema-hero ${instant ? "is-settled" : "is-playing"}`}
+      id="home"
+      data-meridian="reveal"
+      data-meridian-label="Reveal"
+    >
+      <div className="cinema-dust" aria-hidden />
+      <div className="cinema-field" aria-hidden>
+        <span className="cinema-orbit cinema-orbit-a" />
+        <span className="cinema-orbit cinema-orbit-b" />
+        <span className="cinema-orbit cinema-orbit-c" />
+      </div>
+
+      <div className="cinema-stage">
+        <div className="cinema-chapter" aria-hidden>
+          {Array.from({ length: 12 }, (_, index) => (
+            <i key={index} style={{ ["--a" as string]: `${index * 30}deg`, ["--d" as string]: `${0.55 + index * 0.08}s` }} />
+          ))}
         </div>
-      )}
-      <div className="cinema-copy">
-        <div className="eyebrow">{site.hero.eyebrow}</div>
-        <h1 className="display">
-          {site.hero.title} <em>{site.hero.accent}</em>
-        </h1>
-        <p className="lede">{site.hero.body}</p>
-        <div className="hero-actions">
-          <MagneticButton to={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</MagneticButton>
-          <MagneticButton variant="ghost" to={site.hero.secondaryCta.href}>
-            {site.hero.secondaryCta.label}
+        <motion.span
+          className="cinema-meridian"
+          aria-hidden
+          initial={instant ? false : { scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: instant ? 0 : 1.9, ease }}
+        >
+          <i className="cinema-gleam" />
+        </motion.span>
+        <motion.div
+          className="cinema-watch"
+          initial={instant ? false : { opacity: 0, scale: 0.86, rotate: -8 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ delay: instant ? 0 : 1.35, duration: instant ? 0 : 2.4, ease }}
+        >
+          <span className="cinema-rake" aria-hidden />
+          <WatchFace {...featured.design} brand={site.brand.name} size={300} animate={!reduceMotion} />
+        </motion.div>
+        <div className="cinema-lockup">
+          <h1 className="cinema-wordmark">
+            {LETTERS.map((letter, index) => (
+              <motion.span
+                key={`${letter}-${index}`}
+                initial={instant ? false : { opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: instant ? 0 : 3.15 + index * 0.07, duration: instant ? 0 : 0.7, ease }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+          </h1>
+          <motion.p
+            className="cinema-motto"
+            initial={instant ? false : { opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+            transition={{ delay: instant ? 0 : 3.85, duration: instant ? 0 : 1.1, ease }}
+            onAnimationComplete={persist}
+          >
+            {site.brand.motto}
+          </motion.p>
+          <motion.p
+            className="lede cinema-lede"
+            initial={instant ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: instant ? 0 : 4.2, duration: instant ? 0 : 0.8, ease }}
+          >
+            Every composition begins from a gold line at 12. Independent Geneva watchmaking since {site.brand.founded}.
+          </motion.p>
+        </div>
+        <motion.div
+          className="hero-actions cinema-actions"
+          initial={instant ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: instant ? 0 : 4.6, duration: instant ? 0 : 0.9, ease }}
+        >
+          <MagneticButton className="hero-primary" to={site.hero.primaryCta.href}>
+            {site.hero.primaryCta.label}
           </MagneticButton>
-        </div>
+          <Link className="hero-secondary" to={site.hero.secondaryCta.href}>
+            {site.hero.secondaryCta.label}
+          </Link>
+        </motion.div>
       </div>
-      <div className="cinema-featured">
-        <WatchFace {...featured.design} brand={site.brand.name} size={180} animate={!quiet} />
-        <div>
-          <div className="product-line">New model</div>
-          <strong>{featured.name}</strong>
-          <span>
-            {featured.diameter} mm · {featured.material}
-          </span>
-        </div>
+
+      <div className="scroll-hint cinema-scroll" aria-hidden>
+        Scroll
+        <b />
       </div>
-      <button
-        className="hero-pause"
-        type="button"
-        onClick={() => setPaused((value) => !value)}
-        aria-pressed={paused || reduceMotion}
-      >
-        {paused || reduceMotion ? "Play visual" : "Pause visual"}
-      </button>
+
+      {!instant && (
+        <button type="button" className="intro-skip" onClick={skip}>
+          Skip
+        </button>
+      )}
     </section>
   );
 }

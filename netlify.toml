@@ -5,6 +5,36 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Privacy is a standalone document. force=true so it is never the SPA shell.
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy/index.html"
+  status = 200
+  force = true
+
+# Maison model: no cart. Kinetic lab is not on the public journey.
+[[redirects]]
+  from = "/checkout"
+  to = "/boutique"
+  status = 301
+
+[[redirects]]
+  from = "/checkout/"
+  to = "/boutique"
+  status = 301
+
+[[redirects]]
+  from = "/motion"
+  to = "/atelier"
+  status = 301
+
+[[redirects]]
+  from = "/motion/"
+  to = "/atelier"
+  status = 301
+
+# Existing files win (collection/index.html, maison/index.html, journal notes, signature watches).
+# This catch-all is only for client routes that have no stamped HTML (atelier SKUs, craft sheets).
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -16,6 +46,16 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/privacy"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/privacy/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/assets/*"

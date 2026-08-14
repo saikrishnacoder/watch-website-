@@ -5,23 +5,111 @@ export type CollectionLine = {
   name: string;
   tagline: string;
   description: string;
+  indexBlurb: string;
+  chapterTitle: string;
   image: string;
+  ogImage: string;
+  calibre: string;
+  essay: string[];
+  finishing: string;
 };
 
 export const photos = {
-  ivory: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1600&q=80",
-  gold: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1600&q=80",
-  black: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1600&q=80",
-  luxury: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1600&q=80",
-  side: "https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=1600&q=80",
-  sport: "https://images.unsplash.com/photo-1594534475808-b41fb295b2d3?auto=format&fit=crop&w=1600&q=80",
-  wrist: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1600&q=80",
-  bench: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1600&q=80",
-  movement: "https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=1600&q=80",
-  classic: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=1600&q=80",
-  silver: "https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1600&q=80",
-  cinematic: "https://images.unsplash.com/photo-1609587312208-cea54be969e7?auto=format&fit=crop&w=2000&q=80",
+  ivory: "/lines/chronograph.jpg",
+  gold: "/lines/imperial.jpg",
+  black: "/lines/meridian.jpg",
+  luxury: "/media/maison-meridian.jpg",
+  side: "/lines/heritage.jpg",
+  sport: "/lines/diver.jpg",
+  wrist: "/lines/chronograph.jpg",
+  bench: "/media/maison-bench.jpg",
+  movement: "/media/movement.jpg",
+  classic: "/lines/heritage.jpg",
+  silver: "/lines/diver.jpg",
+  cinematic: "/media/maison-meridian.jpg",
+  velvet: "/studio/velvet.jpg",
 };
+
+export const photoAlt: Record<string, string> = {
+  "/lines/heritage.jpg":
+    "HORLOGE Heritage: cream enamel dial with a gold meridian at 12 and a black alligator strap on dark wood.",
+  "/lines/chronograph.jpg":
+    "HORLOGE Chronograph on a dark studio surface, ivory dial and gold meridian at 12.",
+  "/lines/diver.jpg": "HORLOGE Diver: sport case, ceramic bezel, gold meridian at 12.",
+  "/lines/imperial.jpg": "HORLOGE Imperial in gold, dress proportions, gold meridian at 12.",
+  "/lines/meridian.jpg": "HORLOGE Meridian: dark dial, GMT reading, gold meridian at 12.",
+  "/media/maison-bench.jpg":
+    "Geneva atelier bench: brass movement plates, loupe, tweezers, and a handwritten notebook.",
+  "/media/maison-meridian.jpg": "HORLOGE dial with the gold meridian drawn at 12.",
+  "/media/movement.jpg": "Open HORLOGE movement on the bench — bridges, wheels, and blued screws.",
+  "/studio/velvet.jpg": "Dark studio velvet used behind a HORLOGE composition.",
+  "/journal/the-meridian.jpg": "Close view of a HORLOGE enamel dial with a thin gold meridian at 12.",
+  "/journal/inside-the-atelier.jpg": "Watchmaker at a Geneva bench with a loupe and kiln light.",
+  "/journal/anatomy.jpg": "HORLOGE case, crystal, dial, hands and movement laid out on dark velvet.",
+  "/journal/geneva-independent.jpg": "Dusk on a quiet Geneva street, a maison window lit as a gold line.",
+  "/gallery/heritage-hero.jpg": "HORLOGE Heritage in studio light, enamel dial and gold meridian at 12.",
+  "/gallery/heritage-dial.jpg": "Close Heritage enamel: railroad minutes and a gold meridian at 12.",
+  "/gallery/heritage-profile.jpg": "Heritage case profile on dark wood, alligator strap in shadow.",
+  "/gallery/chronograph-hero.jpg": "HORLOGE Chronograph in studio light, ivory dial and gold meridian at 12.",
+  "/gallery/chronograph-dial.jpg": "Chronograph dial close: registers, tachymeter, gold meridian at 12.",
+  "/gallery/chronograph-profile.jpg": "Chronograph case profile, steel and alligator, studio shadow.",
+  "/gallery/diver-hero.jpg": "HORLOGE Diver in studio light, ceramic bezel and gold meridian at 12.",
+  "/gallery/diver-dial.jpg": "Diver dial close: lume plots, ceramic bezel, gold meridian at 12.",
+  "/gallery/diver-profile.jpg": "Diver case profile, sport proportions on a dark bench.",
+  "/gallery/imperial-hero.jpg": "HORLOGE Imperial in gold, dress proportions, gold meridian at 12.",
+  "/gallery/imperial-dial.jpg": "Imperial dial close: ceremony, precious metal, gold meridian at 12.",
+  "/gallery/imperial-profile.jpg": "Imperial case profile in yellow gold, studio shadow.",
+  "/gallery/meridian-hero.jpg": "HORLOGE Meridian, dark dial and GMT reading, gold meridian at 12.",
+  "/gallery/meridian-dial.jpg": "Meridian dial close: dual time and a gold stroke at 12.",
+  "/gallery/meridian-profile.jpg": "Meridian case profile, travel watch on dark velvet.",
+};
+
+export function altFor(src: string, fallback: string) {
+  return photoAlt[src] ?? fallback;
+}
+
+export type GalleryFrame = {
+  src: string;
+  alt: string;
+  caption: string;
+  kind: "hero" | "dial" | "profile" | "movement" | "bench";
+};
+
+export function galleryFor(product: Pick<Product, "name" | "collection" | "collectionSlug" | "reference">): GalleryFrame[] {
+  const line = product.collectionSlug;
+  return [
+    {
+      src: `/gallery/${line}-hero.jpg`,
+      alt: `${product.name} (${product.reference}) — ${product.collection} in studio light`,
+      caption: "Studio",
+      kind: "hero",
+    },
+    {
+      src: `/gallery/${line}-dial.jpg`,
+      alt: `${product.name} dial, gold meridian at 12`,
+      caption: "Dial",
+      kind: "dial",
+    },
+    {
+      src: `/gallery/${line}-profile.jpg`,
+      alt: `${product.name} case profile`,
+      caption: "Case",
+      kind: "profile",
+    },
+    {
+      src: photos.movement,
+      alt: altFor(photos.movement, `Open movement for ${product.name}`),
+      caption: "Movement",
+      kind: "movement",
+    },
+    {
+      src: photos.bench,
+      alt: altFor(photos.bench, "Atelier bench in Geneva"),
+      caption: "Bench",
+      kind: "bench",
+    },
+  ];
+}
 
 export function watch(
   data: Omit<Product, "specGroups"> & { specGroups?: Product["specGroups"] },
@@ -70,42 +158,88 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "heritage",
     name: "Heritage",
-    tagline: "The origin line",
-    description:
-      "Enamel dials, railroad minutes and extra-thin calibres — the watches that started the maison, re-proportioned for today.",
-    image: photos.classic,
+    tagline: "The original line",
+    description: "The original line. Time-only, hand-finished, unchanged since 1924.",
+    chapterTitle: "The first sentence.",
+    indexBlurb:
+      "Time-only enamel, extra-thin H-08, railroad minutes. Heritage is where the gold meridian was drawn first — and has not been redrawn since 1924.",
+    image: "/lines/heritage.jpg",
+    ogImage: "/lines/heritage.jpg",
+    calibre: "H-08",
+    finishing: "Enamel, extra-thin, railroad minutes",
+    essay: [
+      "Heritage is the first sentence the maison ever wrote. A thin case, an enamel dial, and the gold meridian drawn last — after the numerals have dried.",
+      "These are watches for a quiet wrist. 34 to 40 millimetres, box sapphire, a calibre regulated until it agrees with Geneva.",
+    ],
   },
   {
     slug: "chronograph",
     name: "Chronograph",
-    tagline: "Time, measured twice",
-    description:
-      "Column-wheel chronographs with three registers, tachymeter scales and the 10:10 pose the atelier still draws by hand.",
-    image: photos.ivory,
+    tagline: "Measured time",
+    description: "Measured time. Column-wheel construction, built for precision under pressure.",
+    chapterTitle: "Three distinct events.",
+    indexBlurb:
+      "Column-wheel H-72. Start, stop, and reset as three mechanical sentences. Ivory opaline, blued hands, a tachymeter for those who still measure a road.",
+    image: "/lines/chronograph.jpg",
+    ogImage: "/lines/chronograph.jpg",
+    calibre: "H-72",
+    finishing: "Column wheel, three registers, tachymeter",
+    essay: [
+      "The start, the stop, and the reset should feel like three distinct mechanical events. That is why the H-72 is a column-wheel chronograph, not a cam.",
+      "Ivory opaline, blued hands, a sapphire caseback. Chronograph One remains the maison’s most requested reference.",
+    ],
   },
   {
     slug: "diver",
     name: "Diver",
-    tagline: "Built for depth",
-    description:
-      "Ceramic bezels, helium-ready gaskets and lume you can read at 200 metres. The professional line, finished like a dress watch.",
-    image: photos.sport,
+    tagline: "Time at depth",
+    description: "Time at depth. 300m water resistance, engineered for the sea.",
+    chapterTitle: "Finished for the dark.",
+    indexBlurb:
+      "A diver finished like a dress watch. Ceramic bezel, lume that holds when the water is black, 200 to 500 metres — and the meridian still gold at 12.",
+    image: "/lines/diver.jpg",
+    ogImage: "/lines/diver.jpg",
+    calibre: "H-90",
+    finishing: "Ceramic bezel, 200–500 m, lume plots",
+    essay: [
+      "A diver that is finished like a dress watch. Alternating brushed and polished planes, a ceramic bezel that clicks with intent, lume you can still read when the water is black.",
+      "Rated to 200 metres as a rule, 500 when the case asks for it. The meridian stays gold. Depth does not excuse a missing mark.",
+    ],
   },
   {
     slug: "imperial",
     name: "Imperial",
-    tagline: "Precious metal",
-    description:
-      "Yellow gold, rose gold and black DLC. Numbered editions and moonphases for evenings that last longer than the night.",
-    image: photos.gold,
+    tagline: "Time in ceremony",
+    description: "Time in ceremony. The Maison's dress collection, cased in precious metal.",
+    chapterTitle: "Metal that remembers the lamp.",
+    indexBlurb:
+      "Yellow, rose, and white gold, and a black DLC that drinks the room. Numbered editions and moonphase — cases finished to be refinished by the next owner.",
+    image: "/lines/imperial.jpg",
+    ogImage: "/lines/imperial.jpg",
+    calibre: "H-12",
+    finishing: "18k gold, numbered editions, moonphase",
+    essay: [
+      "Imperial is the maison in metal that remembers the lamp. Yellow gold, rose, white, and a black DLC that drinks the room.",
+      "Cases are finished to be refinished. The first owner is not the last. The meridian is designed to outlast both.",
+    ],
   },
   {
     slug: "meridian",
     name: "Meridian",
-    tagline: "The namesake line",
+    tagline: "Time in motion",
     description:
-      "GMT, worldtimer and dual time — watches built around the gold meridian at 12. HORLOGE is named for the clock. This line is named for the line.",
-    image: photos.cinematic,
+      "Time in motion. The line reimagined as a moving indication — our signature complication.",
+    chapterTitle: "The line, carried.",
+    indexBlurb:
+      "GMT, dual time, worldtimer. HORLOGE is a French word for clock; this line carries the Geneva meridian around the world without moving the gold stroke at 12.",
+    image: "/lines/meridian.jpg",
+    ogImage: "/lines/meridian.jpg",
+    calibre: "H-24",
+    finishing: "GMT, worldtimer, dual time",
+    essay: [
+      "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is.",
+      "This line carries that agreement around the world: GMT, dual time, a worldtimer. The gold stroke at 12 is not decoration. It is the thesis.",
+    ],
   },
 ];
 
@@ -535,61 +669,6 @@ export const products: Product[] = [
       dateWindow: true,
     },
   }),
-];
-
-export const journal = [
-    {
-      slug: "the-meridian",
-      title: "Why every dial carries a gold line at 12",
-      date: "4 April 2026",
-      category: "Identity",
-      excerpt:
-        "The meridian is not a logo applied to a watch. It is the watch’s thesis: a single, vertical agreement with Geneva.",
-      image: photos.cinematic,
-      body: [
-        "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
-        "You will find it on Heritage enamel and on a Diver 500. If it is missing, it is not ours.",
-      ],
-    },
-    {
-      slug: "column-wheel",
-      title: "Why we still insist on a column wheel",
-    date: "12 March 2026",
-    category: "Calibres",
-    excerpt:
-      "Cam-actuated chronographs are cheaper. They are also less pleasant to use. A short note from the movement atelier.",
-    image: photos.movement,
-    body: [
-      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct, mechanical events — not like pressing a plastic shutter.",
-      "It costs more to manufacture. Collectors feel the difference the first time they time a meeting they did not need to time.",
-    ],
-  },
-  {
-    slug: "enamel-firing",
-    title: "Firing the Heritage dial",
-    date: "2 February 2026",
-    category: "Atelier",
-    excerpt:
-      "Grand feu enamel is unforgiving. About four in ten dials crack in the kiln. The rest become Heritage.",
-    image: photos.bench,
-    body: [
-      "Each Heritage dial is fired several times at over 800°C. Dust, a draught, a slightly thick pour — any of these can ruin a day of work.",
-      "We do not outsource this. The kiln sits eight metres from the casing bench, on purpose.",
-    ],
-  },
-  {
-    slug: "wearing-gold",
-    title: "How to wear yellow gold in 2026",
-    date: "19 January 2026",
-    category: "Style",
-    excerpt:
-      "Imperial Gold is not a tuxedo watch. It is a Tuesday watch, if the Tuesday is yours.",
-    image: photos.gold,
-    body: [
-      "The 38 mm case was drawn to disappear under a shirt cuff and to appear over a knit. Gold reads quieter when the dial is champagne, not white.",
-      "If you are waiting for a black-tie invitation to wear it, you will wait too long.",
-    ],
-  },
 ];
 
 export const services = [

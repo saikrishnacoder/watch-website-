@@ -1,31 +1,31 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
 type UIContextValue = {
-  cartOpen: boolean;
   searchOpen: boolean;
   menuOpen: boolean;
-  setCartOpen: (open: boolean) => void;
+  toast: string;
   setSearchOpen: (open: boolean) => void;
   setMenuOpen: (open: boolean) => void;
+  setToast: (message: string) => void;
 };
 
 const UIContext = createContext<UIContextValue | null>(null);
 
 export function UIProvider({ children }: { children: ReactNode }) {
-  const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [toast, setToast] = useState("");
 
   const value = useMemo(
     () => ({
-      cartOpen,
       searchOpen,
       menuOpen,
-      setCartOpen,
+      toast,
       setSearchOpen,
       setMenuOpen,
+      setToast,
     }),
-    [cartOpen, searchOpen, menuOpen],
+    [searchOpen, menuOpen, toast],
   );
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;

@@ -60,7 +60,7 @@ export function WatchFace({
       viewBox="0 0 280 420"
       width={size}
       height={size * (420 / 280)}
-      className={className}
+      className={["watch-face", className].filter(Boolean).join(" ")}
       role="img"
       aria-label={`${brand} watch`}
     >
@@ -278,8 +278,18 @@ export function WatchFace({
           GENÈVE
         </text>
         <polygon
-          points={`${cx},${cy - 86} ${cx - 4},${cy - 76} ${cx + 4},${cy - 76}`}
+          points={`${cx},${cy - 86} ${cx - 3.2},${cy - 78} ${cx + 3.2},${cy - 78}`}
           fill="#c9a86c"
+        />
+        <line
+          className="watch-meridian"
+          x1={cx}
+          y1={cy - 86}
+          x2={cx}
+          y2={cy - 44}
+          stroke="#c9a86c"
+          strokeWidth="1.35"
+          strokeLinecap="round"
         />
 
         {dateWindow && (
@@ -323,7 +333,15 @@ export function WatchFace({
       </g>
 
       {/* glass gleam */}
-      <ellipse cx={cx - 28} cy={cy - 36} rx="42" ry="22" fill="#fff" opacity="0.08" />
+      <ellipse
+        className={animate ? "watch-gleam" : undefined}
+        cx={cx - 28}
+        cy={cy - 36}
+        rx="42"
+        ry="22"
+        fill="#fff"
+        opacity="0.08"
+      />
     </svg>
   );
 }

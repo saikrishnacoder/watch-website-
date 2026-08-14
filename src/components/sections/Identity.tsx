@@ -5,7 +5,7 @@ import { Reveal } from "../ui/Reveal";
 
 export function Identity({ showCrest = true }: { showCrest?: boolean }) {
   return (
-    <section className="section identity">
+    <section className="section identity" data-meridian="maison" data-meridian-label="Maison">
       {showCrest && (
         <Reveal className="identity-crest">
           <Monogram size={120} />
@@ -35,8 +35,8 @@ export function Identity({ showCrest = true }: { showCrest?: boolean }) {
             </div>
           ))}
         </div>
-        <Link className="section-link" to="/maison">
-          The maison
+        <Link className="section-link" to={showCrest ? "/maison" : "/heritage"}>
+          {showCrest ? "The maison" : "Heritage timeline"}
         </Link>
       </div>
     </section>

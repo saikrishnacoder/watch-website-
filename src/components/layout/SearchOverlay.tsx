@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 import { site } from "../../config/site";
 import { useUI } from "../../context/UIContext";
 
+type Hit = {
+  href: string;
+  title: string;
+  meta: string;
+  kind: "Watch" | "Line" | "Journal" | "Boutique";
+};
+
 export function SearchOverlay() {
   const { searchOpen, setSearchOpen } = useUI();
   const [query, setQuery] = useState("");
@@ -19,13 +26,35 @@ export function SearchOverlay() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return site.products.slice(0, 5);
-    return site.products.filter((product) =>
-      [product.name, product.collection, product.tagline, product.reference, product.material]
-        .join(" ")
-        .toLowerCase()
-        .includes(q),
-    );
+    const watches: Hit[] = site.products.map((product) => ({
+      href: `/watch/${product.slug}`,
+      title: product.name,
+      meta: `${product.collection} · ${product.reference}`,
+      kind: "Watch",
+    }));
+    const lines: Hit[] = site.collectionLines.map((line) => ({
+      href: `/collection/${line.slug}`,
+      title: line.name,
+      meta: line.tagline,
+      kind: "Line",
+    }));
+    const stories: Hit[] = site.journal.map((article) => ({
+      href: `/journal/${article.slug}`,
+      title: article.title,
+      meta: `${article.category} · ${article.date}`,
+      kind: "Journal",
+    }));
+    const houses: Hit[] = site.boutiques.map((house) => ({
+      href: "/boutique",
+      title: house.city,
+      meta: house.address,
+      kind: "Boutique",
+    }));
+    const pool = [...watches, ...lines, ...stories, ...houses];
+    if (!q) return watches.slice(0, 8);
+    return pool
+      .filter((hit) => `${hit.title} ${hit.meta} ${hit.kind}`.toLowerCase().includes(q))
+      .slice(0, 12);
   }, [query]);
 
   return (
@@ -50,6 +79,7 @@ export function SearchOverlay() {
           >
             <header>
               <h2 id="search-title">Search the maison</h2>
+              <span className="search-hint">⌘K</span>
               <button className="icon-btn" onClick={() => setSearchOpen(false)} aria-label="Close search">
                 ×
               </button>
@@ -58,23 +88,23 @@ export function SearchOverlay() {
               autoFocus
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Chronograph, gold, sport…"
+              placeholder="A reference, a city, a line, a story…"
             />
             <div className="search-results">
-              {results.map((product) => (
+              {results.map((hit) => (
                 <Link
-                  key={product.slug}
+                  key={`${hit.kind}-${hit.href}-${hit.title}`}
                   className="search-hit"
-                  to={`/watch/${product.slug}`}
+                  to={hit.href}
                   onClick={() => setSearchOpen(false)}
                 >
-                  <strong>{product.name}</strong>
+                  <strong>{hit.title}</strong>
                   <span>
-                    {product.collection} · {product.reference}
+                    {hit.kind} · {hit.meta}
                   </span>
                 </Link>
               ))}
-              {results.length === 0 && <p className="empty">No timepieces match that search.</p>}
+              {results.length === 0 && <p className="empty">No timepieces, stories or maisons match that search.</p>}
             </div>
           </motion.div>
         </>
