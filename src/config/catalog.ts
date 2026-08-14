@@ -73,9 +73,8 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "heritage",
     name: "Heritage",
-    tagline: "The origin line",
-    description:
-      "Enamel dials, railroad minutes and extra-thin calibres — the watches that started the maison, re-proportioned for today.",
+    tagline: "The original line",
+    description: "The original line. Time-only, hand-finished, unchanged since 1924.",
     image: "/lines/heritage.jpg",
     calibre: "H-08",
     finishing: "Enamel, extra-thin, railroad minutes",
@@ -87,9 +86,8 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "chronograph",
     name: "Chronograph",
-    tagline: "Time, measured twice",
-    description:
-      "Column-wheel chronographs with three registers, tachymeter scales and the 10:10 pose the atelier still draws by hand.",
+    tagline: "Measured time",
+    description: "Measured time. Column-wheel construction, built for precision under pressure.",
     image: "/lines/chronograph.jpg",
     calibre: "H-72",
     finishing: "Column wheel, three registers, tachymeter",
@@ -101,9 +99,8 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "diver",
     name: "Diver",
-    tagline: "Built for depth",
-    description:
-      "Ceramic bezels, helium-ready gaskets and lume you can read at 200 metres. The professional line, finished like a dress watch.",
+    tagline: "Time at depth",
+    description: "Time at depth. 300m water resistance, engineered for the sea.",
     image: "/lines/diver.jpg",
     calibre: "H-90",
     finishing: "Ceramic bezel, 200–500 m, lume plots",
@@ -115,9 +112,8 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "imperial",
     name: "Imperial",
-    tagline: "Precious metal",
-    description:
-      "Yellow gold, rose gold and black DLC. Numbered editions and moonphases for evenings that last longer than the night.",
+    tagline: "Time in ceremony",
+    description: "Time in ceremony. The Maison's dress collection, cased in precious metal.",
     image: "/lines/imperial.jpg",
     calibre: "H-12",
     finishing: "18k gold, numbered editions, moonphase",
@@ -129,9 +125,9 @@ export const collectionLines: CollectionLine[] = [
   {
     slug: "meridian",
     name: "Meridian",
-    tagline: "The namesake line",
+    tagline: "Time in motion",
     description:
-      "GMT, worldtimer and dual time — watches built around the gold meridian at 12. HORLOGE is named for the clock. This line is named for the line.",
+      "Time in motion. The line reimagined as a moving indication — our signature complication.",
     image: "/lines/meridian.jpg",
     calibre: "H-24",
     finishing: "GMT, worldtimer, dual time",

@@ -14,11 +14,8 @@ export function Maison() {
         <img src="/media/maison-meridian.jpg" alt="The gold meridian at 12 on a HORLOGE dial" />
         <div className="maison-hero-copy">
           <Monogram size={72} />
-          <div className="eyebrow">{site.brand.seal}</div>
-          <h1 className="display">{site.brand.motto}</h1>
-          <p className="lede">
-            {site.brand.mottoEn}. {site.brand.description}
-          </p>
+          <h1 className="display">{site.maisonPage.title}</h1>
+          <p className="lede">{site.maisonPage.lede}</p>
           <div className="hero-actions">
             <MagneticButton href="#heritage">A century in years</MagneticButton>
             <MagneticButton variant="ghost" to="/atelier">
@@ -29,29 +26,37 @@ export function Maison() {
         <span className="maison-hero-meridian" aria-hidden />
       </section>
 
-      <PressStrip />
-
       <section className="section maison-origin">
-        <Reveal>
-          <div className="eyebrow">Origin</div>
-          <h2 className="display">A maison on the Rue du Rhône.</h2>
-        </Reveal>
         <div className="maison-split">
           <Reveal>
-            <p className="lede">
-              HORLOGE opens in Geneva in {site.brand.founded}. The first enamel dials carry a gold line at 12 — the
-              Geneva meridian, drawn thinner than a hair. That line is still the only mark we put on every watch.
-            </p>
-            <p className="lede">
-              Five lines share one city, one seal, and a refusal to rush the finishing. Heritage, Chronograph, Diver,
-              Imperial, Meridian. Silence, measure, inherit.
-            </p>
+            <p className="lede">{site.maisonPage.founding}</p>
           </Reveal>
           <Reveal delay={0.08}>
             <img src="/media/maison-bench.jpg" alt="The atelier bench in Geneva" />
           </Reveal>
         </div>
       </section>
+
+      <section className="section maison-essays">
+        <div className="maison-split">
+          <Reveal>
+            <h2 className="display">{site.maisonPage.independence.title}</h2>
+            <p className="lede">{site.maisonPage.independence.body}</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h2 className="display">{site.maisonPage.craft.title}</h2>
+            <p className="lede">{site.maisonPage.craft.body}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section maison-close">
+        <Reveal>
+          <p className="display">{site.maisonPage.closing}</p>
+        </Reveal>
+      </section>
+
+      <PressStrip />
 
       <section className="section maison-meridian-essay">
         <Reveal className="maison-meridian-copy">

@@ -165,6 +165,30 @@ export const site = {
     imageAlt: "Heritage enamel dial with the gold meridian at 12",
   },
 
+  collectionPage: {
+    title: "The Collection",
+    lede: "Five expressions of one idea: time composed around a gold line at 12.",
+    gridIntro:
+      "Each Horloge watch begins from the same point — a single gold line crossing the dial at twelve. Five collections interpret it differently: in restraint, in complication, in depth, in ceremony, in motion.",
+  },
+
+  maisonPage: {
+    title: "The Maison",
+    lede: "Geneva, 1924.",
+    founding:
+      "Horloge was founded in Geneva in 1924 by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled. From that year forward, every Horloge dial has carried the same signature — a gold line, set precisely at twelve, marking the point from which the rest of the watch is built outward.",
+    independence: {
+      title: "Independence",
+      body: "We remain an independent maison. No conglomerate owns our movements, our case designs, or our name. Each collection is developed in-house, in the same workshop the Maison has occupied since its founding.",
+    },
+    craft: {
+      title: "Craft",
+      body: "A Horloge watch passes through the hands of fewer than twelve people before it leaves Geneva. Cases are finished by hand. Movements are regulated individually, not by batch. This is slower than industrial watchmaking — deliberately so.",
+    },
+    closing:
+      "One hundred years on, the line at twelve has not moved. Everything else has been composed around it.",
+  },
+
   atelier: {
     eyebrow: "The atelier",
     title: "Where hours become heirlooms.",

@@ -18,7 +18,7 @@ export function documentTitle(pathname: string) {
 
   const pages: Record<string, string> = {
     "/": site.seo.title,
-    "/collection": `Watches — ${site.brand.name}`,
+    "/collection": `The Collection — ${site.brand.name}`,
     "/finder": `Watch Finder — ${site.brand.name}`,
     "/find": `Find your watch — ${site.brand.name}`,
     "/checkout": `Preview checkout — ${site.brand.name}`,
@@ -28,7 +28,7 @@ export function documentTitle(pathname: string) {
     "/compose": `Composer — ${site.brand.name}`,
     "/journal": `Journal — ${site.brand.name}`,
     "/services": `Services — ${site.brand.name}`,
-    "/maison": `The maison — ${site.brand.name}`,
+    "/maison": `The Maison — ${site.brand.name}`,
     "/heritage": `Heritage — ${site.brand.name}`,
     "/atelier": `Atelier — ${site.brand.name}`,
     "/motion": `Kinetic atelier — ${site.brand.name}`,
