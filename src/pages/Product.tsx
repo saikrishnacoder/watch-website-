@@ -159,11 +159,6 @@ export function Product() {
         </div>
 
         <div>
-          <div className="crumbs">
-            <Link to="/collection">Watches</Link>
-            <span>/</span>
-            <Link to={`/collection/${product.collectionSlug}`}>{product.collection}</Link>
-          </div>
           <div className="eyebrow">
             {product.reference}
             {product.limited ? " · Atelier edition" : ""}

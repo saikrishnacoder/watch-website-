@@ -19,8 +19,8 @@ export function NotFound() {
       </p>
       <div className="hero-actions">
         <MagneticButton to="/">Return home</MagneticButton>
-        <MagneticButton variant="ghost" to="/contact">
-          Speak to a specialist
+        <MagneticButton variant="ghost" to="/collection">
+          Explore the Collection
         </MagneticButton>
       </div>
       <nav className="not-found-links" aria-label="Maison">

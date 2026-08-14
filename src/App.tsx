@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { BackToTop } from "./components/layout/BackToTop";
+import { Breadcrumbs } from "./components/layout/Breadcrumbs";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
 import { Concierge } from "./components/layout/Concierge";
@@ -102,12 +104,14 @@ function AppShell() {
             <AnimatePresence mode="wait">
               <motion.div
                 id="main"
+                className="app-main"
                 key={location.pathname}
                 initial={quiet || firstPaint.current ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={quiet ? undefined : { opacity: 0 }}
                 transition={quiet ? { duration: 0 } : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
+                <Breadcrumbs />
                 <Routes location={location}>
                   <Route path="/" element={<Home />} />
                   <Route path="/collection" element={<Collection />} />
@@ -145,6 +149,7 @@ function AppShell() {
             <CookieBanner />
             <RegionPanel />
             <Concierge />
+            <BackToTop />
             <Toast />
           </div>
         </UIProvider>

@@ -1,3 +1,5 @@
+import { crumbsForPath } from "./breadcrumbs";
+
 export type RouteNavLink = { href: string; label: string };
 
 export type RouteCopy = {
@@ -340,10 +342,25 @@ export function staticPageMarkup(copy: RouteCopy, path: string) {
   const nav = copy.nav
     .map((item) => `          <a href="${item.href}">${escapeHtml(item.label)}</a>`)
     .join("\n");
+  const crumbs = crumbsForPath(path);
+  const trail =
+    crumbs && crumbs.length > 1
+      ? `<nav class="crumbs-bar" aria-label="Breadcrumb"><ol>${crumbs
+          .map((crumb, index) => {
+            const last = index === crumbs.length - 1;
+            const sep = index > 0 ? `<span class="crumbs-sep" aria-hidden="true">/</span>` : "";
+            const node = last
+              ? `<span aria-current="page">${escapeHtml(crumb.label)}</span>`
+              : `<a href="${escapeHtml(crumb.href)}">${escapeHtml(crumb.label)}</a>`;
+            return `<li>${sep}${node}</li>`;
+          })
+          .join("")}</ol></nav>`
+      : "";
   return `<div class="static-route" data-route="${escapeHtml(path)}">
         <header>
           <p>HORLOGE</p>
         </header>
+        ${trail}
         <main>
           <h1>${escapeHtml(copy.heading)}</h1>
           <p>${escapeHtml(copy.body)}</p>

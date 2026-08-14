@@ -18,7 +18,7 @@ const LOST_SHELL = `
     <p>The page has no meridian. Return home, or enter the collection — five lines, one gold stroke at 12.</p>
     <div class="lost-actions">
       <a class="lost-btn" href="/">Return home</a>
-      <a class="lost-btn lost-btn-ghost" href="/collection">The collection</a>
+      <a class="lost-btn lost-btn-ghost" href="/collection">Explore the Collection</a>
     </div>
     <nav class="lost-nav" aria-label="Maison">
       <a href="/collection/heritage">Heritage</a>
