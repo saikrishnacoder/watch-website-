@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { getProduct, site } from "../../config/site";
+import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
 import { MagneticButton } from "../ui/MagneticButton";
 import { WatchFace } from "../watch/WatchFace";
@@ -8,6 +10,7 @@ import { ParticleField } from "../motion/ParticleField";
 
 export function Hero() {
   const featured = getProduct(site.hero.featuredSlug) ?? site.products[0];
+  const { formatPrice } = useMoney();
   const { reduceMotion, canParallax } = useMotion();
   const [paused, setPaused] = useState(false);
   const { scrollY } = useScroll();
@@ -52,16 +55,16 @@ export function Hero() {
           </MagneticButton>
         </div>
       </div>
-      <div className="cinema-featured">
+      <Link to={`/watch/${featured.slug}`} className="cinema-featured">
         <WatchFace {...featured.design} brand={site.brand.name} size={180} animate={!quiet} />
         <div>
           <div className="product-line">New model</div>
           <strong>{featured.name}</strong>
           <span>
-            {featured.diameter} mm · {featured.material}
+            {formatPrice(featured.price)} · {featured.diameter} mm
           </span>
         </div>
-      </div>
+      </Link>
       <button
         className="hero-pause"
         type="button"

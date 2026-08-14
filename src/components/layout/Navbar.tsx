@@ -77,9 +77,13 @@ export function Navbar() {
         <BrandMark />
         <ul className="nav-links">
           <li>
-            <button className={mega ? "active" : ""} onMouseEnter={() => setMega(true)}>
+            <NavLink
+              to="/collection"
+              className={mega ? "active" : ""}
+              onMouseEnter={() => setMega(true)}
+            >
               Watches
-            </button>
+            </NavLink>
           </li>
           <li>
             <NavLink to="/finder">Watch Finder</NavLink>

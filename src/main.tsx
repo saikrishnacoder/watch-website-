@@ -6,9 +6,11 @@ import "./index.css";
 import "./styles/css-motion.css";
 import "./styles/python-motion.css";
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename === "/" ? undefined : basename}>
       <App />
     </BrowserRouter>
   </StrictMode>,

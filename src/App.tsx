@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
@@ -89,6 +89,7 @@ function AppShell() {
             <BootSequence />
             <MeridianRail />
             <Shortcuts />
+            <NormalizeSlash />
             <CustomCursor />
             <Navbar />
             <SearchOverlay />
@@ -203,6 +204,19 @@ function Shortcuts() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [searchOpen, setSearchOpen, setMenuOpen]);
+
+  return null;
+}
+
+function NormalizeSlash() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname.length > 1 && location.pathname.endsWith("/")) {
+      navigate(`${location.pathname.replace(/\/+$/, "")}${location.search}${location.hash}`, { replace: true });
+    }
+  }, [location.hash, location.pathname, location.search, navigate]);
 
   return null;
 }

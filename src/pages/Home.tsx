@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { site } from "../config/site";
+import { signatureProducts, site } from "../config/site";
 import { Customizer } from "../components/sections/Customizer";
 import { Features } from "../components/sections/Features";
 import { Hero } from "../components/sections/Hero";
@@ -19,32 +19,33 @@ import { Reveal } from "../components/ui/Reveal";
 
 export function Home() {
   const novelties = site.products.filter((product) => product.novelty);
-  const featured = site.products.filter((product) => !product.novelty).slice(0, 6);
+  const featured = signatureProducts().slice(0, 6);
 
   return (
     <div className="page">
       <Hero />
       <Marquee />
-      <Identity />
-      <HorizontalLines />
-      <HeritageTeaser />
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="section-head">
           <div>
-            <div className="eyebrow">Novelties</div>
-            <h2 className="display">New this season</h2>
+            <div className="eyebrow">Now in the maison</div>
+            <h2 className="display">Watches, priced and present.</h2>
           </div>
-          <Link className="section-link" to="/finder">
-            Watch Finder
+          <Link className="section-link" to="/collection">
+            All {site.products.length} references
           </Link>
         </div>
         <div className="product-grid">
-          {novelties.map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} priority={index < 2} />
+          {(novelties.length ? novelties : featured).slice(0, 6).map((product, index) => (
+            <ProductCard key={product.slug} product={product} index={index} priority={index < 3} />
           ))}
         </div>
       </section>
+
+      <Identity />
+      <HorizontalLines />
+      <HeritageTeaser />
 
       <Stats />
       <Features />
