@@ -22,7 +22,7 @@ export function CollectionFamily() {
       <section className="family-hero" style={{ backgroundImage: `url(${line.image})` }}>
         <div>
           <div className="eyebrow">
-            {line.calibre}
+            {line.name} · {line.calibre}
           </div>
           <h1 className="display">{line.name}</h1>
           <p className="lede">{line.description}</p>
@@ -36,8 +36,8 @@ export function CollectionFamily() {
         <div className="maison-split">
           <Reveal>
             <div className="eyebrow">{line.finishing}</div>
-            <h2 className="display">The line, in full.</h2>
-            {(line.essay ?? []).map((paragraph) => (
+            <h2 className="display">{line.chapterTitle}</h2>
+            {line.essay.map((paragraph) => (
               <p className="lede" key={paragraph}>
                 {paragraph}
               </p>
@@ -55,8 +55,8 @@ export function CollectionFamily() {
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="section-head">
             <div>
-              <div className="eyebrow">Signatures</div>
-              <h2 className="display">{line.name}, as drawn.</h2>
+              <div className="eyebrow">{line.name} signatures</div>
+              <h2 className="display">{line.name} on the tray.</h2>
             </div>
           </div>
           <div className="product-grid">
@@ -69,9 +69,11 @@ export function CollectionFamily() {
 
       <section className="section">
         <div className="section-head">
-          <h2 className="display">{watches.length} current references</h2>
+          <h2 className="display">
+            {watches.length} {line.name} references
+          </h2>
           <Link className="section-link" to="/collection">
-            All watches
+            All collections
           </Link>
         </div>
         <ProductGrid products={watches} />

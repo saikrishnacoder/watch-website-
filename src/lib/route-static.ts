@@ -1,4 +1,5 @@
 import { crumbsForPath } from "./breadcrumbs";
+import { collectionLines, signatureProducts, site } from "../config/site";
 
 export type RouteNavLink = { href: string; label: string };
 
@@ -119,7 +120,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     description:
       "The Maison Horloge, Geneva, 1924. Independent watchmaking. A gold line at twelve, and a century composed around it.",
     heading: "The Maison",
-    body: "Geneva, 1924. Horloge was founded by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled. We remain independent. Cases are finished by hand. Movements are regulated individually, not by batch.",
+    body: "Geneva, 1924. Horloge was founded by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled. From that year forward, every Horloge dial has carried a gold line at twelve. The first bench sat on the Rue du Rhône. The meridian is drawn last, after the enamel has cooled. We remain independent. Cases are finished by hand. Movements are regulated individually, not by batch.",
     nav: [
       { href: "/maison", label: "Origin" },
       { href: "/heritage", label: "A century in years" },
@@ -364,11 +365,68 @@ export function staticPageMarkup(copy: RouteCopy, path: string) {
         <main>
           <h1>${escapeHtml(copy.heading)}</h1>
           <p>${escapeHtml(copy.body)}</p>
+          ${uniqueBodyHtml(path)}
           <nav aria-label="${escapeHtml(copy.heading)}">
 ${nav}
           </nav>
         </main>
       </div>`;
+}
+
+function uniqueBodyHtml(path: string) {
+  if (path === "/collection") {
+    const articles = collectionLines
+      .map(
+        (line) => `          <article>
+            <h2><a href="/collection/${escapeHtml(line.slug)}">${escapeHtml(line.name)}</a></h2>
+            <p>${escapeHtml(line.chapterTitle)} ${escapeHtml(line.indexBlurb)}</p>
+            <p>${escapeHtml(line.finishing)} · ${escapeHtml(line.calibre)}</p>
+          </article>`,
+      )
+      .join("\n");
+    return `<section aria-label="Five collections">
+${articles}
+        </section>`;
+  }
+
+  if (path.startsWith("/collection/")) {
+    const slug = path.split("/")[2] ?? "";
+    const line = collectionLines.find((item) => item.slug === slug);
+    if (!line) return "";
+    const essays = line.essay.map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`).join("\n");
+    const watches = signatureProducts(slug)
+      .slice(0, 6)
+      .map(
+        (watch) => `          <article>
+            <h3><a href="/watch/${escapeHtml(watch.slug)}">${escapeHtml(watch.name)}</a></h3>
+            <p>${escapeHtml(watch.reference)} · ${escapeHtml(watch.tagline)}</p>
+          </article>`,
+      )
+      .join("\n");
+    return `<section aria-label="${escapeHtml(line.name)}">
+          <h2>${escapeHtml(line.chapterTitle)}</h2>
+${essays}
+        </section>
+        <section aria-label="${escapeHtml(line.name)} watches">
+${watches}
+        </section>`;
+  }
+
+  if (path === "/maison") {
+    const story = site.maisonPage.founding
+      .map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`)
+      .join("\n");
+    return `<article aria-label="Founding">
+          <h2>Composed, not assembled.</h2>
+${story}
+          <h2>${escapeHtml(site.maisonPage.independence.title)}</h2>
+          <p>${escapeHtml(site.maisonPage.independence.body)}</p>
+          <h2>${escapeHtml(site.maisonPage.craft.title)}</h2>
+          <p>${escapeHtml(site.maisonPage.craft.body)}</p>
+        </article>`;
+  }
+
+  return "";
 }
 
 function escapeHtml(value: string) {

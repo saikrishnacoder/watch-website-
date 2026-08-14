@@ -29,7 +29,13 @@ export function Maison() {
       <section className="section maison-origin">
         <div className="maison-split">
           <Reveal>
-            <p className="lede">{site.maisonPage.founding}</p>
+            <div className="eyebrow">1924</div>
+            <h2 className="display">Composed, not assembled.</h2>
+            {site.maisonPage.founding.map((paragraph) => (
+              <p className="lede" key={paragraph}>
+                {paragraph}
+              </p>
+            ))}
           </Reveal>
           <Reveal delay={0.08}>
             <img src="/media/maison-bench.jpg" alt="The atelier bench in Geneva" />
@@ -97,28 +103,18 @@ export function Maison() {
             <h2 className="display">One meridian.</h2>
           </div>
           <Link className="section-link" to="/collection">
-            All watches
+            The Collection
           </Link>
         </div>
-        <div className="line-chapters">
-          {site.collectionLines.map((line, index) => (
-            <Reveal key={line.slug} delay={index * 0.04} className={`line-chapter ${index % 2 ? "is-flip" : ""}`}>
-              <Link to={`/collection/${line.slug}`} className="line-chapter-media">
-                <img src={line.image} alt={line.name} />
-              </Link>
+        <div className="line-tiles">
+          {site.collectionLines.map((line) => (
+            <Link key={line.slug} to={`/collection/${line.slug}`} className="line-tile">
+              <img src={line.image} alt="" />
               <div>
-                <div className="eyebrow">
-                  {line.name} · {line.calibre}
-                </div>
-                <h3 className="display">{line.tagline}</h3>
-                {(line.essay ?? []).map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                <Link className="section-link" to={`/collection/${line.slug}`}>
-                  Enter {line.name}
-                </Link>
+                <strong>{line.name}</strong>
+                <span>{line.tagline}</span>
               </div>
-            </Reveal>
+            </Link>
           ))}
         </div>
       </section>

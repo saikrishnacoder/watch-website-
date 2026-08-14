@@ -275,7 +275,8 @@ export function Product() {
             <Link to={boutiqueTo}>Private Viewing</Link>
           </div>
 
-          <div className="specs">
+          <div className="specs" id="specifications">
+            <h2 className="eyebrow">Specifications</h2>
             {product.specGroups.map((group) => (
               <div key={group.title}>
                 <button

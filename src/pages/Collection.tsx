@@ -1,106 +1,66 @@
-import { useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { signatureProducts, site } from "../config/site";
-import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
-import { RecentlyViewed } from "../components/sections/RecentlyViewed";
-import { PressStrip } from "../components/sections/PressStrip";
 import { Reveal } from "../components/ui/Reveal";
 
 export function Collection() {
-  const [params] = useSearchParams();
-  const initial = params.get("line") ?? "All";
-  const names = ["All", ...site.collectionLines.map((line) => line.name)];
-  const [line, setLine] = useState(names.includes(initial) ? initial : "All");
-  const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc" | "size">("featured");
-
-  const products = useMemo(() => {
-    const filtered =
-      line === "All" ? [...site.products] : site.products.filter((product) => product.collection === line);
-    if (sort === "price-asc") filtered.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") filtered.sort((a, b) => b.price - a.price);
-    if (sort === "size") filtered.sort((a, b) => a.diameter - b.diameter);
-    return filtered;
-  }, [line, sort]);
-
-  const signatures = signatureProducts();
+  const signatures = site.collectionLines
+    .map((line) => signatureProducts(line.slug)[0])
+    .filter((product): product is NonNullable<typeof product> => Boolean(product));
 
   return (
     <div className="page">
       <section className="collection-hero">
         <img src="/media/maison-meridian.jpg" alt="" />
         <div>
+          <div className="eyebrow">Five lines · one meridian</div>
           <h1 className="display">{site.collectionPage.title}</h1>
           <p className="lede">{site.collectionPage.lede}</p>
         </div>
       </section>
 
-      <PressStrip compact />
-
       <section className="section">
         <p className="lede collection-grid-intro">{site.collectionPage.gridIntro}</p>
-        <div className="family-grid collection-lines">
+        <div className="line-index">
           {site.collectionLines.map((family, index) => (
-            <Reveal key={family.slug} delay={index * 0.04} className="family-card">
-              <Link to={`/collection/${family.slug}`}>
-                <img src={family.image} alt={family.name} />
-                <div>
-                  <strong>{family.name}</strong>
-                  <span>{family.description}</span>
-                </div>
+            <Reveal key={family.slug} delay={index * 0.04} className="line-index-card">
+              <Link to={`/collection/${family.slug}`} className="line-index-media">
+                <img src={family.image} alt="" />
               </Link>
+              <div>
+                <div className="eyebrow">
+                  {family.name} · {family.calibre}
+                </div>
+                <h2 className="display">{family.chapterTitle}</h2>
+                <p>{family.indexBlurb}</p>
+                <p className="line-index-finish">{family.finishing}</p>
+                <Link className="section-link" to={`/collection/${family.slug}`}>
+                  Enter {family.name}
+                </Link>
+              </div>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Signatures</div>
-            <h2 className="display">The permanent collection.</h2>
+      {signatures.length > 0 && (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">One from each line</div>
+              <h2 className="display">Five signatures.</h2>
+            </div>
+            <Link className="section-link" to="/finder">
+              Watch Finder
+            </Link>
           </div>
-        </div>
-        <div className="product-grid">
-          {signatures.slice(0, 6).map((product, index) => (
-            <ProductCard key={product.slug} product={product} index={index} priority={index < 2} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }} id="catalogue">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Atelier catalogue</div>
-            <h2 className="display">All current references.</h2>
+          <div className="product-grid">
+            {signatures.map((product, index) => (
+              <ProductCard key={product.slug} product={product} index={index} priority={index < 2} />
+            ))}
           </div>
-        </div>
-        <div className="filters">
-          {names.map((item) => (
-            <button
-              key={item}
-              className={`filter-btn ${line === item ? "is-on" : ""}`}
-              onClick={() => setLine(item)}
-            >
-              {item}
-            </button>
-          ))}
-          <select
-            className="filter-btn"
-            value={sort}
-            onChange={(event) => setSort(event.target.value as typeof sort)}
-            aria-label="Sort"
-          >
-            <option value="featured">Featured</option>
-            <option value="size">Diameter</option>
-            <option value="price-asc">Price · low</option>
-            <option value="price-desc">Price · high</option>
-          </select>
-        </div>
-        <p className="finder-count">{products.length} timepieces</p>
-        <ProductGrid products={products} />
-        <RecentlyViewed />
-      </section>
+        </section>
+      )}
     </div>
   );
 }

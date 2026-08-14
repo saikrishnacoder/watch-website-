@@ -5,6 +5,8 @@ export type CollectionLine = {
   name: string;
   tagline: string;
   description: string;
+  indexBlurb: string;
+  chapterTitle: string;
   image: string;
   calibre: string;
   essay: string[];
@@ -75,6 +77,9 @@ export const collectionLines: CollectionLine[] = [
     name: "Heritage",
     tagline: "The original line",
     description: "The original line. Time-only, hand-finished, unchanged since 1924.",
+    chapterTitle: "The first sentence.",
+    indexBlurb:
+      "Time-only enamel, extra-thin H-08, railroad minutes. Heritage is where the gold meridian was drawn first — and has not been redrawn since 1924.",
     image: "/lines/heritage.jpg",
     calibre: "H-08",
     finishing: "Enamel, extra-thin, railroad minutes",
@@ -88,6 +93,9 @@ export const collectionLines: CollectionLine[] = [
     name: "Chronograph",
     tagline: "Measured time",
     description: "Measured time. Column-wheel construction, built for precision under pressure.",
+    chapterTitle: "Three distinct events.",
+    indexBlurb:
+      "Column-wheel H-72. Start, stop, and reset as three mechanical sentences. Ivory opaline, blued hands, a tachymeter for those who still measure a road.",
     image: "/lines/chronograph.jpg",
     calibre: "H-72",
     finishing: "Column wheel, three registers, tachymeter",
@@ -101,6 +109,9 @@ export const collectionLines: CollectionLine[] = [
     name: "Diver",
     tagline: "Time at depth",
     description: "Time at depth. 300m water resistance, engineered for the sea.",
+    chapterTitle: "Finished for the dark.",
+    indexBlurb:
+      "A diver finished like a dress watch. Ceramic bezel, lume that holds when the water is black, 200 to 500 metres — and the meridian still gold at 12.",
     image: "/lines/diver.jpg",
     calibre: "H-90",
     finishing: "Ceramic bezel, 200–500 m, lume plots",
@@ -114,6 +125,9 @@ export const collectionLines: CollectionLine[] = [
     name: "Imperial",
     tagline: "Time in ceremony",
     description: "Time in ceremony. The Maison's dress collection, cased in precious metal.",
+    chapterTitle: "Metal that remembers the lamp.",
+    indexBlurb:
+      "Yellow, rose, and white gold, and a black DLC that drinks the room. Numbered editions and moonphase — cases finished to be refinished by the next owner.",
     image: "/lines/imperial.jpg",
     calibre: "H-12",
     finishing: "18k gold, numbered editions, moonphase",
@@ -128,6 +142,9 @@ export const collectionLines: CollectionLine[] = [
     tagline: "Time in motion",
     description:
       "Time in motion. The line reimagined as a moving indication — our signature complication.",
+    chapterTitle: "The line, carried.",
+    indexBlurb:
+      "GMT, dual time, worldtimer. HORLOGE is a French word for clock; this line carries the Geneva meridian around the world without moving the gold stroke at 12.",
     image: "/lines/meridian.jpg",
     calibre: "H-24",
     finishing: "GMT, worldtimer, dual time",
