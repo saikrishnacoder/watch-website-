@@ -4,6 +4,7 @@ import { Hero } from "../components/sections/Hero";
 import { HorizontalLines } from "../components/sections/HorizontalLines";
 import { JourneyLockup } from "../components/sections/JourneyLockup";
 import { MaisonChapter } from "../components/sections/MaisonChapter";
+import { PressStrip } from "../components/sections/PressStrip";
 import { MeridianChapter } from "../components/sections/MeridianChapter";
 import { WatchmakerStories } from "../components/sections/WatchmakerStories";
 import { ConciergeInvite, ViewingInvite } from "../components/sections/JourneyInvites";
@@ -43,6 +44,7 @@ export function Home() {
 
       <ExplodedCalibre />
       <MaisonChapter />
+      <PressStrip />
       <WatchmakerStories />
 
       <section className="section" data-meridian="journal" data-meridian-label="Journal">

@@ -45,6 +45,7 @@ import { MotionLab } from "./pages/MotionLab";
 import { NotFound } from "./pages/NotFound";
 import { Privacy } from "./pages/Privacy";
 import { Product } from "./pages/Product";
+import { ProductCraft } from "./pages/ProductCraft";
 import { Services } from "./pages/Services";
 import { WatchFinder } from "./pages/WatchFinder";
 import { Wishlist } from "./pages/Wishlist";
@@ -118,6 +119,7 @@ function AppShell() {
                   <Route path="/diver" element={<Navigate to="/collection/diver" replace />} />
                   <Route path="/imperial" element={<Navigate to="/collection/imperial" replace />} />
                   <Route path="/meridian" element={<Navigate to="/collection/meridian" replace />} />
+                  <Route path="/watch/:slug/craft" element={<ProductCraft />} />
                   <Route path="/watch/:slug" element={<Product />} />
                   <Route path="/finder" element={<WatchFinder />} />
                   <Route path="/find" element={<FindWatch />} />

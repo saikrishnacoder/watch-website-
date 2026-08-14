@@ -4,6 +4,7 @@ import { signatureProducts, site } from "../config/site";
 import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
+import { PressStrip } from "../components/sections/PressStrip";
 import { Reveal } from "../components/ui/Reveal";
 import { MagneticButton } from "../components/ui/MagneticButton";
 
@@ -43,6 +44,8 @@ export function Collection() {
           <MagneticButton to="/find">Find your watch</MagneticButton>
         </div>
       </section>
+
+      <PressStrip compact />
 
       <section className="section">
         <div className="section-head">

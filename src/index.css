@@ -2945,6 +2945,272 @@ a.icon-btn {
   transform-origin: left center;
 }
 
+.heritage-year-rail {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.heritage-year-rail button {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  letter-spacing: 0.14em;
+  font-size: 10px;
+  text-align: right;
+}
+
+.heritage-year-rail button:hover {
+  color: var(--gold);
+}
+
+.heritage-interactive .heritage-year {
+  font-size: clamp(56px, 10vw, 128px);
+}
+
+.heritage-axis {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 28px 0 8px;
+  margin-bottom: 28px;
+}
+
+.heritage-axis-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+}
+
+.heritage-axis button {
+  flex: 1 0 auto;
+  min-width: 64px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 18px 8px 0;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+.heritage-axis button.is-on {
+  color: var(--gold);
+}
+
+.heritage-interactive-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 36px;
+  align-items: center;
+}
+
+.heritage-interactive-card img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.heritage-interactive-nav {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.heritage-interactive-nav button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.press-strip {
+  padding: 36px 6%;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.press-strip-head {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.press-strip-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.press-strip ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+}
+
+.press-strip li {
+  display: grid;
+  gap: 4px;
+}
+
+.press-strip strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gold);
+  font-style: italic;
+}
+
+.press-strip span {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.press-strip.is-compact {
+  padding: 22px 6%;
+}
+
+.press-strip.is-compact strong {
+  font-size: 18px;
+}
+
+.craft-strip {
+  margin: 8px 0 20px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.craft-strip-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.craft-strip-facts span {
+  display: block;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+
+.craft-strip-facts strong {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+}
+
+.craft-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  overflow: auto;
+}
+
+.craft-modal-card {
+  width: min(720px, 100%);
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  padding: 36px;
+  margin: auto;
+}
+
+.craft-sheet-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  margin: 28px 0;
+}
+
+.craft-sheet-facts div {
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.craft-sheet-facts dt {
+  color: var(--muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.craft-sheet-facts dd {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.craft-sheet-note {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.craft-sheet-group {
+  margin-bottom: 18px;
+}
+
+.craft-sheet-group h3 {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.craft-sheet-group p {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.craft-sheet-group span {
+  color: var(--muted);
+}
+
+.craft-sheet-complications {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--gold);
+  margin: 8px 0 16px;
+}
+
+.craft-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
 .heritage-list {
   list-style: none;
   display: grid;
@@ -2968,7 +3234,7 @@ a.icon-btn {
 
 .heritage-years {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 12px;
 }
 
@@ -3603,6 +3869,23 @@ a.icon-btn {
 @media (max-width: 1024px) {
   .heritage-years {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .heritage-interactive-card {
+    grid-template-columns: 1fr;
+  }
+
+  .heritage-interactive-card img {
+    height: 240px;
+  }
+
+  .heritage-year-rail {
+    display: none;
+  }
+
+  .craft-strip-facts,
+  .craft-sheet-facts {
+    grid-template-columns: 1fr;
   }
 
   .horizon-card {
@@ -4465,6 +4748,7 @@ a.icon-btn {
   .cookie-banner,
   .region-notice,
   .region-overlay,
+  .craft-modal,
   .hero-actions,
   .footer,
   .cursor-ring {

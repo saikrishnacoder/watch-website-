@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { getProduct, relatedProducts, site } from "../config/site";
 import { papersFor, maisonInclusions } from "../config/papers";
 import { ProductCard } from "../components/ui/ProductCard";
@@ -14,12 +14,14 @@ import { WatchStudio } from "../components/motion/WatchStudio";
 import { StudioStage } from "../components/watch/StudioStage";
 import { Lightbox } from "../components/motion/Lightbox";
 import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
+import { CraftModal, CraftStrip } from "../components/watch/CraftSheet";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 import { openSpecialist } from "../lib/specialist";
 import { NotFound } from "./NotFound";
 
 export function Product() {
   const { slug = "" } = useParams();
+  const location = useLocation();
   const product = getProduct(slug);
   const { add, addOnce } = useCart();
   const { formatPrice } = useMoney();
@@ -34,12 +36,17 @@ export function Product() {
   const [lightbox, setLightbox] = useState(false);
   const [waitStatus, setWaitStatus] = useState("");
   const { open: sizeOpen, openGuide, closeGuide } = useSizeGuide();
+  const [craftOpen, setCraftOpen] = useState(false);
 
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
     setStudio("volume");
   }, [product, remember]);
+
+  useEffect(() => {
+    setCraftOpen(location.hash === "#craft");
+  }, [location.hash]);
 
   useEffect(() => {
     const onScroll = () => setSticky(window.scrollY > 520);
@@ -156,6 +163,7 @@ export function Product() {
             <span>{product.waterResistance} m WR</span>
             <span>{product.movementType}</span>
           </div>
+          <CraftStrip product={product} onOpen={() => setCraftOpen(true)} />
           <div className="hero-actions">
             <MagneticButton
               onClick={() => {
@@ -240,6 +248,9 @@ export function Product() {
             </button>
             <button type="button" onClick={openGuide}>
               Size guide
+            </button>
+            <button type="button" onClick={() => setCraftOpen(true)}>
+              Craftsmanship sheet
             </button>
             <button type="button" onClick={() => openSpecialist("write")}>
               Speak to a specialist
@@ -360,6 +371,7 @@ export function Product() {
         onClose={() => setLightbox(false)}
       />
       <SizeGuide open={sizeOpen} onClose={closeGuide} />
+      <CraftModal product={product} open={craftOpen} onClose={() => setCraftOpen(false)} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>
   );

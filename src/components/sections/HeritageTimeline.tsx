@@ -1,60 +1,120 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 
+type Chapter = (typeof site.heritage)[number];
+
 export function HeritageTimeline({
   compact = false,
+  interactive = compact,
   chapters = site.heritage,
 }: {
   compact?: boolean;
+  interactive?: boolean;
   chapters?: typeof site.heritage;
 }) {
   const { reduceMotion, canParallax } = useMotion();
-  const trackRef = useRef<HTMLDivElement>(null);
+
+  if (interactive || reduceMotion || !canParallax) {
+    return <HeritageInteractive chapters={chapters} compact={compact || interactive} />;
+  }
+
+  return <HeritageScroll chapters={chapters} />;
+}
+
+function HeritageInteractive({ chapters, compact }: { chapters: Chapter[]; compact: boolean }) {
+  const [index, setIndex] = useState(0);
+  const chapter = chapters[index] ?? chapters[0];
+  const latest = chapters[chapters.length - 1]?.year ?? site.brand.founded;
+
+  const go = (next: number) => setIndex(Math.min(chapters.length - 1, Math.max(0, next)));
+
+  return (
+    <section
+      className={`section heritage-interactive ${compact ? "is-compact" : ""}`}
+      data-meridian="heritage"
+      data-meridian-label="Heritage"
+      aria-label="Maison heritage timeline, 1924 to present"
+      id="heritage"
+    >
+      <div className="section-head">
+        <div>
+          <div className="eyebrow">Heritage</div>
+          <h2 className="display">
+            {site.brand.founded} to {latest}.
+          </h2>
+        </div>
+        {compact && (
+          <Link className="section-link" to="/heritage">
+            Scroll the century
+          </Link>
+        )}
+      </div>
+      <div className="heritage-axis" role="tablist" aria-label="Years">
+        <span className="heritage-axis-line" aria-hidden />
+        {chapters.map((item, i) => (
+          <button
+            key={item.year}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            className={i === index ? "is-on" : ""}
+            onClick={() => setIndex(i)}
+          >
+            {item.year}
+          </button>
+        ))}
+      </div>
+      {chapter && (
+        <article className="heritage-interactive-card">
+          <img src={chapter.image} alt="" />
+          <div>
+            <p className="heritage-year">{chapter.year}</p>
+            <h3 className="display">{chapter.title}</h3>
+            <p className="lede">{chapter.body}</p>
+            <div className="heritage-interactive-nav">
+              <button type="button" className="section-link" disabled={index === 0} onClick={() => go(index - 1)}>
+                Previous
+              </button>
+              <button
+                type="button"
+                className="section-link"
+                disabled={index === chapters.length - 1}
+                onClick={() => go(index + 1)}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </article>
+      )}
+    </section>
+  );
+}
+
+function HeritageScroll({ chapters }: { chapters: Chapter[] }) {
+  const trackRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
   });
   const index = useTransform(scrollYProgress, [0, 1], [0, Math.max(chapters.length - 1, 0)]);
 
-  if (reduceMotion || !canParallax) {
-    return (
-      <section className="section heritage-static" data-meridian="heritage" data-meridian-label="Heritage">
-        <div className="section-head">
-          <div>
-            <div className="eyebrow">Heritage</div>
-            <h2 className="display">A century, composed.</h2>
-          </div>
-          {!compact && (
-            <Link className="section-link" to="/heritage">
-              The full timeline
-            </Link>
-          )}
-        </div>
-        <ol className="heritage-list">
-          {chapters.map((chapter) => (
-            <li key={chapter.year}>
-              <strong>{chapter.year}</strong>
-              <div>
-                <h3>{chapter.title}</h3>
-                <p>{chapter.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-    );
-  }
-
-  const height = `${chapters.length * (compact ? 72 : 100)}vh`;
+  const goTo = (i: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const max = Math.max(1, el.offsetHeight - window.innerHeight);
+    const top = el.getBoundingClientRect().top + window.scrollY + (i / (chapters.length - 1)) * max;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   return (
     <section
       ref={trackRef}
-      className={`heritage-track ${compact ? "is-compact" : ""}`}
-      style={{ height }}
+      className="heritage-track"
+      style={{ height: `${chapters.length * 100}vh` }}
       aria-label="Maison heritage timeline"
       data-meridian="heritage"
       data-meridian-label="Heritage"
@@ -63,6 +123,13 @@ export function HeritageTimeline({
         {chapters.map((chapter, i) => (
           <ChapterPanel key={chapter.year} chapter={chapter} index={i} progress={index} last={i === chapters.length - 1} />
         ))}
+        <div className="heritage-year-rail" role="tablist" aria-label="Years">
+          {chapters.map((chapter, i) => (
+            <button key={chapter.year} type="button" onClick={() => goTo(i)}>
+              {chapter.year}
+            </button>
+          ))}
+        </div>
         <div className="heritage-progress" aria-hidden>
           <motion.span style={{ scaleX: scrollYProgress }} />
         </div>
@@ -70,8 +137,6 @@ export function HeritageTimeline({
     </section>
   );
 }
-
-type Chapter = (typeof site.heritage)[number];
 
 function ChapterPanel({
   chapter,

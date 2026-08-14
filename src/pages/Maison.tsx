@@ -3,6 +3,7 @@ import { site } from "../config/site";
 import { Monogram } from "../components/brand/Monogram";
 import { HeritageTimeline } from "../components/sections/HeritageTimeline";
 import { Identity } from "../components/sections/Identity";
+import { PressStrip } from "../components/sections/PressStrip";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
 
@@ -19,7 +20,7 @@ export function Maison() {
             {site.brand.mottoEn}. {site.brand.description}
           </p>
           <div className="hero-actions">
-            <MagneticButton to="/heritage">A century in years</MagneticButton>
+            <MagneticButton href="#heritage">A century in years</MagneticButton>
             <MagneticButton variant="ghost" to="/atelier">
               The atelier
             </MagneticButton>
@@ -27,6 +28,8 @@ export function Maison() {
         </div>
         <span className="maison-hero-meridian" aria-hidden />
       </section>
+
+      <PressStrip />
 
       <section className="section maison-origin">
         <Reveal>
@@ -62,7 +65,7 @@ export function Maison() {
       </section>
 
       <Identity showCrest={false} />
-      <HeritageTimeline compact />
+      <HeritageTimeline interactive />
 
       <section className="section">
         <div className="section-head">

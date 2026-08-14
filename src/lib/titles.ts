@@ -2,7 +2,9 @@ import { getCollection, getProduct, site } from "../config/site";
 
 export function documentTitle(pathname: string) {
   if (pathname.startsWith("/watch/")) {
-    const product = getProduct(pathname.split("/")[2] ?? "");
+    const parts = pathname.split("/");
+    const product = getProduct(parts[2] ?? "");
+    if (product && parts[3] === "craft") return `${product.name} · Calibre — ${site.brand.name}`;
     return product ? `${product.name} — ${site.brand.name}` : site.seo.title;
   }
   if (pathname.startsWith("/collection/")) {

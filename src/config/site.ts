@@ -219,6 +219,12 @@ export const site = {
       image: photos.bench,
     },
     {
+      year: "1938",
+      title: "Railroad minutes",
+      body: "Enamel dials settle into the proportion the Heritage line still keeps: a thin case, a chapter ring you can read at a glance, the meridian drawn last.",
+      image: photos.classic,
+    },
+    {
       year: "1947",
       title: "The club chronograph",
       body: "Timing watches for Geneva motor clubs. The column wheel, the 10:10 pose, and a tachymeter that is still on Chronograph One.",
@@ -229,6 +235,12 @@ export const site = {
       title: "We stayed mechanical",
       body: "Quartz arrives. The atelier does not follow. Regulation in five positions becomes a rule, not a brochure line.",
       image: photos.movement,
+    },
+    {
+      year: "1984",
+      title: "The watch returns",
+      body: "After-sales is written as a duty, not a department. A piece leaves Geneva once. It comes back for oil, regulation, and the occasional polite polish.",
+      image: photos.bench,
     },
     {
       year: "1998",
@@ -255,6 +267,18 @@ export const site = {
       image: photos.black,
     },
   ],
+
+  press: {
+    eyebrow: "As noted",
+    title: "In print.",
+    items: [
+      { name: "The Geneva Review", line: "The meridian, drawn" },
+      { name: "Rue du Rhône", line: "A maison that stayed mechanical" },
+      { name: "Atelier Quarterly", line: "Five positions, fourteen days" },
+      { name: "Chronos Letter", line: "Chronograph One, as requested" },
+      { name: "Horological Record", line: "A century, composed" },
+    ],
+  },
 
   lookbook: [
     {
