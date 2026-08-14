@@ -9,7 +9,7 @@ export function Maison() {
   return (
     <div className="page">
       <section className="maison-hero-still">
-        <img src="/maison/meridian.jpg" alt="The gold meridian at 12 on a HORLOGE dial" />
+        <img src="/media/maison-meridian.jpg" alt="The gold meridian at 12 on a HORLOGE dial" />
         <div className="maison-hero-copy">
           <Monogram size={72} />
           <div className="eyebrow">{site.brand.seal}</div>
@@ -44,7 +44,7 @@ export function Maison() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <img src="/maison/bench.jpg" alt="The atelier bench in Geneva" />
+            <img src="/media/maison-bench.jpg" alt="The atelier bench in Geneva" />
           </Reveal>
         </div>
       </section>
@@ -101,7 +101,7 @@ export function Maison() {
                   {line.name} · {line.calibre}
                 </div>
                 <h3 className="display">{line.tagline}</h3>
-                {line.essay.map((paragraph) => (
+                {(line.essay ?? []).map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
                 <Link className="section-link" to={`/collection/${line.slug}`}>

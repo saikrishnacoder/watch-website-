@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
@@ -89,7 +89,7 @@ function AppShell() {
             <BootSequence />
             <MeridianRail />
             <Shortcuts />
-            <NormalizeSlash />
+            <CanonicalizePath />
             <CustomCursor />
             <Navbar />
             <SearchOverlay />
@@ -108,6 +108,10 @@ function AppShell() {
                   <Route path="/" element={<Home />} />
                   <Route path="/collection" element={<Collection />} />
                   <Route path="/collection/:slug" element={<CollectionFamily />} />
+                  <Route path="/chronograph" element={<Navigate to="/collection/chronograph" replace />} />
+                  <Route path="/diver" element={<Navigate to="/collection/diver" replace />} />
+                  <Route path="/imperial" element={<Navigate to="/collection/imperial" replace />} />
+                  <Route path="/meridian" element={<Navigate to="/collection/meridian" replace />} />
                   <Route path="/watch/:slug" element={<Product />} />
                   <Route path="/finder" element={<WatchFinder />} />
                   <Route path="/find" element={<FindWatch />} />
@@ -208,15 +212,22 @@ function Shortcuts() {
   return null;
 }
 
-function NormalizeSlash() {
+const LINE_ALIASES: Record<string, string> = {
+  "/chronograph": "/collection/chronograph",
+  "/diver": "/collection/diver",
+  "/imperial": "/collection/imperial",
+  "/meridian": "/collection/meridian",
+};
+
+function CanonicalizePath() {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location.pathname.length > 1 && location.pathname.endsWith("/")) {
-      navigate(`${location.pathname.replace(/\/+$/, "")}${location.search}${location.hash}`, { replace: true });
-    }
-  }, [location.hash, location.pathname, location.search, navigate]);
-
+  let path = location.pathname;
+  if (path.length > 1 && path.endsWith("/")) path = path.replace(/\/+$/, "");
+  if (path.endsWith("/index.html")) path = path.slice(0, -"/index.html".length) || "/";
+  else if (path.endsWith(".html")) path = path.slice(0, -".html".length) || "/";
+  path = LINE_ALIASES[path] ?? path;
+  if (path !== location.pathname) {
+    return <Navigate to={`${path}${location.search}${location.hash}`} replace />;
+  }
   return null;
 }

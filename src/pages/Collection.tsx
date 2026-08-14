@@ -28,7 +28,7 @@ export function Collection() {
   return (
     <div className="page">
       <section className="collection-hero">
-        <img src="/maison/meridian.jpg" alt="" />
+        <img src="/media/maison-meridian.jpg" alt="" />
         <div>
           <div className="eyebrow">The collection</div>
           <h1 className="display">Five lines. One meridian.</h1>

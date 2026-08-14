@@ -39,7 +39,7 @@ export function CollectionFamily() {
           <Reveal>
             <div className="eyebrow">{line.finishing}</div>
             <h2 className="display">The line, in full.</h2>
-            {line.essay.map((paragraph) => (
+            {(line.essay ?? []).map((paragraph) => (
               <p className="lede" key={paragraph}>
                 {paragraph}
               </p>

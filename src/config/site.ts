@@ -103,7 +103,7 @@ export const site = {
     primaryCta: { label: "Find your watch", href: "/finder" },
     secondaryCta: { label: "Explore the collection", href: "/collection" },
     featuredSlug: "chronograph-one",
-    image: "/maison/meridian.jpg",
+    image: "/media/maison-meridian.jpg",
   },
 
   marquee: [
@@ -187,12 +187,12 @@ export const site = {
     ],
     gallery: [
       {
-        src: "/maison/bench.jpg",
+        src: "/media/maison-bench.jpg",
         alt: "Watchmaker’s bench in Geneva",
         caption: "The bench",
       },
       {
-        src: "/maison/meridian.jpg",
+        src: "/media/maison-meridian.jpg",
         alt: "Gold meridian at 12 on a HORLOGE dial",
         caption: "The meridian",
       },

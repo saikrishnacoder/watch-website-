@@ -47,7 +47,7 @@ const LINES = [
     base: 7400,
     complications: ["Date"],
     bezels: ["none", "fluted"] as BezelStyle[],
-    photos: ["/lines/heritage.jpg", "/studio/velvet.jpg", "/maison/meridian.jpg"],
+    photos: ["/lines/heritage.jpg", "/studio/velvet.jpg", "/media/maison-meridian.jpg"],
   },
   {
     slug: "chronograph",
@@ -60,7 +60,7 @@ const LINES = [
     base: 8900,
     complications: ["Chronograph", "Date"],
     bezels: ["none", "tachymeter"] as BezelStyle[],
-    photos: ["/lines/chronograph.jpg", "/studio/velvet.jpg", "/maison/meridian.jpg"],
+    photos: ["/lines/chronograph.jpg", "/studio/velvet.jpg", "/media/maison-meridian.jpg"],
   },
   {
     slug: "diver",
@@ -73,7 +73,7 @@ const LINES = [
     base: 10800,
     complications: ["Date", "Unidirectional bezel"],
     bezels: ["ceramic"] as BezelStyle[],
-    photos: ["/lines/diver.jpg", "/studio/velvet.jpg", "/maison/bench.jpg"],
+    photos: ["/lines/diver.jpg", "/studio/velvet.jpg", "/media/maison-bench.jpg"],
   },
   {
     slug: "imperial",
@@ -86,7 +86,7 @@ const LINES = [
     base: 19800,
     complications: ["Date"],
     bezels: ["fluted", "none"] as BezelStyle[],
-    photos: ["/lines/imperial.jpg", "/studio/velvet.jpg", "/maison/meridian.jpg"],
+    photos: ["/lines/imperial.jpg", "/studio/velvet.jpg", "/media/maison-meridian.jpg"],
   },
   {
     slug: "meridian",
@@ -99,7 +99,7 @@ const LINES = [
     base: 14200,
     complications: ["GMT", "Date"],
     bezels: ["ceramic", "none"] as BezelStyle[],
-    photos: ["/lines/meridian.jpg", "/studio/velvet.jpg", "/maison/meridian.jpg"],
+    photos: ["/lines/meridian.jpg", "/studio/velvet.jpg", "/media/maison-meridian.jpg"],
   },
 ];
 

@@ -16,6 +16,26 @@
   status = 200
 
 [[redirects]]
+  from = "/chronograph"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/diver"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/imperial"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/meridian"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
   from = "/maison"
   to = "/index.html"
   status = 200

@@ -11,6 +11,10 @@ const SPA_ROUTES = [
   "collection/diver",
   "collection/imperial",
   "collection/meridian",
+  "chronograph",
+  "diver",
+  "imperial",
+  "meridian",
   "maison",
   "privacy",
   "finder",
@@ -26,6 +30,11 @@ const SPA_ROUTES = [
   "motion",
 ];
 
+function writeHtml(file: string, html: string) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, html);
+}
+
 function spaFallbackPages(): Plugin {
   return {
     name: "spa-fallback-pages",
@@ -34,11 +43,10 @@ function spaFallbackPages(): Plugin {
       const index = path.join(dist, "index.html");
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
-      fs.writeFileSync(path.join(dist, "404.html"), html);
+      writeHtml(path.join(dist, "404.html"), html);
       for (const route of SPA_ROUTES) {
-        const dir = path.join(dist, route);
-        fs.mkdirSync(dir, { recursive: true });
-        fs.writeFileSync(path.join(dir, "index.html"), html);
+        writeHtml(path.join(dist, `${route}.html`), html);
+        writeHtml(path.join(dist, route, "index.html"), html);
       }
     },
   };
