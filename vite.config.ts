@@ -36,6 +36,36 @@ function writeHtml(file: string, html: string) {
   fs.writeFileSync(file, html);
 }
 
+const PAGE_TITLES: Record<string, string> = {
+  collection: "Watches — HORLOGE",
+  "collection/heritage": "Heritage — HORLOGE",
+  "collection/chronograph": "Chronograph — HORLOGE",
+  "collection/diver": "Diver — HORLOGE",
+  "collection/imperial": "Imperial — HORLOGE",
+  "collection/meridian": "Meridian — HORLOGE",
+  maison: "The maison — HORLOGE",
+  privacy: "Privacy policy — HORLOGE",
+  checkout: "Preview checkout — HORLOGE",
+  boutique: "Boutiques — HORLOGE",
+  finder: "Watch Finder — HORLOGE",
+  find: "Find your watch — HORLOGE",
+  heritage: "Heritage — HORLOGE",
+  atelier: "Atelier — HORLOGE",
+  journal: "Journal — HORLOGE",
+  services: "Services — HORLOGE",
+  wishlist: "Wishlist — HORLOGE",
+  compare: "Compare — HORLOGE",
+  motion: "Kinetic atelier — HORLOGE",
+};
+
+function stampRoute(html: string, route: string) {
+  const title = PAGE_TITLES[route];
+  if (!title) return html;
+  return html
+    .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
+    .replace('<div id="root"></div>', `<div id="root" data-page="/${route}"></div>`);
+}
+
 function spaFallbackPages(): Plugin {
   return {
     name: "spa-fallback-pages",
@@ -45,8 +75,9 @@ function spaFallbackPages(): Plugin {
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
       for (const route of SPA_ROUTES) {
-        writeHtml(path.join(dist, `${route}.html`), html);
-        writeHtml(path.join(dist, route, "index.html"), html);
+        const page = stampRoute(html, route);
+        writeHtml(path.join(dist, `${route}.html`), page);
+        writeHtml(path.join(dist, route, "index.html"), page);
       }
       writeHtml(path.join(dist, "404.html"), brandedNotFoundHtml(html));
     },
