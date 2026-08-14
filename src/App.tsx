@@ -146,7 +146,7 @@ function AppShell() {
 
 function BootSequence() {
   const location = useLocation();
-  const { canParallax, saveData } = useMotion();
+  const { reduceMotion, saveData } = useMotion();
   const booted = useRef(false);
   const [intro, setIntro] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -165,13 +165,13 @@ function BootSequence() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (intro && (!canParallax || saveData)) {
+    if (intro && (reduceMotion || saveData)) {
       sessionStorage.setItem(INTRO_KEY, "done");
       setIntro(false);
     }
-  }, [intro, canParallax, saveData]);
+  }, [intro, reduceMotion, saveData]);
 
-  if (intro && canParallax && !saveData && location.pathname === "/") {
+  if (intro && !reduceMotion && !saveData && location.pathname === "/") {
     return <CinematicIntro open onSkip={dismiss} />;
   }
 

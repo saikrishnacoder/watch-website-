@@ -2666,9 +2666,22 @@ a.icon-btn {
   padding: 8%;
 }
 
+.intro-watch {
+  margin-bottom: 28px;
+}
+
+.intro-watch .watch-face {
+  filter: drop-shadow(0 28px 48px rgba(0, 0, 0, 0.45));
+}
+
 .intro-stage .display {
   font-size: clamp(42px, 8vw, 96px);
   margin: 12px 0;
+}
+
+.intro-enter {
+  margin-top: 28px;
+  min-width: 220px;
 }
 
 .intro-meridian {

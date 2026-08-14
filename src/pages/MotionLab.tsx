@@ -62,7 +62,8 @@ export function MotionLab() {
         <CssMotionBoard />
         <p className="motion-note">
           Wave, stagger, border-trace, typewriter, magnetic buttons and Python particle drift also run on Home, cards, and the preloader.
-          First visit opens a skippable cinematic intro. Product pages offer a lazy-loaded WebGL volume studio.
+          First visit opens a skippable cinematic intro — Chronograph One, the gold meridian, then the maison. Product
+          pages offer a lazy-loaded WebGL volume studio.
         </p>
       </section>
 
