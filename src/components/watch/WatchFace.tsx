@@ -333,7 +333,15 @@ export function WatchFace({
       </g>
 
       {/* glass gleam */}
-      <ellipse cx={cx - 28} cy={cy - 36} rx="42" ry="22" fill="#fff" opacity="0.08" />
+      <ellipse
+        className={animate ? "watch-gleam" : undefined}
+        cx={cx - 28}
+        cy={cy - 36}
+        rx="42"
+        ry="22"
+        fill="#fff"
+        opacity="0.08"
+      />
     </svg>
   );
 }

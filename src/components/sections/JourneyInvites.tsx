@@ -15,8 +15,10 @@ export function ViewingInvite() {
           watch.
         </p>
         <ul className="viewing-cities">
-          {site.boutiques.map((house) => (
-            <li key={house.city}>{house.city}</li>
+          {site.boutiques.map((house, index) => (
+            <li key={house.city} style={{ ["--i" as string]: String(index) }}>
+              {house.city}
+            </li>
           ))}
         </ul>
         <MagneticButton to="/boutique">Private Viewing</MagneticButton>

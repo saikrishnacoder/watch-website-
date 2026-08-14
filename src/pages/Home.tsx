@@ -30,7 +30,9 @@ export function Home() {
         <p className="lede" style={{ maxWidth: 560, marginBottom: 36 }}>
           Rotate. Lean in. Inspect the dial, the case, the crown, the gold meridian, and the caseback.
         </p>
-        <WatchStudio product={featured} />
+        <div className="inspect-halo">
+          <WatchStudio product={featured} />
+        </div>
       </section>
 
       <CraftChapter />
@@ -47,8 +49,8 @@ export function Home() {
           </Link>
         </div>
         <div className="journal-grid">
-          {site.journal.map((article) => (
-            <Link key={article.slug} to={`/journal/${article.slug}`} className="journal-card">
+          {site.journal.map((article, index) => (
+            <Link key={article.slug} to={`/journal/${article.slug}`} className="journal-card" style={{ ["--i" as string]: String(index) }}>
               <img src={article.image} alt="" />
               <div>
                 <div className="product-line">
