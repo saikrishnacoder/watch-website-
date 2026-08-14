@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import netlify from "@netlify/vite-plugin";
+import "./src/content/hydrate-node";
 import { brandedNotFoundHtml } from "./src/lib/not-found-html";
 import { brandedPrivacyHtml } from "./src/lib/privacy-html";
 import { copyForRoute, spaStampRoutes, staticPageMarkup } from "./src/lib/route-static";
