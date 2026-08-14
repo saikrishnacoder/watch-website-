@@ -15,6 +15,7 @@ import { Story } from "../components/sections/Story";
 import { Testimonials } from "../components/sections/Testimonials";
 import { KineticGallery } from "../components/motion/KineticGallery";
 import { WatchStudio } from "../components/motion/WatchStudio";
+import { ExplodedCalibre } from "../components/motion/ExplodedCalibre";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Reveal } from "../components/ui/Reveal";
 
@@ -59,6 +60,8 @@ export function Home() {
         </p>
         <WatchStudio product={featured[0] ?? site.products[0]} />
       </section>
+
+      <ExplodedCalibre />
 
       <Identity />
       <HorizontalLines />

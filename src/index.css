@@ -3090,6 +3090,250 @@ a.icon-btn {
   overflow: visible;
 }
 
+.explode-track {
+  position: relative;
+  background: var(--bg);
+}
+
+.explode-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(280px, 560px) minmax(180px, 1fr);
+  gap: 24px;
+  align-items: center;
+  padding: calc(var(--nav-h) + 12px) 6% 48px;
+}
+
+.explode-copy {
+  max-width: 360px;
+}
+
+.explode-kicker {
+  color: var(--muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin: -8px 0 18px;
+}
+
+.explode-stage-name {
+  font-size: clamp(48px, 7vw, 92px);
+  margin-bottom: 16px;
+}
+
+.explode-stage-copy {
+  margin: 0 0 28px;
+}
+
+.explode-rail {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+}
+
+.explode-rail button {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--muted);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.explode-rail button.is-on {
+  color: var(--gold);
+}
+
+@media (min-width: 1025px) {
+  .explode-rail li:not(:last-child)::after {
+    content: "↓";
+    display: block;
+    color: var(--line);
+    font-size: 9px;
+    margin: 2px 0 4px;
+    letter-spacing: 0;
+  }
+}
+
+.explode-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.explode-drawing {
+  width: min(72vh, 560px);
+  height: auto;
+  overflow: visible;
+}
+
+.explode-layer {
+  transform-box: view-box;
+  transform-origin: 220px 220px;
+}
+
+.explode-drawing.is-live .explode-spin {
+  animation: explode-spin 14s linear infinite;
+}
+
+.explode-drawing.is-live .explode-spin-slow {
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+@keyframes explode-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.explode-facts {
+  position: absolute;
+  inset: 8% 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.explode-facts li {
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 10px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.explode-facts li.is-on,
+.explode-facts.is-static li {
+  opacity: 1;
+  transform: none;
+}
+
+.explode-assembled-mark {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.explode-disclaimer {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.explode-disclaimer-side {
+  align-self: end;
+  max-width: 240px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.explode-progress {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 28px;
+  height: 1px;
+  background: var(--line);
+}
+
+.explode-progress span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left;
+}
+
+.explode-static-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 520px) 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 40px 0 56px;
+}
+
+.explode-stage-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  padding: 0;
+}
+
+.explode-stage-list strong {
+  display: block;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.explode-stage-list span {
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .explode-sticky {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    padding: calc(var(--nav-h) + 8px) 6% 56px;
+  }
+
+  .explode-copy {
+    max-width: none;
+  }
+
+  .explode-stage-name {
+    font-size: clamp(36px, 10vw, 64px);
+  }
+
+  .explode-rail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
+
+  .explode-disclaimer-side {
+    max-width: none;
+  }
+
+  .explode-drawing {
+    width: min(56vh, 420px);
+  }
+
+  .explode-static-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 1024px) {
   .heritage-years {
     grid-template-columns: 1fr 1fr;

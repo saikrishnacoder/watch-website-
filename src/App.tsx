@@ -99,9 +99,9 @@ function AppShell() {
               <motion.div
                 id="main"
                 key={location.pathname}
-                initial={quiet || firstPaint.current ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={quiet ? undefined : { opacity: 0, y: -12 }}
+                initial={quiet || firstPaint.current ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={quiet ? undefined : { opacity: 0 }}
                 transition={quiet ? { duration: 0 } : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Routes location={location}>

@@ -63,7 +63,8 @@ export function MotionLab() {
         <p className="motion-note">
           Wave, stagger, border-trace, typewriter, magnetic buttons and Python particle drift also run on Home, cards, and the preloader.
           First visit opens a skippable cinematic intro — Chronograph One, the gold meridian, then the maison. Product
-          pages open an inspect studio: rotate, zoom, and five numbered marks on the case.
+          pages open an inspect studio: rotate, zoom, and five numbered marks on the case. The homepage
+          and atelier scroll a teaching calibre from case to spring, then assemble it again.
         </p>
       </section>
 
