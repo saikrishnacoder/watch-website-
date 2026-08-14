@@ -4,14 +4,11 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AnalyticsGate } from "./components/layout/AnalyticsGate";
 import { BackToTop } from "./components/layout/BackToTop";
 import { Breadcrumbs } from "./components/layout/Breadcrumbs";
-import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
 import { Concierge } from "./components/layout/Concierge";
 import { CookieBanner } from "./components/layout/CookieBanner";
-import { CustomCursor } from "./components/layout/CustomCursor";
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
-import { Preloader } from "./components/layout/Preloader";
 import { RegionNotice } from "./components/layout/RegionNotice";
 import { RegionPanel } from "./components/layout/RegionSwitch";
 import { RouteCurtain } from "./components/layout/RouteCurtain";
@@ -20,7 +17,6 @@ import { SkipLink } from "./components/layout/SkipLink";
 import { Toast } from "./components/layout/Toast";
 import { MeridianRail } from "./components/brand/MeridianRail";
 import { CabinetProvider } from "./context/CabinetContext";
-import { CartProvider } from "./context/CartContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
@@ -30,7 +26,6 @@ import { applySocialTags } from "./lib/social";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
 import { Cabinet } from "./pages/Cabinet";
-import { Checkout } from "./pages/Checkout";
 import { Collection } from "./pages/Collection";
 import { CollectionFamily } from "./pages/CollectionFamily";
 import { Compare } from "./pages/Compare";
@@ -42,7 +37,6 @@ import { Home } from "./pages/Home";
 import { Journal } from "./pages/Journal";
 import { JournalArticle } from "./pages/JournalArticle";
 import { Maison } from "./pages/Maison";
-import { MotionLab } from "./pages/MotionLab";
 import { NotFound } from "./pages/NotFound";
 import { Privacy } from "./pages/Privacy";
 import { Product } from "./pages/Product";
@@ -83,22 +77,18 @@ function AppShell() {
   }, [location.pathname, quiet]);
 
   return (
-    <CartProvider>
-      <CurrencyProvider>
+    <CurrencyProvider>
       <CabinetProvider>
         <UIProvider>
           <div className="app-shell">
             <SkipLink />
-            <BootSequence />
             <MeridianRail />
             <Shortcuts />
             <CanonicalizePath />
-            <CustomCursor />
             <Navbar />
             <RouteCurtain pathname={location.pathname} quiet={quiet} />
             <RegionNotice />
             <SearchOverlay />
-            <CartDrawer />
             <CompareBar />
             <AnimatePresence mode="wait">
               <motion.div
@@ -123,7 +113,7 @@ function AppShell() {
                   <Route path="/watch/:slug" element={<Product />} />
                   <Route path="/finder" element={<WatchFinder />} />
                   <Route path="/find" element={<FindWatch />} />
-                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/checkout" element={<Navigate to="/boutique" replace />} />
                   <Route path="/compare" element={<Compare />} />
                   <Route path="/wishlist" element={<Wishlist />} />
                   <Route path="/cabinet" element={<Cabinet />} />
@@ -135,7 +125,7 @@ function AppShell() {
                   <Route path="/heritage" element={<Heritage />} />
                   <Route path="/atelier" element={<Atelier />} />
                   <Route path="/craft" element={<Navigate to="/atelier" replace />} />
-                  <Route path="/motion" element={<MotionLab />} />
+                  <Route path="/motion" element={<Navigate to="/atelier" replace />} />
                   <Route path="/boutique" element={<Boutique />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/privacy" element={<Privacy />} />
@@ -154,15 +144,8 @@ function AppShell() {
           </div>
         </UIProvider>
       </CabinetProvider>
-      </CurrencyProvider>
-    </CartProvider>
+    </CurrencyProvider>
   );
-}
-
-function BootSequence() {
-  const { pathname } = useLocation();
-  if (pathname === "/") return null;
-  return <Preloader />;
 }
 
 function Shortcuts() {
@@ -205,6 +188,8 @@ const LINE_ALIASES: Record<string, string> = {
   "/imperial": "/collection/imperial",
   "/meridian": "/collection/meridian",
   "/craft": "/atelier",
+  "/checkout": "/boutique",
+  "/motion": "/atelier",
   "/journal/column-wheel": "/journal/anatomy",
   "/journal/enamel-firing": "/journal/inside-the-atelier",
   "/journal/wearing-gold": "/journal/geneva-independent",

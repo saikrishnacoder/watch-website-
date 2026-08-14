@@ -6,6 +6,8 @@
   "routes": [
     { "handle": "filesystem" },
     { "src": "/privacy", "dest": "/privacy.html" },
+    { "src": "/checkout", "status": 301, "headers": { "Location": "/boutique" } },
+    { "src": "/motion", "status": 301, "headers": { "Location": "/atelier" } },
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [

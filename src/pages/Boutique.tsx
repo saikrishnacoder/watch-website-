@@ -42,11 +42,8 @@ export function Boutique() {
     <div className="page">
       <section className="page-hero">
         <div className="eyebrow">Private Viewing</div>
-        <h1 className="display">Come closer to the work.</h1>
-        <p className="lede">
-          Five maisons across Geneva, Paris, London, New York and Tokyo. Private viewings by appointment. Local time on
-          each door.
-        </p>
+        <h1 className="display">{site.boutiquePage.title}</h1>
+        <p className="lede">{site.boutiquePage.lede}</p>
       </section>
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="boutique-grid">
@@ -71,9 +68,7 @@ export function Boutique() {
             <h2 className="display" style={{ fontSize: "clamp(36px, 4vw, 56px)", marginBottom: 16 }}>
               Book an hour with us.
             </h2>
-            <p className="lede">
-              Tell us which piece you wish to meet. We will prepare the tray, the papers, and a quiet room.
-            </p>
+            <p className="lede">{site.boutiquePage.note}</p>
           </div>
           <form name="appointment" method="POST" data-netlify="true" onSubmit={onSubmit}>
             <input type="hidden" name="form-name" value="appointment" />

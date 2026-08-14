@@ -19,11 +19,54 @@ export type {
 
 import { extraProducts } from "./products-extra";
 import { atelierProducts } from "./generate-catalogue";
-import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
+import { collectionLines as lineRecords, photos, products as coreProducts, quiz, services } from "./catalog";
+import { journalNotes, lineEssay, essay, headingSections, heritageYears } from "../content/load";
 import { DEFAULT_CURRENCY, formatMoney } from "./money";
 import type { BezelStyle, CaseMetal, HandStyle, MarkerStyle, Product, StrapStyle } from "./types";
 
-export { collectionLines, journal, photos, quiz, services };
+export { photos, quiz, services };
+export { altFor, photoAlt } from "./catalog";
+
+export const collectionLines = lineRecords.map((line) => {
+  const doc = lineEssay(line.slug);
+  return {
+    ...line,
+    chapterTitle: doc.meta.chapter || line.chapterTitle,
+    indexBlurb: doc.meta.blurb || line.indexBlurb,
+    essay: doc.paragraphs.length ? doc.paragraphs : line.essay,
+  };
+});
+
+export const journal = journalNotes().map((doc) => ({
+  slug: doc.slug,
+  title: doc.meta.title,
+  date: doc.meta.date ?? "",
+  category: doc.meta.category ?? "",
+  excerpt: doc.meta.excerpt ?? doc.paragraphs[0] ?? "",
+  image: doc.meta.image || photos.cinematic,
+  imageAlt: doc.meta.imageAlt || doc.meta.title,
+  body: doc.paragraphs,
+  html: doc.html,
+}));
+
+const collectionDoc = essay("collection");
+const maisonDoc = essay("maison");
+const atelierDoc = essay("atelier");
+const boutiqueDoc = essay("boutique");
+const heritageDoc = essay("heritage");
+
+const heritageImages: Record<string, string> = {
+  "1924": photos.bench,
+  "1938": photos.classic,
+  "1947": photos.ivory,
+  "1969": photos.movement,
+  "1984": photos.bench,
+  "1998": photos.cinematic,
+  "2018": photos.ivory,
+  "2024": photos.classic,
+  "2026": photos.black,
+};
+
 export const products = [...coreProducts, ...extraProducts, ...atelierProducts];
 
 export const site = {
@@ -173,59 +216,36 @@ export const site = {
   },
 
   collectionPage: {
-    title: "The Collection",
-    lede: "Five expressions of one idea: time composed around a gold line at 12.",
-    gridIntro:
-      "Each Horloge watch begins from the same point — a single gold line crossing the dial at twelve. Five collections interpret it differently: in restraint, in complication, in depth, in ceremony, in motion.",
+    title: collectionDoc.meta.title || "The Collection",
+    lede: collectionDoc.meta.lede || "",
+    gridIntro: collectionDoc.paragraphs[0] || "",
   },
 
   maisonPage: {
-    title: "The Maison",
-    lede: "Geneva, 1924.",
-    founding: [
-      "Horloge was founded in Geneva in 1924 by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled. From that year forward, every Horloge dial has carried the same signature — a gold line, set precisely at twelve, marking the point from which the rest of the watch is built outward.",
-      "The first bench sat on the Rue du Rhône, a room that still holds the same northern light. A lathe, a loupe, and the patience to treat the hour as a sentence: one mark, then the rest composed around it.",
-      "That first mark is not a logo applied after the dial is finished. The gold meridian is drawn last, after the enamel has cooled, so that nothing on the chapter ring sits proud of it. One hundred years on, the line has not moved. Everything else has been composed around it.",
-    ],
-    independence: {
-      title: "Independence",
-      body: "We remain an independent maison. No conglomerate owns our movements, our case designs, or our name. Each collection is developed in-house, in the same workshop the Maison has occupied since its founding.",
-    },
-    craft: {
-      title: "Craft",
-      body: "A Horloge watch passes through the hands of fewer than twelve people before it leaves Geneva. Cases are finished by hand. Movements are regulated individually, not by batch. This is slower than industrial watchmaking — deliberately so.",
-    },
-    closing:
-      "One hundred years on, the line at twelve has not moved. Everything else has been composed around it.",
+    title: maisonDoc.meta.title || "The Maison",
+    lede: maisonDoc.meta.lede || "",
+  },
+
+  boutiquePage: {
+    title: boutiqueDoc.meta.title || "Private Viewing",
+    lede: boutiqueDoc.meta.lede || "",
+    note: boutiqueDoc.paragraphs[0] || "",
+  },
+
+  heritagePage: {
+    title: heritageDoc.meta.title || "A century in years",
+    lede: heritageDoc.meta.lede || "",
   },
 
   atelier: {
     eyebrow: "The atelier",
-    title: "Where hours become heirlooms.",
-    intro:
-      "Behind each HORLOGE signature is a quiet room, a loupe, and a pair of hands that refuse to rush. This is not a factory. It is a maison.",
-    chapters: [
-      {
-        year: "01",
-        title: "Design",
-        body: "Proportions are drawn by hand before they ever meet CAD. The 10:10 pose, the lume plot, the negative space of a dial — all decided here.",
-      },
-      {
-        year: "02",
-        title: "Movement",
-        body: "Plates are beveled, wheels are circular-grained, and every jewel is seated by eye. Regulation happens in five positions over fourteen days.",
-      },
-      {
-        year: "03",
-        title: "Case & crystal",
-        body: "Steel, gold or DLC is machined, brushed, and polished in alternating planes. The sapphire is double-domed so the dial seems to float.",
-      },
-      {
-        year: "04",
-        title: "Assembly",
-        body: "A single watchmaker owns a piece from casing to final timing. Their punch mark sits inside the caseback. Ours, and theirs.",
-      },
-    ],
+    title: atelierDoc.meta.title || "Where hours become heirlooms.",
+    intro: atelierDoc.meta.lede || atelierDoc.paragraphs[0] || "",
+    chapters: headingSections("atelier").map((section, index) => ({
+      year: String(index + 1).padStart(2, "0"),
+      title: section.title,
+      body: section.body,
+    })),
     gallery: [
       {
         src: photos.bench,
@@ -245,62 +265,10 @@ export const site = {
     ],
   },
 
-  heritage: [
-    {
-      year: "1924",
-      title: "A maison in Geneva",
-      body: "HORLOGE opens on the Rue du Rhône. The first enamel dials carry a gold line at 12 — the Geneva meridian, drawn thinner than a hair.",
-      image: photos.bench,
-    },
-    {
-      year: "1938",
-      title: "Railroad minutes",
-      body: "Enamel dials settle into the proportion the Heritage line still keeps: a thin case, a chapter ring you can read at a glance, the meridian drawn last.",
-      image: photos.classic,
-    },
-    {
-      year: "1947",
-      title: "The club chronograph",
-      body: "Timing watches for Geneva motor clubs. The column wheel, the 10:10 pose, and a tachymeter that is still on Chronograph One.",
-      image: photos.ivory,
-    },
-    {
-      year: "1969",
-      title: "We stayed mechanical",
-      body: "Quartz arrives. The atelier does not follow. Regulation in five positions becomes a rule, not a brochure line.",
-      image: photos.movement,
-    },
-    {
-      year: "1984",
-      title: "The watch returns",
-      body: "After-sales is written as a duty, not a department. A piece leaves Geneva once. It comes back for oil, regulation, and the occasional polite polish.",
-      image: photos.bench,
-    },
-    {
-      year: "1998",
-      title: "The meridian, named",
-      body: "What had been a finishing habit is written into the charter. Every dial, every line, one gold stroke at 12.",
-      image: photos.cinematic,
-    },
-    {
-      year: "2018",
-      title: "Chronograph One",
-      body: "The signature three-register. Ivory opaline, blued hands, a sapphire caseback. The maison’s most requested reference.",
-      image: photos.ivory,
-    },
-    {
-      year: "2024",
-      title: "A century",
-      body: "One hundred years of composed time. Five lines share the seal. The meridian outlasts the first owner, as intended.",
-      image: photos.classic,
-    },
-    {
-      year: "2026",
-      title: "Meridian",
-      body: "The namesake line: GMT, worldtimer, dual time. HORLOGE is named for the clock. This line is named for the line.",
-      image: photos.black,
-    },
-  ],
+  heritage: heritageYears().map((item) => ({
+    ...item,
+    image: heritageImages[item.year] ?? photos.cinematic,
+  })),
 
   press: {
     eyebrow: "As noted",
@@ -312,53 +280,6 @@ export const site = {
       { name: "Chronos Letter", line: "Chronograph One, as requested" },
       { name: "Horological Record", line: "A century, composed" },
     ],
-  },
-
-  lookbook: [
-    {
-      title: "Evening gold",
-      caption: "Imperial, photographed for the maison stills — gold that remembers the lamp.",
-      src: "/lines/imperial.jpg",
-    },
-    {
-      title: "Apex, in motion",
-      caption: "The Diver line. Ceramic, lume, and a meridian that does not dive.",
-      src: "/lines/diver.jpg",
-    },
-    {
-      title: "The namesake",
-      caption: "Meridian. Dual time, and the gold stroke at 12.",
-      src: "/lines/meridian.jpg",
-    },
-  ],
-
-  testimonials: [
-    {
-      quote:
-        "It is the first watch I have owned that feels like it was waiting for me, rather than the other way around.",
-      name: "Amelia Voss",
-      role: "Architect, Copenhagen",
-    },
-    {
-      quote:
-        "Quiet on the wrist, loud in the details. The finishing on the Chronograph One is obsessive in the best sense.",
-      name: "Julian Park",
-      role: "Collector, Seoul",
-    },
-    {
-      quote:
-        "I bought Heritage for my father. He said it was the first object in years that made him slow down.",
-      name: "Noor Rahman",
-      role: "Editor, London",
-    },
-  ],
-
-  limited: {
-    slug: "noir",
-    eyebrow: "Atelier edition — 192 pieces",
-    title: "Noir is almost gone.",
-    body: "A black-DLC case, a midnight sunray dial, and gold dauphine hands. When 192 are spoken for, the reference closes forever.",
-    endsAt: "2026-12-31T23:59:59Z",
   },
 
   customizer: {
@@ -527,10 +448,6 @@ export const site = {
 export type SiteConfig = typeof site;
 
 const productBySlug = new Map(products.map((product) => [product.slug, product]));
-
-export function canPreviewCheckout(product: Product) {
-  return product.availability !== "Waitlist";
-}
 
 export function formatPrice(amount: number) {
   return formatMoney(amount, DEFAULT_CURRENCY);

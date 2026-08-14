@@ -79,6 +79,47 @@ img {
   min-height: 100vh;
 }
 
+.essay-body {
+  max-width: 42rem;
+}
+
+.essay-body h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 1.4em 0 0.45em;
+}
+
+.essay-body h2:first-child {
+  margin-top: 0;
+}
+
+.essay-body h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 500;
+  margin: 1.2em 0 0.4em;
+}
+
+.essay-body p,
+.essay-body li {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.essay-body p {
+  margin: 0 0 1em;
+}
+
+.essay-body ul {
+  margin: 0 0 1em 1.15em;
+}
+
+.essay-body a {
+  color: var(--gold);
+}
+
 .app-main {
   position: relative;
 }

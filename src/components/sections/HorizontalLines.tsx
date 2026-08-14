@@ -1,6 +1,6 @@
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
-import { site } from "../../config/site";
+import { altFor, site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 import { Reveal } from "../ui/Reveal";
 
@@ -63,7 +63,7 @@ function AtmosphereCard({
   return (
     <Reveal delay={delay} className={`line-atmosphere is-${slug}`} y={56}>
       <div ref={frame} className="line-atmosphere-frame" onPointerMove={tilt} onPointerLeave={reset}>
-        <img src={image} alt="" />
+        <img src={image} alt={altFor(image, name)} />
         <span className="line-atmosphere-fx" aria-hidden />
         <div>
           <strong>{name}</strong>

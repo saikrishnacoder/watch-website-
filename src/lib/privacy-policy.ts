@@ -24,7 +24,6 @@ export const privacyToc: PolicyLink[] = [
   { href: "#who", label: "Who we are" },
   { href: "#device", label: "On this device" },
   { href: "#forms", label: "Forms you send" },
-  { href: "#checkout", label: "Preview checkout" },
   { href: "#hosting", label: "Hosting and fonts" },
   { href: "#analytics", label: "Analytics" },
   { href: "#rights", label: "Your rights" },
@@ -69,11 +68,6 @@ export const privacyBlocks: PolicyBlock[] = [
     headers: ["What", "Why", "Basis"],
     rows: [
       [
-        "Selection tray",
-        "Remember watches you added during this visit. The tray is held in memory and is not written to disk.",
-        "Necessary for the site to work",
-      ],
-      [
         "Wishlist, compare, recently viewed, registered pieces, study compositions",
         "Keep a cabinet of references and finishing studies between visits. Registered serials stay on this device until you erase them.",
         "Necessary for a feature you use",
@@ -92,11 +86,6 @@ export const privacyBlocks: PolicyBlock[] = [
         "Cookie choice",
         "Remember whether analytics may run, so we do not ask on every page.",
         "Consent (Swiss FADP / GDPR)",
-      ],
-      [
-        "Introduction dismissed",
-        "Skip the opening sequence for the rest of this session only.",
-        "Necessary for the site to work",
       ],
     ],
   },
@@ -162,17 +151,6 @@ export const privacyBlocks: PolicyBlock[] = [
   },
   {
     kind: "h2",
-    id: "checkout",
-    text: "Preview checkout",
-  },
-  {
-    kind: "p",
-    parts: [
-      "The payment screen is a preview. Card number, expiry and CVC stay in the browser for that session. They are not sent to a processor, not stored, and not used to charge. Do not enter a live card. A completed preview produces an on-screen receipt only.",
-    ],
-  },
-  {
-    kind: "h2",
     id: "hosting",
     text: "Hosting, fonts and images",
   },
@@ -185,7 +163,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "Type is loaded from Google Fonts (Cormorant Garamond, Outfit). Google may see your IP address when the files are fetched. Some editorial stills are requested from Unsplash; Unsplash may see the image request. We do not control those third-party logs. You can block third-party requests in your browser; the maison layout still works with system fonts.",
+      "Type is loaded from Google Fonts (Cormorant Garamond, Outfit). Google may see your IP address when the files are fetched. Product and editorial stills are files on this site. You can block third-party requests in your browser; the maison layout still works with system fonts.",
     ],
   },
   {
@@ -196,7 +174,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "Optional and off until you allow it. If you choose “Allow analytics”, this browser may record named events such as intro_start, intro_skip, intro_complete and pageview. Events stay in this tab (a custom event, and window.dataLayer if a tag manager is added later). We then load Vercel Analytics and, if the site owner has set a Plausible domain, Plausible. Neither script runs until you allow it. We do not load Google Analytics, advertising pixels, or session replay unless you later add them — and those must wait for this same consent.",
+      "Optional and off until you allow it. If you choose “Allow analytics”, this browser may record a pageview. Events stay in this tab (a custom event, and window.dataLayer if a tag manager is added later). We then load Vercel Analytics and, if the site owner has set a Plausible domain, Plausible. Neither script runs until you allow it. We do not load Google Analytics, advertising pixels, or session replay unless you later add them — and those must wait for this same consent.",
     ],
   },
   { kind: "slot", name: "analytics" },
@@ -231,7 +209,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "Device storage lasts until you clear it or it is overwritten. Hosting logs follow the host. Form submissions are kept for the purpose above, then deleted or archived. We do not keep preview card details.",
+      "Device storage lasts until you clear it or it is overwritten. Hosting logs follow the host. Form submissions are kept for the purpose above, then deleted or archived.",
     ],
   },
   {
@@ -277,7 +255,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "We will update this policy if the site starts to process data differently — for example if a real payment provider is connected. Vercel Analytics and optional Plausible already wait for “Allow analytics”. The date at the top will change.",
+      "We will update this policy if the site starts to process data differently — for example if a payment provider is connected. Vercel Analytics and optional Plausible already wait for “Allow analytics”. The date at the top will change.",
     ],
   },
 ];

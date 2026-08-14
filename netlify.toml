@@ -12,6 +12,27 @@
   status = 200
   force = true
 
+# Maison model: no cart. Kinetic lab is not on the public journey.
+[[redirects]]
+  from = "/checkout"
+  to = "/boutique"
+  status = 301
+
+[[redirects]]
+  from = "/checkout/"
+  to = "/boutique"
+  status = 301
+
+[[redirects]]
+  from = "/motion"
+  to = "/atelier"
+  status = 301
+
+[[redirects]]
+  from = "/motion/"
+  to = "/atelier"
+  status = 301
+
 # Existing files win (collection/index.html, maison/index.html, journal notes, signature watches).
 # This catch-all is only for client routes that have no stamped HTML (atelier SKUs, craft sheets).
 [[redirects]]

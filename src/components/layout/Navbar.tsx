@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { BrandMark } from "../brand/BrandMark";
-import { site } from "../../config/site";
+import { altFor, site } from "../../config/site";
 import { useUI } from "../../context/UIContext";
 import { RegionSwitch } from "./RegionSwitch";
 
@@ -90,7 +90,7 @@ export function Navbar() {
                     <div className="mega" id="collection-mega" onMouseEnter={openMega}>
                       {site.collectionLines.map((line) => (
                         <NavLink key={line.slug} to={`/collection/${line.slug}`} className="mega-card">
-                          <img src={line.image} alt="" />
+                          <img src={line.image} alt={altFor(line.image, line.name)} />
                           <div>
                             <strong>{line.name}</strong>
                             <span>{line.tagline}</span>

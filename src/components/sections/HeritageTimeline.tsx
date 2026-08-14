@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
-import { site } from "../../config/site";
+import { altFor, site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
 
 type Chapter = (typeof site.heritage)[number];
@@ -69,7 +69,7 @@ function HeritageInteractive({ chapters, compact }: { chapters: Chapter[]; compa
       </div>
       {chapter && (
         <article className="heritage-interactive-card">
-          <img src={chapter.image} alt="" />
+          <img src={chapter.image} alt={altFor(chapter.image, `${chapter.year} · ${chapter.title}`)} />
           <div>
             <p className="heritage-year">{chapter.year}</p>
             <h3 className="display">{chapter.title}</h3>
@@ -161,7 +161,7 @@ function ChapterPanel({
 
   return (
     <motion.article className="heritage-panel" style={{ opacity }} aria-hidden={false}>
-      <motion.img src={chapter.image} alt="" style={{ scale }} />
+      <motion.img src={chapter.image} alt={altFor(chapter.image, `${chapter.year} · ${chapter.title}`)} style={{ scale }} />
       <div className="heritage-copy">
         <div className="eyebrow">Heritage</div>
         <p className="heritage-year">{chapter.year}</p>

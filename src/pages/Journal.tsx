@@ -20,7 +20,7 @@ export function Journal() {
       {featured && (
         <section className="section journal-lead">
           <Link to={`/journal/${featured.slug}`} className="journal-lead-media">
-            <FrameImage src={featured.image} alt="" />
+            <FrameImage src={featured.image} alt={featured.imageAlt} />
           </Link>
           <div>
             <div className="eyebrow">

@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { getCollection, productsIn, signatureProducts, site } from "../config/site";
+import { altFor, getCollection, productsIn, signatureProducts, site } from "../config/site";
+import { EssayBody } from "../components/ui/EssayBody";
 import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
 import { FrameImage } from "../components/ui/FrameImage";
@@ -23,7 +24,7 @@ export function CollectionFamily() {
   return (
     <div className="page">
       <section className="family-hero">
-        <FrameImage src={line.image} alt="" className="family-hero-photo" />
+        <FrameImage src={line.image} alt={altFor(line.image, line.name)} className="family-hero-photo" />
         <div>
           <div className="eyebrow">
             {line.name} · {line.calibre}
@@ -41,11 +42,7 @@ export function CollectionFamily() {
           <Reveal>
             <div className="eyebrow">{line.finishing}</div>
             <h2 className="display">{line.chapterTitle}</h2>
-            {line.essay.map((paragraph) => (
-              <p className="lede" key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
+            <EssayBody id={`lines/${slug}`} />
           </Reveal>
           {heroWatch && (
             <Reveal delay={0.08}>
@@ -107,7 +104,7 @@ export function CollectionFamily() {
         <div className="line-tiles">
           {sisters.map((family) => (
             <Link key={family.slug} to={`/collection/${family.slug}`} className="line-tile">
-              <FrameImage src={family.image} alt="" />
+              <FrameImage src={family.image} alt={altFor(family.image, family.name)} />
               <div>
                 <strong>{family.name}</strong>
                 <span>{family.tagline}</span>

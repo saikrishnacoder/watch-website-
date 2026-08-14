@@ -1,6 +1,7 @@
 import { crumbsForPath } from "./breadcrumbs";
 import { craftDisclaimer, productionCalibres } from "../config/calibres";
 import { collectionLines, getProduct, signatureProducts, site } from "../config/site";
+import { essay, lineEssay } from "../content/load";
 
 export type RouteNavLink = { href: string; label: string };
 
@@ -48,8 +49,8 @@ export const routeCopy: Record<string, RouteCopy> = {
     title: "The Collection — HORLOGE",
     description:
       "The HORLOGE collection: five expressions of one idea — time composed around a gold line at 12. Heritage, Chronograph, Diver, Imperial, Meridian.",
-    heading: "The Collection",
-    body: "Five expressions of one idea: time composed around a gold line at 12. Each Horloge watch begins from the same point; five collections interpret it in restraint, complication, depth, ceremony, and motion.",
+    heading: site.collectionPage.title,
+    body: site.collectionPage.lede,
     nav: LINE_NAV,
   },
   "collection/heritage": {
@@ -57,7 +58,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     description:
       "Heritage, the original HORLOGE line. Time-only, hand-finished, unchanged since 1924. Enamel dials and extra-thin calibres around the gold meridian at 12.",
     heading: "Heritage",
-    body: "The original line. Time-only, hand-finished, unchanged since 1924. Enamel dials, railroad minutes, and extra-thin calibres — the first sentence the maison ever wrote.",
+    body: collectionLines.find((line) => line.slug === "heritage")?.indexBlurb ?? "",
     nav: [
       { href: "/collection/heritage", label: "Heritage watches" },
       { href: "/collection/chronograph", label: "Chronograph" },
@@ -70,7 +71,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     description:
       "HORLOGE Chronograph. Measured time. Column-wheel construction, built for precision under pressure.",
     heading: "Chronograph",
-    body: "Measured time. Column-wheel construction, built for precision under pressure. Three registers, a tachymeter, and the start-stop-reset as three distinct mechanical events.",
+    body: collectionLines.find((line) => line.slug === "chronograph")?.indexBlurb ?? "",
     nav: [
       { href: "/collection/chronograph", label: "Chronograph watches" },
       { href: "/collection/heritage", label: "Heritage" },
@@ -82,7 +83,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     title: "Diver — HORLOGE",
     description: "HORLOGE Diver. Time at depth. 300m water resistance, engineered for the sea.",
     heading: "Diver",
-    body: "Time at depth. 300m water resistance, engineered for the sea. Ceramic bezels, lume you can read when the water is black, and the gold meridian still at 12.",
+    body: collectionLines.find((line) => line.slug === "diver")?.indexBlurb ?? "",
     nav: [
       { href: "/collection/diver", label: "Diver watches" },
       { href: "/collection/chronograph", label: "Chronograph" },
@@ -95,7 +96,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     description:
       "HORLOGE Imperial. Time in ceremony. The Maison's dress collection, cased in precious metal.",
     heading: "Imperial",
-    body: "Time in ceremony. The Maison's dress collection, cased in precious metal. Yellow gold, rose gold, numbered editions — finished to be refinished.",
+    body: collectionLines.find((line) => line.slug === "imperial")?.indexBlurb ?? "",
     nav: [
       { href: "/collection/imperial", label: "Imperial watches" },
       { href: "/collection/meridian", label: "Meridian" },
@@ -108,7 +109,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     description:
       "HORLOGE Meridian. Time in motion. The line reimagined as a moving indication — our signature complication.",
     heading: "Meridian",
-    body: "Time in motion. The line reimagined as a moving indication — our signature complication. GMT, dual time, worldtimer: the gold stroke at 12 carried around the world.",
+    body: collectionLines.find((line) => line.slug === "meridian")?.indexBlurb ?? "",
     nav: [
       { href: "/collection/meridian", label: "Meridian watches" },
       { href: "/collection/imperial", label: "Imperial" },
@@ -120,8 +121,8 @@ export const routeCopy: Record<string, RouteCopy> = {
     title: "The Maison — HORLOGE",
     description:
       "The Maison Horloge, Geneva, 1924. Independent watchmaking. A gold line at twelve, and a century composed around it.",
-    heading: "The Maison",
-    body: "Geneva, 1924. Horloge was founded by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled. From that year forward, every Horloge dial has carried a gold line at twelve. The first bench sat on the Rue du Rhône. The meridian is drawn last, after the enamel has cooled. We remain independent. Cases are finished by hand. Movements are regulated individually, not by batch.",
+    heading: site.maisonPage.title,
+    body: site.maisonPage.lede,
     nav: [
       { href: "/maison", label: "Origin" },
       { href: "/heritage", label: "A century in years" },
@@ -133,8 +134,8 @@ export const routeCopy: Record<string, RouteCopy> = {
     title: "Heritage timeline — HORLOGE",
     description:
       "A century of HORLOGE, 1924 to the present. The cinematic timeline of an independent Geneva maison.",
-    heading: "A century in years",
-    body: "The Heritage timeline — not the Heritage collection. Scroll the century from 1924 on the Rue du Rhône to the gold meridian written into the charter.",
+    heading: site.heritagePage.title,
+    body: site.heritagePage.lede,
     nav: [
       { href: "/maison", label: "The Maison" },
       { href: "/collection/heritage", label: "Heritage watches" },
@@ -145,8 +146,8 @@ export const routeCopy: Record<string, RouteCopy> = {
     title: "Craft — HORLOGE",
     description:
       "HORLOGE craftsmanship: case, dial, movement, finishing. Why this watch is valuable. Opened, then composed.",
-    heading: "Craft",
-    body: "Case, dial, movement, finishing. A HORLOGE passes through fewer than twelve pairs of hands. Surfaces are finished to be refinished. The meridian is drawn last.",
+    heading: site.atelier.title,
+    body: site.atelier.intro,
     nav: [
       { href: "/atelier", label: "The movement, opened" },
       { href: "/maison", label: "The Maison" },
@@ -159,19 +160,14 @@ export const routeCopy: Record<string, RouteCopy> = {
       "HORLOGE Journal: four notes — The Golden Meridian, Inside the Atelier, Anatomy of a Mechanical Watch, Geneva & Independent Horology.",
     heading: "Journal",
     body: "Four notes from the maison. The meridian, the atelier, the movement, and Geneva. Not a press office.",
-    nav: [
-      { href: "/journal/the-meridian", label: "The Golden Meridian" },
-      { href: "/journal/inside-the-atelier", label: "Inside the Atelier" },
-      { href: "/journal/anatomy", label: "Anatomy of a Mechanical Watch" },
-      { href: "/journal/geneva-independent", label: "Geneva & Independent Horology" },
-    ],
+    nav: site.journal.map((item) => ({ href: `/journal/${item.slug}`, label: item.title })),
   },
   boutique: {
     title: "Private Viewing — HORLOGE",
     description:
       "Private viewing at HORLOGE. Five maisons — Geneva, Paris, London, New York, Tokyo. A tray, the papers, and an hour.",
-    heading: "Private Viewing",
-    body: "Come closer to the work. Five maisons. We do not sell across a counter if the wrist has not met the watch. Request a viewing in Geneva, Paris, London, New York or Tokyo.",
+    heading: site.boutiquePage.title,
+    body: site.boutiquePage.lede,
     nav: [
       { href: "/boutique", label: "Request a viewing" },
       { href: "/collection", label: "The Collection" },
@@ -220,16 +216,6 @@ export const routeCopy: Record<string, RouteCopy> = {
     nav: [
       { href: "/find", label: "Begin" },
       { href: "/finder", label: "Watch Finder" },
-      { href: "/collection", label: "The Collection" },
-    ],
-  },
-  checkout: {
-    title: "Preview checkout — HORLOGE",
-    description: "HORLOGE preview checkout. A study of the tray — not a live payment.",
-    heading: "Preview checkout",
-    body: "A preview of the tray. This is not a live payment. For a real piece, request availability or a private viewing.",
-    nav: [
-      { href: "/boutique", label: "Private Viewing" },
       { href: "/collection", label: "The Collection" },
     ],
   },
@@ -286,17 +272,6 @@ export const routeCopy: Record<string, RouteCopy> = {
       { href: "/services", label: "Register" },
       { href: "/atelier", label: "Craft" },
       { href: "/contact", label: "Write" },
-    ],
-  },
-  motion: {
-    title: "Kinetic atelier — HORLOGE",
-    description: "HORLOGE kinetic atelier: escapement, tourbillon and hairspring, drawn and set moving.",
-    heading: "Kinetic atelier",
-    body: "Escapement, tourbillon and hairspring — drawn with trigonometry, then set moving. A side room of the atelier, not the maison journey.",
-    nav: [
-      { href: "/motion", label: "The machines" },
-      { href: "/atelier", label: "Craft" },
-      { href: "/", label: "Home" },
     ],
   },
   chronograph: {
@@ -404,12 +379,10 @@ export const SPA_STAMP_BASE = [
   "atelier",
   "journal",
   "services",
-  "checkout",
   "wishlist",
   "cabinet",
   "compose",
   "compare",
-  "motion",
 ] as const;
 
 export function staticPageMarkup(copy: RouteCopy, path: string) {
@@ -472,7 +445,10 @@ ${lines}
           </article>`,
       )
       .join("\n");
-    return `<section aria-label="Five collections">
+    return `<article aria-label="The Collection">
+          ${essay("collection").html}
+        </article>
+        <section aria-label="Five collections">
 ${articles}
         </section>`;
   }
@@ -481,7 +457,7 @@ ${articles}
     const slug = path.split("/")[2] ?? "";
     const line = collectionLines.find((item) => item.slug === slug);
     if (!line) return "";
-    const essays = line.essay.map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`).join("\n");
+    const essays = lineEssay(slug).html;
     const watches = signatureProducts(slug)
       .slice(0, 6)
       .map(
@@ -493,7 +469,7 @@ ${articles}
       .join("\n");
     return `<section aria-label="${escapeHtml(line.name)}">
           <h2>${escapeHtml(line.chapterTitle)}</h2>
-${essays}
+          ${essays}
         </section>
         <section aria-label="${escapeHtml(line.name)} watches">
 ${watches}
@@ -501,22 +477,14 @@ ${watches}
   }
 
   if (path === "/maison") {
-    const story = site.maisonPage.founding
-      .map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`)
-      .join("\n");
     const people = site.people
       .map(
         (person) =>
           `          <article><h3>${escapeHtml(person.name)}</h3><p>${escapeHtml(person.role)}. ${escapeHtml(person.note)}</p></article>`,
       )
       .join("\n");
-    return `<article aria-label="Founding">
-          <h2>Composed, not assembled.</h2>
-${story}
-          <h2>${escapeHtml(site.maisonPage.independence.title)}</h2>
-          <p>${escapeHtml(site.maisonPage.independence.body)}</p>
-          <h2>${escapeHtml(site.maisonPage.craft.title)}</h2>
-          <p>${escapeHtml(site.maisonPage.craft.body)}</p>
+    return `<article aria-label="The Maison">
+          ${essay("maison").html}
         </article>
         <section aria-label="The bench">
           <h2>Three pairs of hands.</h2>
@@ -525,22 +493,15 @@ ${people}
   }
 
   if (path === "/atelier") {
-    const chapters = site.atelier.chapters
-      .map(
-        (chapter) =>
-          `          <article><h3>${escapeHtml(chapter.title)}</h3><p>${escapeHtml(chapter.body)}</p></article>`,
-      )
-      .join("\n");
     const calibres = productionCalibres
       .map(
         (item) =>
           `          <article><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.line)}. ${escapeHtml(item.winding)}. ${escapeHtml(item.note)}</p></article>`,
       )
       .join("\n");
-    return `<p>${escapeHtml(site.atelier.intro)}</p>
-        <section aria-label="On the bench">
-${chapters}
-        </section>
+    return `<article aria-label="Craft">
+          ${essay("atelier").html}
+        </article>
         <section aria-label="Production calibres">
           <h2>Five production calibres</h2>
 ${calibres}
@@ -566,23 +527,16 @@ ${notes}
   if (path.startsWith("/journal/")) {
     const article = site.journal.find((item) => item.slug === path.slice("/journal/".length));
     if (!article) return "";
-    const paragraphs = article.body.map((paragraph) => `          <p>${escapeHtml(paragraph)}</p>`).join("\n");
     return `<article>
           <p>${escapeHtml(article.category)} · ${escapeHtml(article.date)}</p>
-${paragraphs}
+          ${article.html}
         </article>`;
   }
 
   if (path === "/heritage") {
-    const years = site.heritage
-      .map(
-        (item) =>
-          `          <article><h2>${escapeHtml(item.year)} · ${escapeHtml(item.title)}</h2><p>${escapeHtml(item.body)}</p></article>`,
-      )
-      .join("\n");
-    return `<section aria-label="A century">
-${years}
-        </section>`;
+    return `<article aria-label="A century">
+          ${essay("heritage").html}
+        </article>`;
   }
 
   if (path === "/boutique") {
@@ -593,7 +547,7 @@ ${years}
       )
       .join("\n");
     return `<section aria-label="Maisons">
-          <p>Five maisons. A tray, the papers, and an hour. We do not sell across a counter if the wrist has not met the watch.</p>
+          ${essay("boutique").html}
 ${houses}
         </section>`;
   }

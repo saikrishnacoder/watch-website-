@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { photos, site } from "../../config/site";
+import { altFor, photos, site } from "../../config/site";
 import { FrameImage } from "../ui/FrameImage";
 import { Reveal } from "../ui/Reveal";
 
@@ -14,7 +14,7 @@ export function CraftChapter() {
           The atelier
         </Link>
       </Reveal>
-      <FrameImage src={photos.movement} alt="A HORLOGE movement, opened on the bench" />
+      <FrameImage src={photos.movement} alt={altFor(photos.movement, "A HORLOGE movement, opened on the bench")} />
     </section>
   );
 }

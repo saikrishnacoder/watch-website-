@@ -14,12 +14,10 @@ const PAGES: Record<string, string> = {
   "/services": "Services",
   "/finder": "Watch Finder",
   "/find": "Find your watch",
-  "/checkout": "Preview checkout",
   "/wishlist": "Wishlist",
   "/compare": "Compare",
   "/cabinet": "Cabinet",
   "/compose": "Composer",
-  "/motion": "Kinetic atelier",
 };
 
 function normalize(pathname: string) {

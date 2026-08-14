@@ -24,7 +24,9 @@ export function ogImageForRoute(route: string) {
   else if (key === "maison" || key === "heritage") image = photos.bench;
   else if (key === "atelier") image = photos.movement;
   else if (key === "boutique") image = photos.wrist;
-  return image.replace(/w=\d+/, "w=1200");
+  const origin = site.brand.url.replace(/\/$/, "");
+  if (/^https?:\/\//.test(image)) return image;
+  return `${origin}${image.startsWith("/") ? image : `/${image}`}`;
 }
 
 export function socialForPath(pathname: string): SocialTags {

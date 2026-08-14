@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { site, type Product } from "../../config/site";
+import { altFor, site, type Product } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
@@ -56,7 +56,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
         <Link to={`/watch/${product.slug}`} className="card-media">
           <FrameImage
             src="/studio/velvet.jpg"
-            alt=""
+            alt={altFor("/studio/velvet.jpg", `${product.name} on studio velvet`)}
             className="card-photo"
             width={1400}
             height={1050}

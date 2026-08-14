@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { photos, site } from "../config/site";
+import { altFor, photos, site } from "../config/site";
+import { EssayBody } from "../components/ui/EssayBody";
 import { FrameImage } from "../components/ui/FrameImage";
 import { Monogram } from "../components/brand/Monogram";
 import { HeritageTimeline } from "../components/sections/HeritageTimeline";
@@ -12,7 +13,7 @@ export function Maison() {
   return (
     <div className="page">
       <section className="maison-hero-still" data-meridian="origin" data-meridian-label="Origin">
-        <FrameImage src={photos.cinematic} alt="The gold meridian at 12 on a HORLOGE dial" />
+        <FrameImage src={photos.cinematic} alt={altFor(photos.cinematic, "The gold meridian at 12 on a HORLOGE dial")} />
         <div className="maison-hero-copy">
           <Monogram size={72} />
           <h1 className="display">{site.maisonPage.title}</h1>
@@ -31,36 +32,12 @@ export function Maison() {
         <div className="maison-split">
           <Reveal>
             <div className="eyebrow">1924</div>
-            <h2 className="display">Composed, not assembled.</h2>
-            {site.maisonPage.founding.map((paragraph) => (
-              <p className="lede" key={paragraph}>
-                {paragraph}
-              </p>
-            ))}
+            <EssayBody id="maison" />
           </Reveal>
           <Reveal delay={0.08}>
-            <FrameImage src={photos.bench} alt="The atelier bench in Geneva" />
+            <FrameImage src={photos.bench} alt={altFor(photos.bench, "The atelier bench in Geneva")} />
           </Reveal>
         </div>
-      </section>
-
-      <section className="section maison-essays">
-        <div className="maison-split">
-          <Reveal>
-            <h2 className="display">{site.maisonPage.independence.title}</h2>
-            <p className="lede">{site.maisonPage.independence.body}</p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h2 className="display">{site.maisonPage.craft.title}</h2>
-            <p className="lede">{site.maisonPage.craft.body}</p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section maison-close">
-        <Reveal>
-          <p className="display">{site.maisonPage.closing}</p>
-        </Reveal>
       </section>
 
       <PressStrip />

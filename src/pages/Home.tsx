@@ -6,7 +6,7 @@ import { MaisonChapter } from "../components/sections/MaisonChapter";
 import { MeridianChapter } from "../components/sections/MeridianChapter";
 import { CraftChapter } from "../components/sections/CraftChapter";
 import { ViewingInvite } from "../components/sections/JourneyInvites";
-import { WatchStudio } from "../components/motion/WatchStudio";
+import { StudioStage } from "../components/watch/StudioStage";
 
 export function Home() {
   const featured = signatureProducts()[0] ?? site.products[0];
@@ -20,18 +20,18 @@ export function Home() {
       <section className="section inspect-home" data-meridian="watch" data-meridian-label="Watch">
         <div className="section-head">
           <div>
-            <div className="eyebrow">Interactive watch</div>
-            <h2 className="display">In the round.</h2>
+            <div className="eyebrow">Signature</div>
+            <h2 className="display">On the bench.</h2>
           </div>
           <Link className="section-link" to={`/watch/${featured.slug}`}>
             Discover the Watch
           </Link>
         </div>
         <p className="lede" style={{ maxWidth: 560, marginBottom: 36 }}>
-          Rotate. Lean in. Inspect the dial, the case, the crown, the gold meridian, and the caseback.
+          {featured.name} · {featured.reference}. Open the piece for 360° and the calibre study.
         </p>
         <div className="inspect-halo">
-          <WatchStudio product={featured} />
+          <StudioStage product={featured} size={380} caption={`${featured.name} · studio still`} />
         </div>
       </section>
 
@@ -51,7 +51,7 @@ export function Home() {
         <div className="journal-grid">
           {site.journal.map((article, index) => (
             <Link key={article.slug} to={`/journal/${article.slug}`} className="journal-card" style={{ ["--i" as string]: String(index) }}>
-              <img src={article.image} alt="" />
+              <img src={article.image} alt={article.imageAlt} />
               <div>
                 <div className="product-line">
                   {article.category} · {article.date}

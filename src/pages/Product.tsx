@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { getProduct, relatedProducts, site } from "../config/site";
+import { altFor, getProduct, relatedProducts, site } from "../config/site";
 import type { WatchDesign } from "../config/site";
 import { papersFor, maisonInclusions } from "../config/papers";
 import { ProductCard } from "../components/ui/ProductCard";
@@ -148,7 +148,7 @@ export function Product() {
             <div className="thumbs">
               {product.images.map((src, index) => (
                 <button key={src} className={shot === index ? "is-on" : ""} onClick={() => setShot(index)}>
-                  <img src={src} alt="" />
+                  <img src={src} alt={altFor(src, `${product.name} · view ${index + 1}`)} />
                 </button>
               ))}
               <button type="button" className="text-link" onClick={() => setLightbox(true)}>

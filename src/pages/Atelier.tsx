@@ -1,22 +1,43 @@
 import { Link } from "react-router-dom";
 import { CraftLoupe } from "../components/motion/CraftLoupe";
 import { ExplodedCalibre } from "../components/motion/ExplodedCalibre";
+import { WatchStudio } from "../components/motion/WatchStudio";
 import { craftDisclaimer, productionCalibres } from "../config/calibres";
-import { site } from "../config/site";
+import { altFor, signatureProducts, site } from "../config/site";
 import { FrameImage } from "../components/ui/FrameImage";
 import { Reveal } from "../components/ui/Reveal";
 
 export function Atelier() {
+  const featured = signatureProducts()[0] ?? site.products[0];
+
   return (
     <div className="page">
       <section className="page-hero">
         <div className="eyebrow">{site.atelier.eyebrow}</div>
-        <h1 className="display">Craft</h1>
+        <h1 className="display">{site.atelier.title}</h1>
         <p className="lede">{site.atelier.intro}</p>
       </section>
 
       <ExplodedCalibre />
       <CraftLoupe />
+
+      <section className="section inspect-home" style={{ paddingTop: 0 }}>
+        <div className="section-head">
+          <div>
+            <div className="eyebrow">In the round</div>
+            <h2 className="display">360° on the bench.</h2>
+          </div>
+          <Link className="section-link" to={`/watch/${featured.slug}`}>
+            {featured.name}
+          </Link>
+        </div>
+        <p className="lede" style={{ maxWidth: 560, marginBottom: 36 }}>
+          Rotate the signature piece. The same studio lives on each product page.
+        </p>
+        <div className="inspect-halo">
+          <WatchStudio product={featured} />
+        </div>
+      </section>
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="section-head">
@@ -69,7 +90,7 @@ export function Atelier() {
         <div className="gallery">
           {site.atelier.gallery.map((image) => (
             <figure key={image.caption}>
-              <FrameImage src={image.src} alt={image.alt} />
+              <FrameImage src={image.src} alt={altFor(image.src, image.alt)} />
               <figcaption>{image.caption}</figcaption>
             </figure>
           ))}

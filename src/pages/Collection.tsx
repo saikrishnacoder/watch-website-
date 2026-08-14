@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { photos, signatureProducts, site } from "../config/site";
+import { altFor, photos, signatureProducts, site } from "../config/site";
 import { ProductCard } from "../components/ui/ProductCard";
 import { FrameImage } from "../components/ui/FrameImage";
 import { Reveal } from "../components/ui/Reveal";
@@ -14,7 +14,7 @@ export function Collection() {
   return (
     <div className="page">
       <section className="collection-hero">
-        <FrameImage src={photos.luxury} alt="" />
+        <FrameImage src={photos.luxury} alt={altFor(photos.luxury, "HORLOGE collection still")} />
         <div>
           <div className="eyebrow">Five lines · one meridian</div>
           <h1 className="display">{site.collectionPage.title}</h1>
@@ -30,7 +30,7 @@ export function Collection() {
           {site.collectionLines.map((family, index) => (
             <Reveal key={family.slug} delay={index * 0.04} className="line-index-card">
               <Link to={`/collection/${family.slug}`} className="line-index-media">
-                <FrameImage src={family.image} alt="" />
+                <FrameImage src={family.image} alt={altFor(family.image, family.name)} />
               </Link>
               <div>
                 <div className="eyebrow">

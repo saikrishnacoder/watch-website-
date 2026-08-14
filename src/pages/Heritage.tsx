@@ -8,13 +8,13 @@ export function Heritage() {
     <div className="page">
       <section className="page-hero">
         <div className="eyebrow">Since {site.brand.founded}</div>
-        <h1 className="display">A century in years.</h1>
+        <h1 className="display">{site.heritagePage.title}</h1>
         <p className="lede">
-          Scroll the timeline — or open a year on the{" "}
+          {site.heritagePage.lede} Open a year on the{" "}
           <Link to="/maison#heritage" style={{ color: "var(--gold)" }}>
             maison
           </Link>
-          . Dates large enough to stand in a window, copy quiet enough to keep.
+          .
         </p>
         <MagneticButton to="/maison">The maison</MagneticButton>
       </section>

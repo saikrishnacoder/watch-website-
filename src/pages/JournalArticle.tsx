@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { site } from "../config/site";
+import { EssayBody } from "../components/ui/EssayBody";
 import { FrameImage } from "../components/ui/FrameImage";
 import { NotFound } from "./NotFound";
 
@@ -17,10 +18,8 @@ export function JournalArticle() {
           {article.date} · {minutes} min · {article.category}
         </div>
         <h1 className="display">{article.title}</h1>
-        <FrameImage src={article.image} alt="" className="article-hero" />
-        {article.body.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
+        <FrameImage src={article.image} alt={article.imageAlt} className="article-hero" />
+        <EssayBody id={`journal/${article.slug}`} />
       </article>
       <section className="section">
         <div className="eyebrow">Further notes</div>

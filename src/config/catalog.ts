@@ -15,19 +15,43 @@ export type CollectionLine = {
 };
 
 export const photos = {
-  ivory: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1600&q=80",
-  gold: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1600&q=80",
-  black: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1600&q=80",
-  luxury: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1600&q=80",
-  side: "https://images.unsplash.com/photo-1622434641406-a158123450f9?auto=format&fit=crop&w=1600&q=80",
-  sport: "https://images.unsplash.com/photo-1594534475808-b41fb295b2d3?auto=format&fit=crop&w=1600&q=80",
-  wrist: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1600&q=80",
-  bench: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1600&q=80",
-  movement: "https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=1600&q=80",
-  classic: "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=1600&q=80",
-  silver: "https://images.unsplash.com/photo-1612817159949-195b6eb9e31a?auto=format&fit=crop&w=1600&q=80",
-  cinematic: "https://images.unsplash.com/photo-1609587312208-cea54be969e7?auto=format&fit=crop&w=2000&q=80",
+  ivory: "/lines/chronograph.jpg",
+  gold: "/lines/imperial.jpg",
+  black: "/lines/meridian.jpg",
+  luxury: "/media/maison-meridian.jpg",
+  side: "/lines/heritage.jpg",
+  sport: "/lines/diver.jpg",
+  wrist: "/lines/chronograph.jpg",
+  bench: "/media/maison-bench.jpg",
+  movement: "/media/movement.jpg",
+  classic: "/lines/heritage.jpg",
+  silver: "/lines/diver.jpg",
+  cinematic: "/media/maison-meridian.jpg",
+  velvet: "/studio/velvet.jpg",
 };
+
+export const photoAlt: Record<string, string> = {
+  "/lines/heritage.jpg":
+    "HORLOGE Heritage: cream enamel dial with a gold meridian at 12 and a black alligator strap on dark wood.",
+  "/lines/chronograph.jpg":
+    "HORLOGE Chronograph on a dark studio surface, ivory dial and gold meridian at 12.",
+  "/lines/diver.jpg": "HORLOGE Diver: sport case, ceramic bezel, gold meridian at 12.",
+  "/lines/imperial.jpg": "HORLOGE Imperial in gold, dress proportions, gold meridian at 12.",
+  "/lines/meridian.jpg": "HORLOGE Meridian: dark dial, GMT reading, gold meridian at 12.",
+  "/media/maison-bench.jpg":
+    "Geneva atelier bench: brass movement plates, loupe, tweezers, and a handwritten notebook.",
+  "/media/maison-meridian.jpg": "HORLOGE dial with the gold meridian drawn at 12.",
+  "/media/movement.jpg": "Open HORLOGE movement on the bench — bridges, wheels, and blued screws.",
+  "/studio/velvet.jpg": "Dark studio velvet used behind a HORLOGE composition.",
+  "/journal/the-meridian.jpg": "Close view of a HORLOGE enamel dial with a thin gold meridian at 12.",
+  "/journal/inside-the-atelier.jpg": "Watchmaker at a Geneva bench with a loupe and kiln light.",
+  "/journal/anatomy.jpg": "HORLOGE case, crystal, dial, hands and movement laid out on dark velvet.",
+  "/journal/geneva-independent.jpg": "Dusk on a quiet Geneva street, a maison window lit as a gold line.",
+};
+
+export function altFor(src: string, fallback: string) {
+  return photoAlt[src] ?? fallback;
+}
 
 export function watch(
   data: Omit<Product, "specGroups"> & { specGroups?: Product["specGroups"] },
@@ -81,8 +105,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "The first sentence.",
     indexBlurb:
       "Time-only enamel, extra-thin H-08, railroad minutes. Heritage is where the gold meridian was drawn first — and has not been redrawn since 1924.",
-    image: photos.classic,
-    ogImage: photos.classic,
+    image: "/lines/heritage.jpg",
+    ogImage: "/lines/heritage.jpg",
     calibre: "H-08",
     finishing: "Enamel, extra-thin, railroad minutes",
     essay: [
@@ -98,8 +122,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Three distinct events.",
     indexBlurb:
       "Column-wheel H-72. Start, stop, and reset as three mechanical sentences. Ivory opaline, blued hands, a tachymeter for those who still measure a road.",
-    image: photos.ivory,
-    ogImage: photos.ivory,
+    image: "/lines/chronograph.jpg",
+    ogImage: "/lines/chronograph.jpg",
     calibre: "H-72",
     finishing: "Column wheel, three registers, tachymeter",
     essay: [
@@ -115,8 +139,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Finished for the dark.",
     indexBlurb:
       "A diver finished like a dress watch. Ceramic bezel, lume that holds when the water is black, 200 to 500 metres — and the meridian still gold at 12.",
-    image: photos.sport,
-    ogImage: photos.sport,
+    image: "/lines/diver.jpg",
+    ogImage: "/lines/diver.jpg",
     calibre: "H-90",
     finishing: "Ceramic bezel, 200–500 m, lume plots",
     essay: [
@@ -132,8 +156,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Metal that remembers the lamp.",
     indexBlurb:
       "Yellow, rose, and white gold, and a black DLC that drinks the room. Numbered editions and moonphase — cases finished to be refinished by the next owner.",
-    image: photos.gold,
-    ogImage: photos.gold,
+    image: "/lines/imperial.jpg",
+    ogImage: "/lines/imperial.jpg",
     calibre: "H-12",
     finishing: "18k gold, numbered editions, moonphase",
     essay: [
@@ -150,8 +174,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "The line, carried.",
     indexBlurb:
       "GMT, dual time, worldtimer. HORLOGE is a French word for clock; this line carries the Geneva meridian around the world without moving the gold stroke at 12.",
-    image: photos.black,
-    ogImage: photos.black,
+    image: "/lines/meridian.jpg",
+    ogImage: "/lines/meridian.jpg",
     calibre: "H-24",
     finishing: "GMT, worldtimer, dual time",
     essay: [
@@ -587,73 +611,6 @@ export const products: Product[] = [
       dateWindow: true,
     },
   }),
-];
-
-export const journal = [
-  {
-    slug: "the-meridian",
-    title: "The Golden Meridian",
-    date: "4 April 2026",
-    category: "Identity",
-    excerpt:
-      "Every HORLOGE composition begins from twelve. A gold line, thinner than a hair, is the point from which the rest of the watch is built.",
-    image: photos.cinematic,
-    body: [
-      "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
-      "The stroke is not applied after the watch is finished. It is the last act on the dial, and the first decision in the design. From that vertical, the chapter ring, the hands, the case, and the movement are composed outward.",
-      "Gold, not printed ink. A line that will still read when the enamel has been lived with, when the first owner is not the last. Six would have been easier. Twelve is the hour a city names.",
-      "You will find it on Heritage enamel and on a Diver 500. Depth does not excuse a missing mark. If it is absent, the watch is not ours.",
-      "This note is not a manifesto for a logo. It is a workshop habit, written down so the next pair of hands knows where to begin.",
-    ],
-  },
-  {
-    slug: "inside-the-atelier",
-    title: "Inside the Atelier",
-    date: "12 March 2026",
-    category: "Atelier",
-    excerpt:
-      "A HORLOGE watch passes through fewer than twelve pairs of hands before it leaves Geneva. The kiln sits eight metres from the casing bench, on purpose.",
-    image: photos.bench,
-    body: [
-      "The atelier is not a factory. Cases are finished by hand. Movements are regulated individually, not by batch. This is slower than industrial watchmaking — deliberately so.",
-      "Grand feu enamel is unforgiving. About four in ten dials crack in the kiln. The rest become Heritage. Dust, a draught, a slightly thick pour — any of these can ruin a day of work.",
-      "We do not outsource this. The kiln sits eight metres from the casing bench, on purpose. Heat and casing should share a room, so a cracked dial never travels as if it were finished.",
-      "A watch leaves those benches through fewer than twelve pairs of hands. One watchmaker owns it from casing to final timing. Their punch mark sits inside the caseback — ours, and theirs.",
-      "The exploded drawing on the Craft page is a teaching calibre, HO-01. Wrist watches use H-08, H-72, H-90, H-12 and H-24. Do not confuse the study with the movement that leaves Geneva.",
-    ],
-  },
-  {
-    slug: "anatomy",
-    title: "Anatomy of a Mechanical Watch",
-    date: "2 February 2026",
-    category: "Calibres",
-    excerpt:
-      "Case, crystal, dial, hands, movement. Opened in that order, then returned to silence. A short anatomy of how a HORLOGE is composed.",
-    image: photos.movement,
-    body: [
-      "A mechanical watch is a small architecture. Opened in this order: case, crystal, dial, hands, movement — then returned to silence. The case holds the volume. The crystal admits light. The dial carries the meridian. The hands spend the hours. The movement is the reason any of it is true.",
-      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct mechanical events — not like pressing a plastic shutter. Chronograph One still uses that architecture.",
-      "Heritage keeps H-08 extra-thin. Diver keeps H-90, finished like a dress calibre even when the water is black. Imperial keeps H-12 for cases that will be refinished. Meridian keeps H-24 so a second hour can sit beside the gold stroke at 12.",
-      "HO-01, drawn on the Craft page, is a teaching calibre — a concept architecture, not a production specification. Figures on a product sheet belong to the watch on the wrist.",
-      "If you only remember one sequence: compose the meridian last on the dial, first in the design. Everything else is furniture around that line.",
-    ],
-  },
-  {
-    slug: "geneva-independent",
-    title: "Geneva & Independent Horology",
-    date: "19 January 2026",
-    category: "Maison",
-    excerpt:
-      "Founded in Geneva in 1924. Still independent. No conglomerate owns our movements, our case designs, or our name.",
-    image: photos.gold,
-    body: [
-      "The first bench sat on the Rue du Rhône, a room that still holds the same northern light. A lathe, a loupe, and the patience to treat the hour as a sentence.",
-      "We remain an independent maison. No conglomerate owns our movements, our case designs, or our name. Each collection is developed in-house, in the same workshop the maison has occupied since 1924.",
-      "Quartz arrived. We stayed mechanical. Regulation in five positions became a rule, not a brochure line. After-sales was written as a duty: a piece leaves Geneva once, and comes back for oil.",
-      "Independence is not a mood. It is who may refuse a batch, who may scrap a dial, who may take fourteen days to agree with a rate. Those decisions stay in Geneva.",
-      "The century is not a slogan on the Maison page. It is the same gold stroke, drawn last, on watches that will be refinished by owners we will not meet.",
-    ],
-  },
 ];
 
 export const services = [
