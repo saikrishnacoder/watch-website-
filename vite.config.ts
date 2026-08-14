@@ -53,8 +53,8 @@ function stampRoute(html: string, route: string) {
   );
   next = next.replace(/<noscript>[\s\S]*?<\/noscript>/, `<noscript>\n      ${block}\n    </noscript>`);
   next = next.replace(
-    /<div id="root"[^>]*>[\s\S]*<\/div>(?=\s*<script)/,
-    `<div id="root" data-page="${pathName}">\n      ${block}\n    </div>`,
+    /<div id="root"[^>]*>[\s\S]*<\/div>\s*(?=<\/body>)/,
+    `<div id="root" data-page="${pathName}">\n      ${block}\n    </div>\n    `,
   );
   return next;
 }
