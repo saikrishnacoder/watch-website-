@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import netlify from "@netlify/vite-plugin";
+import { brandedNotFoundHtml } from "./src/lib/not-found-html";
 
 const SPA_ROUTES = [
   "collection",
@@ -17,6 +18,7 @@ const SPA_ROUTES = [
   "meridian",
   "maison",
   "privacy",
+  "404",
   "finder",
   "find",
   "boutique",
@@ -43,7 +45,7 @@ function spaFallbackPages(): Plugin {
       const index = path.join(dist, "index.html");
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
-      writeHtml(path.join(dist, "404.html"), html);
+      writeHtml(path.join(dist, "404.html"), brandedNotFoundHtml(html));
       for (const route of SPA_ROUTES) {
         writeHtml(path.join(dist, `${route}.html`), html);
         writeHtml(path.join(dist, route, "index.html"), html);

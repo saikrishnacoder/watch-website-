@@ -127,6 +127,7 @@ function AppShell() {
                   <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
                   <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/404" element={<NotFound />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

@@ -30,7 +30,8 @@ export function documentTitle(pathname: string) {
     "/motion": `Kinetic atelier — ${site.brand.name}`,
     "/boutique": `Boutiques — ${site.brand.name}`,
     "/privacy": `Privacy — ${site.brand.name}`,
+    "/404": `Lost time — ${site.brand.name}`,
   };
 
-  return pages[pathname] ?? site.seo.title;
+  return pages[pathname] ?? `Lost time — ${site.brand.name}`;
 }
