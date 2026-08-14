@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { getProduct, relatedProducts, site } from "../config/site";
+import type { WatchDesign } from "../config/site";
 import { papersFor, maisonInclusions } from "../config/papers";
 import { ProductCard } from "../components/ui/ProductCard";
 import { MagneticButton } from "../components/ui/MagneticButton";
@@ -15,7 +16,11 @@ import { StudioStage } from "../components/watch/StudioStage";
 import { Lightbox } from "../components/motion/Lightbox";
 import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
 import { CraftModal, CraftStrip } from "../components/watch/CraftSheet";
+import { PhotoZoom } from "../components/watch/PhotoZoom";
+import { ProductCompose, strapFromDesign } from "../components/watch/ProductCompose";
+import { WaitlistForm } from "../components/watch/WaitlistForm";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
+import { braceletColor, isLightDial } from "../lib/composition";
 import { openSpecialist } from "../lib/specialist";
 import { NotFound } from "./NotFound";
 
@@ -26,7 +31,7 @@ export function Product() {
   const { add, addOnce } = useCart();
   const { formatPrice } = useMoney();
   const { setCartOpen, setToast } = useUI();
-  const { toggleWish, toggleCompare, wished, compared, remember } = useCabinet();
+  const { toggleWish, toggleCompare, wished, compared, remember, compare, saveComposition } = useCabinet();
   const [shot, setShot] = useState(0);
   const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("volume");
   const [openGroup, setOpenGroup] = useState("Movement");
@@ -34,19 +39,44 @@ export function Product() {
   const [sticky, setSticky] = useState(false);
   const [engraving, setEngraving] = useState("");
   const [lightbox, setLightbox] = useState(false);
-  const [waitStatus, setWaitStatus] = useState("");
   const { open: sizeOpen, openGuide, closeGuide } = useSizeGuide();
   const [craftOpen, setCraftOpen] = useState(false);
+  const [dialHex, setDialHex] = useState(product?.design.dial ?? "#f3ead8");
+  const [strap, setStrap] = useState(() =>
+    product ? strapFromDesign(product.design) : site.customizer.straps[0],
+  );
+  const [composeNote, setComposeNote] = useState("");
 
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
     setStudio("volume");
+    if (product) {
+      setDialHex(product.design.dial);
+      setStrap(strapFromDesign(product.design));
+      setComposeNote("");
+    }
   }, [product, remember]);
 
   useEffect(() => {
     setCraftOpen(location.hash === "#craft");
   }, [location.hash]);
+
+  const composedDesign = useMemo<WatchDesign | null>(() => {
+    if (!product) return null;
+    return {
+      ...product.design,
+      dial: dialHex,
+      dialText: isLightDial(dialHex) ? "#1a1814" : "#f4efe6",
+      strap: strap.id,
+      strapColor: strap.id === "bracelet" ? braceletColor(product.design.caseMetal) : strap.color,
+    };
+  }, [product, dialHex, strap]);
+
+  const liveProduct = useMemo(() => {
+    if (!product || !composedDesign) return product;
+    return { ...product, design: composedDesign };
+  }, [product, composedDesign]);
 
   useEffect(() => {
     const onScroll = () => setSticky(window.scrollY > 520);
@@ -54,9 +84,10 @@ export function Product() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (!product) return <NotFound />;
+  if (!product || !liveProduct || !composedDesign) return <NotFound />;
 
   const waitlisted = product.availability === "Waitlist";
+  const scarce = waitlisted || Boolean(product.limited);
   const boutiqueTo = `/boutique?watch=${product.slug}`;
   const schema = {
     "@context": "https://schema.org",
@@ -106,19 +137,17 @@ export function Product() {
         <div>
           <div className="pdp-stage">
             {studio === "volume" ? (
-              <WatchStudio product={product} />
+              <WatchStudio product={liveProduct} />
             ) : studio === "calibre" ? (
-              <WatchFace {...product.design} brand={site.brand.name} size={420} />
+              <WatchFace {...composedDesign} brand={site.brand.name} size={420} />
             ) : studio === "render" ? (
-              <StudioStage product={product} size={400} />
+              <StudioStage product={liveProduct} size={400} />
             ) : (
-              <button type="button" className="pdp-photo" onClick={() => setLightbox(true)}>
-                <img src={product.images[shot]} alt={product.name} />
-              </button>
+              <PhotoZoom src={product.images[shot]} alt={product.name} />
             )}
             <div className="pdp-toggles">
               <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
-                Inspect
+                360°
               </button>
               <button className={studio === "render" ? "is-on" : ""} onClick={() => setStudio("render")}>
                 Studio render
@@ -138,6 +167,9 @@ export function Product() {
                   <img src={src} alt="" />
                 </button>
               ))}
+              <button type="button" className="text-link" onClick={() => setLightbox(true)}>
+                Open full frame
+              </button>
             </div>
           )}
         </div>
@@ -155,7 +187,11 @@ export function Product() {
           <h1 className="display">{product.name}</h1>
           <p className="pdp-kicker">{product.tagline}</p>
           <div className="price">{formatPrice(product.price)}</div>
-          <p className="availability">{product.availability}</p>
+          <p className="availability">
+            {product.limited
+              ? `${product.badge ?? "Atelier edition"} · ${product.availability}`
+              : product.availability}
+          </p>
           <p className="lede">{product.description}</p>
           <div className="pdp-facts">
             <span>{product.diameter} mm</span>
@@ -164,6 +200,44 @@ export function Product() {
             <span>{product.movementType}</span>
           </div>
           <CraftStrip product={product} onOpen={() => setCraftOpen(true)} />
+          <ProductCompose
+            product={product}
+            design={composedDesign}
+            onDial={(hex) => {
+              setDialHex(hex);
+              if (studio === "photo") setStudio("volume");
+            }}
+            onStrap={(next) => {
+              setStrap(next);
+              if (studio === "photo") setStudio("volume");
+            }}
+          />
+          <p className="studio-note" style={{ marginBottom: 16 }}>
+            <button
+              type="button"
+              className="text-link"
+              onClick={() => {
+                saveComposition({
+                  caseMetal: composedDesign.caseMetal,
+                  dial: composedDesign.dial,
+                  dialLabel:
+                    site.customizer.dials.find((item) => item.id === composedDesign.dial)?.label ?? "Dial",
+                  markers: composedDesign.markers,
+                  hands: composedDesign.hands,
+                  bezel: composedDesign.bezel,
+                  strap: composedDesign.strap,
+                  strapColor: composedDesign.strapColor,
+                  strapLabel: strap.label,
+                });
+                setComposeNote("Saved to the cabinet on this device.");
+              }}
+            >
+              Save this composition
+            </button>
+            {" · "}
+            <Link to="/compose">Full composer</Link>
+          </p>
+          {composeNote && <p className="form-note">{composeNote}</p>}
           <div className="hero-actions">
             <MagneticButton
               onClick={() => {
@@ -186,53 +260,36 @@ export function Product() {
               Speak to a specialist
             </MagneticButton>
           </div>
-          {waitlisted && (
-            <form
-              className="waitlist-form"
-              name="waitlist"
-              method="POST"
-              data-netlify="true"
-              onSubmit={async (event) => {
-                event.preventDefault();
-                const form = event.currentTarget;
-                const data = new FormData(form);
-                const params = new URLSearchParams();
-                data.forEach((value, key) => params.append(key, String(value)));
-                await fetch("/", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                  body: params.toString(),
-                });
-                setWaitStatus("You are on the maison waitlist. We write when a piece is released.");
-                form.reset();
+          {scarce && <WaitlistForm product={product} />}
+          <div className="pdp-shortlist">
+            <button
+              type="button"
+              className={wished(product.slug) ? "is-on" : ""}
+              aria-pressed={wished(product.slug)}
+              onClick={() => {
+                toggleWish(product.slug);
+                setToast(wished(product.slug) ? "Removed from wishlist." : "Saved to wishlist.");
               }}
             >
-              <input type="hidden" name="form-name" value="waitlist" />
-              <input type="hidden" name="watch" value={product.slug} />
-              <p hidden>
-                <label>
-                  Don’t fill this out: <input name="bot-field" />
-                </label>
-              </p>
-              <div className="fields">
-                <label className="field">
-                  <input name="name" required placeholder="Full name" />
-                </label>
-                <label className="field">
-                  <input type="email" name="email" required placeholder="Email" />
-                </label>
-              </div>
-              <MagneticButton type="submit">Join the waitlist</MagneticButton>
-              {waitStatus && <p className="form-note">{waitStatus}</p>}
-            </form>
-          )}
-          <div className="pdp-tools">
-            <button className={wished(product.slug) ? "is-on" : ""} onClick={() => toggleWish(product.slug)}>
               {wished(product.slug) ? "In wishlist" : "Save to wishlist"}
             </button>
-            <button className={compared(product.slug) ? "is-on" : ""} onClick={() => toggleCompare(product.slug)}>
-              {compared(product.slug) ? "Added to compare" : "Compare"}
+            <button
+              type="button"
+              className={compared(product.slug) ? "is-on" : ""}
+              aria-pressed={compared(product.slug)}
+              onClick={() => {
+                if (!compared(product.slug) && compare.length >= 3) {
+                  setToast("Three watches is the comparison. Remove one first.");
+                  return;
+                }
+                toggleCompare(product.slug);
+                setToast(compared(product.slug) ? "Removed from compare." : "Saved to compare.");
+              }}
+            >
+              {compared(product.slug) ? "In compare" : "Save to compare"}
             </button>
+          </div>
+          <div className="pdp-tools">
             <button
               type="button"
               onClick={async () => {
@@ -289,7 +346,7 @@ export function Product() {
         <div className="tryon">
           <div className="wrist" style={{ ["--wrist-scale" as string]: String(0.7 + (wrist - 150) / 250) }}>
             <div className="wrist-band" />
-            <WatchFace {...product.design} brand={site.brand.name} size={200} />
+            <WatchFace {...composedDesign} brand={site.brand.name} size={200} />
           </div>
           <div>
             <div className="eyebrow">On the wrist</div>

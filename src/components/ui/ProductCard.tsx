@@ -4,6 +4,7 @@ import { site, type Product } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
+import { useUI } from "../../context/UIContext";
 import { WatchFace } from "../watch/WatchFace";
 
 type ProductCardProps = {
@@ -13,9 +14,10 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, index = 0, priority = false }: ProductCardProps) {
-  const { toggleWish, toggleCompare, wished, compared } = useCabinet();
+  const { toggleWish, toggleCompare, wished, compared, compare } = useCabinet();
   const { formatPrice } = useMoney();
   const { reduceMotion } = useMotion();
+  const { setToast } = useUI();
 
   return (
     <motion.article
@@ -31,6 +33,9 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
         {product.availability === "Waitlist" && !product.badge && (
           <span className="product-badge is-wait">Waitlist</span>
         )}
+        {product.limited && !product.badge && product.availability !== "Waitlist" && (
+          <span className="product-badge is-wait">Atelier edition</span>
+        )}
         <div className="card-tools">
           <button
             className={wished(product.slug) ? "is-on" : ""}
@@ -41,7 +46,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
           </button>
           <button
             className={compared(product.slug) ? "is-on" : ""}
-            aria-label={`Compare ${product.name}`}
+            aria-label={`Save ${product.name} to compare`}
             onClick={() => toggleCompare(product.slug)}
           >
             ⧉
@@ -74,16 +79,27 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
           {product.diameter} mm · {product.material}
         </p>
         <p className={`card-avail is-${product.availability.replace(/\s/g, "-").toLowerCase()}`}>
-          {product.availability}
+          {product.limited ? `${product.badge ?? "Atelier edition"} · ${product.availability}` : product.availability}
         </p>
         <div className="product-price">{formatPrice(product.price)}</div>
         <div className="product-actions">
           <Link className="btn btn-ghost" to={`/watch/${product.slug}`}>
             Discover
           </Link>
-          <Link className="btn" to={`/boutique?watch=${product.slug}`}>
-            Boutique
-          </Link>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              if (!compared(product.slug) && compare.length >= 3) {
+                setToast("Three watches is the comparison. Remove one first.");
+                return;
+              }
+              toggleCompare(product.slug);
+              setToast(compared(product.slug) ? "Removed from compare." : "Saved to compare.");
+            }}
+          >
+            {compared(product.slug) ? "In compare" : "Save to compare"}
+          </button>
         </div>
       </div>
     </motion.article>

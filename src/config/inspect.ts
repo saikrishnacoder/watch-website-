@@ -46,4 +46,4 @@ export const inspectSpots: InspectSpot[] = [
 ]
 
 export const inspectHint =
-  "Drag to rotate · scroll to zoom · double-click a point to inspect"
+  "360° — drag to turn. Scroll to lean in on the finishing. Double-click a point to inspect."

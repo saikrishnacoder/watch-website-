@@ -138,7 +138,7 @@ export function Privacy() {
             </tr>
             <tr>
               <td>Waitlist</td>
-              <td>Name, email, watch</td>
+              <td>Name, email, watch, edition</td>
               <td>To write when a waitlisted reference can be seen. Consent.</td>
             </tr>
             <tr>

@@ -23,7 +23,7 @@ export function CompareBar() {
         })}
         {Array.from({ length: 3 - compare.length }).map((_, index) => (
           <span key={index} className="compare-slot">
-            Add a watch
+            Add to compare
           </span>
         ))}
       </div>

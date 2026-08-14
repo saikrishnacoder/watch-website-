@@ -41,7 +41,8 @@ export function Compare() {
       <section className="section" style={{ paddingTop: 0 }}>
         {watches.length === 0 ? (
           <p className="empty">
-            Add watches with ⧉ on any card. Start in the{" "}
+            Add watches with Save to compare — on a card or a product page. Up to three, across the five lines. Start in
+            the{" "}
             <Link to="/finder" style={{ color: "var(--gold)" }}>
               Watch Finder
             </Link>

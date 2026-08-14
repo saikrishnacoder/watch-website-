@@ -188,6 +188,34 @@ export function WatchScene({ product, onHotspots, onInspect, inspectId }: Props)
       crown.name = "crown"
       watch.add(crown)
 
+      const isBracelet = design.strap === "bracelet"
+      const isNato = design.strap === "nato"
+      const strapHex = isBracelet ? metal.clone() : new THREE.Color(design.strapColor)
+      const strapMat = new THREE.MeshStandardMaterial({
+        color: strapHex,
+        metalness: isBracelet ? 0.86 : isNato ? 0.04 : 0.08,
+        roughness: isBracelet ? 0.28 : isNato ? 0.72 : 0.58,
+      })
+      const strapWidth = isBracelet ? 0.52 : isNato ? 0.46 : 0.4
+      const strapLower = new THREE.Mesh(new THREE.BoxGeometry(strapWidth, 1.32, isNato ? 0.05 : 0.08), strapMat)
+      strapLower.position.set(0, -1.08, -0.02)
+      watch.add(strapLower)
+      const strapUpper = strapLower.clone()
+      strapUpper.position.y = 1.08
+      watch.add(strapUpper)
+      if (isNato) {
+        const ribbon = new THREE.Mesh(new THREE.BoxGeometry(0.18, 2.35, 0.08), strapMat)
+        ribbon.position.z = 0.02
+        watch.add(ribbon)
+      }
+      if (isBracelet) {
+        for (const y of [-0.72, -1.18, 0.72, 1.18]) {
+          const link = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.22, 0.09), strapMat)
+          link.position.set(0, y, -0.02)
+          watch.add(link)
+        }
+      }
+
       const hour = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.38, 0.02), goldMat)
       hour.position.set(0.08, 0.14, 0.09)
       hour.rotation.z = -0.4
@@ -312,7 +340,7 @@ export function WatchScene({ product, onHotspots, onInspect, inspectId }: Props)
       }
       const onWheel = (e: WheelEvent) => {
         e.preventDefault()
-        targetZoom = THREE.MathUtils.clamp(targetZoom + e.deltaY * 0.004, 2.25, 6.4)
+        targetZoom = THREE.MathUtils.clamp(targetZoom + e.deltaY * 0.004, 2.25, 7.4)
         idle = 0
       }
       const onDbl = (e: MouseEvent) => {
@@ -376,7 +404,7 @@ export function WatchScene({ product, onHotspots, onInspect, inspectId }: Props)
       dead = true
       cleanup?.()
     }
-  }, [product.slug, product.design])
+  }, [product.slug, product.design.dial, product.design.dialText, product.design.strap, product.design.strapColor, product.design.caseMetal, product.design.bezel])
 
   return <div ref={host} className="watch-scene" role="img" aria-label={`${product.name} in three dimensions`} />
 }

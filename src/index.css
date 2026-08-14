@@ -4788,6 +4788,85 @@ a.icon-btn {
   gap: 12px;
 }
 
+.waitlist-copy {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.pdp-compose {
+  margin: 8px 0 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.pdp-compose p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.pdp-shortlist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.pdp-shortlist button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  padding: 10px 14px;
+  cursor: pointer;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.pdp-shortlist button.is-on,
+.pdp-shortlist button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.photo-zoom {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  background: #070605;
+  cursor: zoom-in;
+  height: 70vh;
+}
+
+.photo-zoom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-zoom img {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+.photo-zoom span {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--gold);
+}
+
 .card-avail {
   font-size: 10px;
   letter-spacing: 0.16em;

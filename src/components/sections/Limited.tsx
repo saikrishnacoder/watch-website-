@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProduct, site } from "../../config/site";
+import { WaitlistForm } from "../watch/WaitlistForm";
 import { MagneticButton } from "../ui/MagneticButton";
 import { WatchFace } from "../watch/WatchFace";
 
@@ -27,7 +28,8 @@ export function Limited() {
             </div>
           ))}
         </div>
-        <MagneticButton to={`/watch/${product.slug}`}>Reserve Noir</MagneticButton>
+        <MagneticButton to={`/watch/${product.slug}`}>See Noir</MagneticButton>
+        <WaitlistForm product={product} />
       </div>
     </section>
   );

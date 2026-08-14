@@ -50,3 +50,20 @@ export function parseComposition(search: string, fallback: Composition): Composi
     strap: pick(q.get("strap"), STRAPS, fallback.strap),
   }
 }
+
+export function isLightDial(hex: string) {
+  const n = Number.parseInt(hex.replace("#", ""), 16)
+  if (Number.isNaN(n)) return true
+  const r = (n >> 16) & 255
+  const g = (n >> 8) & 255
+  const b = n & 255
+  return (r * 299 + g * 587 + b * 114) / 1000 > 150
+}
+
+export function braceletColor(metal: CaseMetal) {
+  if (metal === "gold") return "#e0c070"
+  if (metal === "rose") return "#e0b09c"
+  if (metal === "black") return "#3a3a3c"
+  return "#c5c7ca"
+}
+

@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import type { BezelStyle, CaseMetal, HandStyle, MarkerStyle } from "../../config/site";
 import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
-import { compositionCode, compositionQuery, parseComposition, type Composition } from "../../lib/composition";
+import { compositionCode, compositionQuery, isLightDial, parseComposition, type Composition } from "../../lib/composition";
 import { MagneticButton } from "../ui/MagneticButton";
 import { Reveal } from "../ui/Reveal";
 import { WatchFace } from "../watch/WatchFace";
@@ -63,7 +63,7 @@ export function Customizer({ standalone = false }: { standalone?: boolean }) {
         <WatchFace
           caseMetal={caseMetal}
           dial={dial.id}
-          dialText={isLight(dial.id) ? "#1a1814" : "#f4efe6"}
+          dialText={isLightDial(dial.id) ? "#1a1814" : "#f4efe6"}
           markers={markers}
           hands={hands}
           bezel={bezel}
@@ -194,10 +194,3 @@ export function Customizer({ standalone = false }: { standalone?: boolean }) {
   return <section className="section">{inner}</section>;
 }
 
-function isLight(hex: string) {
-  const n = parseInt(hex.replace("#", ""), 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
-  return (r * 299 + g * 587 + b * 114) / 1000 > 150;
-}
