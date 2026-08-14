@@ -4,6 +4,7 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import netlify from "@netlify/vite-plugin";
 import { brandedNotFoundHtml } from "./src/lib/not-found-html";
+import { copyForRoute, staticPageMarkup } from "./src/lib/route-static";
 
 const SPA_ROUTES = [
   "collection",
@@ -39,37 +40,22 @@ function writeHtml(file: string, html: string) {
   fs.writeFileSync(file, html);
 }
 
-const PAGE_TITLES: Record<string, string> = {
-  collection: "Watches — HORLOGE",
-  "collection/heritage": "Heritage — HORLOGE",
-  "collection/chronograph": "Chronograph — HORLOGE",
-  "collection/diver": "Diver — HORLOGE",
-  "collection/imperial": "Imperial — HORLOGE",
-  "collection/meridian": "Meridian — HORLOGE",
-  maison: "The maison — HORLOGE",
-  privacy: "Privacy policy — HORLOGE",
-  checkout: "Preview checkout — HORLOGE",
-  boutique: "Boutiques — HORLOGE",
-  contact: "Speak to a specialist — HORLOGE",
-  finder: "Watch Finder — HORLOGE",
-  find: "Find your watch — HORLOGE",
-  heritage: "Heritage — HORLOGE",
-  atelier: "Atelier — HORLOGE",
-  journal: "Journal — HORLOGE",
-  services: "Services — HORLOGE",
-  wishlist: "Wishlist — HORLOGE",
-  cabinet: "Cabinet — HORLOGE",
-  compose: "Composer — HORLOGE",
-  compare: "Compare — HORLOGE",
-  motion: "Kinetic atelier — HORLOGE",
-};
-
 function stampRoute(html: string, route: string) {
-  const title = PAGE_TITLES[route];
-  if (!title) return html;
-  return html
-    .replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`)
-    .replace('<div id="root"></div>', `<div id="root" data-page="/${route}"></div>`);
+  const copy = copyForRoute(route);
+  const pathName = route === "home" ? "/" : `/${route}`;
+  const block = staticPageMarkup(copy, pathName);
+  const description = copy.description.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
+  let next = html.replace(/<title>[^<]*<\/title>/, `<title>${copy.title}</title>`);
+  next = next.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
+    `<meta name="description" content="${description}" />`,
+  );
+  next = next.replace(/<noscript>[\s\S]*?<\/noscript>/, `<noscript>\n      ${block}\n    </noscript>`);
+  next = next.replace(
+    /<div id="root"[^>]*>[\s\S]*<\/div>(?=\s*<script)/,
+    `<div id="root" data-page="${pathName}">\n      ${block}\n    </div>`,
+  );
+  return next;
 }
 
 function spaFallbackPages(): Plugin {
@@ -80,6 +66,7 @@ function spaFallbackPages(): Plugin {
       const index = path.join(dist, "index.html");
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
+      writeHtml(index, stampRoute(html, "home"));
       for (const route of SPA_ROUTES) {
         const page = stampRoute(html, route);
         writeHtml(path.join(dist, `${route}.html`), page);

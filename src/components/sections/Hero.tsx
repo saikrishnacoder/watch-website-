@@ -71,7 +71,7 @@ export function Hero() {
           <WatchFace {...featured.design} brand={site.brand.name} size={300} animate={!reduceMotion} />
         </motion.div>
         <div className="cinema-lockup">
-          <p className="cinema-wordmark">
+          <h1 className="cinema-wordmark">
             {LETTERS.map((letter, index) => (
               <motion.span
                 key={`${letter}-${index}`}
@@ -82,7 +82,7 @@ export function Hero() {
                 {letter}
               </motion.span>
             ))}
-          </p>
+          </h1>
           <motion.p
             className="cinema-motto"
             initial={instant ? false : { opacity: 0, clipPath: "inset(0 100% 0 0)" }}
@@ -91,6 +91,14 @@ export function Hero() {
             onAnimationComplete={persist}
           >
             {site.brand.motto}
+          </motion.p>
+          <motion.p
+            className="lede cinema-lede"
+            initial={instant ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: instant ? 0 : 4.2, duration: instant ? 0 : 0.8, ease }}
+          >
+            Every composition begins from a gold line at 12. Independent Geneva watchmaking since {site.brand.founded}.
           </motion.p>
         </div>
         <motion.div

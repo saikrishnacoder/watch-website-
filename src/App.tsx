@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
 import { Concierge } from "./components/layout/Concierge";
@@ -23,6 +22,7 @@ import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { UIProvider, useUI } from "./context/UIContext";
+import { copyForRoute } from "./lib/route-static";
 import { documentTitle } from "./lib/titles";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
@@ -74,7 +74,8 @@ function AppShell() {
   useEffect(() => {
     document.title = documentTitle(location.pathname);
     const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", site.seo.description);
+    const key = location.pathname.replace(/^\//, "").replace(/\/$/, "") || "home";
+    if (meta) meta.setAttribute("content", copyForRoute(key).description);
   }, [location.pathname]);
 
   useEffect(() => {

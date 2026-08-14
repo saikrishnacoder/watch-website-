@@ -8,8 +8,21 @@
     <title>HORLOGE — Tempus compositum</title>
     <meta
       name="description"
-      content="Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold meridian at 12."
+      content="Independent Geneva watchmaking since 1924. HORLOGE — Tempus compositum. Five lines composed around a gold meridian at 12."
     />
+    <style>
+      #root > .static-route {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -58,27 +71,47 @@
       <input name="bot-field" />
     </form>
     <noscript>
-      <header>
-        <p>HORLOGE — Tempus compositum. Maison Horloge, Geneva 1924.</p>
-      </header>
-      <main>
-        <p>
-          Independent Geneva watchmaking. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around
-          a gold line at 12.
-        </p>
-        <nav>
-          <a href="/collection">All watches</a>
-          <a href="/collection/heritage">Heritage</a>
-          <a href="/collection/chronograph">Chronograph</a>
-          <a href="/collection/diver">Diver</a>
-          <a href="/collection/imperial">Imperial</a>
-          <a href="/collection/meridian">Meridian</a>
-          <a href="/maison">The maison</a>
-          <a href="/privacy">Privacy</a>
-        </nav>
-      </main>
+      <div class="static-route" data-route="/">
+        <header>
+          <p>HORLOGE</p>
+        </header>
+        <main>
+          <h1>HORLOGE — Tempus compositum</h1>
+          <p>
+            Every HORLOGE composition begins from a gold line at twelve. Cinematic opening, five collections, craft, and
+            a private viewing — not a storefront.
+          </p>
+          <nav aria-label="HORLOGE — Tempus compositum">
+            <a href="/collection">Discover the collection</a>
+            <a href="/maison">The Maison</a>
+            <a href="/atelier">Craft</a>
+            <a href="/journal">Journal</a>
+            <a href="/boutique">Private Viewing</a>
+          </nav>
+        </main>
+      </div>
     </noscript>
-    <div id="root"></div>
+    <div id="root" data-page="/">
+      <div class="static-route" data-route="/">
+        <header>
+          <p>HORLOGE</p>
+        </header>
+        <main>
+          <h1>HORLOGE — Tempus compositum</h1>
+          <p>
+            Every HORLOGE composition begins from a gold line at twelve. Cinematic opening, five collections, craft, and
+            a private viewing — not a storefront.
+          </p>
+          <nav aria-label="HORLOGE — Tempus compositum">
+            <a href="/collection">Discover the collection</a>
+            <a href="/maison">The Maison</a>
+            <a href="/atelier">Craft</a>
+            <a href="/journal">Journal</a>
+            <a href="/boutique">Private Viewing</a>
+          </nav>
+        </main>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

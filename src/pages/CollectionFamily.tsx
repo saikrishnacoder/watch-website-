@@ -22,9 +22,9 @@ export function CollectionFamily() {
       <section className="family-hero" style={{ backgroundImage: `url(${line.image})` }}>
         <div>
           <div className="eyebrow">
-            {line.name} · {line.calibre}
+            {line.calibre}
           </div>
-          <h1 className="display">{line.tagline}</h1>
+          <h1 className="display">{line.name}</h1>
           <p className="lede">{line.description}</p>
           <div className="hero-actions">
             <MagneticButton to="/boutique">Private Viewing</MagneticButton>
