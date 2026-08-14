@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { AtelierClock } from "./AtelierClock";
 import { BrandMark } from "../brand/BrandMark";
-import { CurrencySwitch } from "./CurrencySwitch";
+import { RegionSwitch } from "./RegionSwitch";
 import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
@@ -56,7 +56,7 @@ export function Navbar() {
           <AtelierClock />
         </span>
         <div>
-          <CurrencySwitch />
+          <RegionSwitch />
           <NavLink to="/finder">Watch Finder</NavLink>
           <NavLink to="/heritage">Heritage</NavLink>
           <button
@@ -148,6 +148,7 @@ export function Navbar() {
               <NavLink to="/atelier">Atelier</NavLink>
               <NavLink to="/compose">Composer</NavLink>
               <NavLink to="/cabinet">Cabinet</NavLink>
+              <NavLink to="/contact">Speak to a specialist</NavLink>
               <NavLink to="/motion">Kinetic atelier</NavLink>
             </div>
           </div>
@@ -193,6 +194,9 @@ export function Navbar() {
           <NavLink to="/compose" onClick={() => setMenuOpen(false)}>
             Composer
           </NavLink>
+          <NavLink to="/contact" onClick={() => setMenuOpen(false)}>
+            Speak to a specialist
+          </NavLink>
           <NavLink to="/boutique" onClick={() => setMenuOpen(false)}>
             Boutiques
           </NavLink>
@@ -202,7 +206,7 @@ export function Navbar() {
           <NavLink to="/privacy" onClick={() => setMenuOpen(false)}>
             Privacy
           </NavLink>
-          <CurrencySwitch compact />
+          <RegionSwitch compact />
           <button type="button" className="motion-toggle" onClick={toggleTheme}>
             {theme === "ivoire" ? "Paper · Ivoire" : "Night · Encre"}
           </button>

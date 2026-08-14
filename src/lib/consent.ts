@@ -6,6 +6,8 @@ const DEVICE_KEYS = [
   CONSENT_KEY,
   "horloge-theme",
   "horloge-currency",
+  "horloge-region",
+  "horloge-region-source",
   "horloge-reduce-motion",
   "horloge-cabinet",
 ];

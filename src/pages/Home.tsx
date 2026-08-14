@@ -7,6 +7,7 @@ import { MaisonChapter } from "../components/sections/MaisonChapter";
 import { MeridianChapter } from "../components/sections/MeridianChapter";
 import { WatchmakerStories } from "../components/sections/WatchmakerStories";
 import { ConciergeInvite, ViewingInvite } from "../components/sections/JourneyInvites";
+import { Newsletter } from "../components/sections/Newsletter";
 import { Story } from "../components/sections/Story";
 import { KineticGallery } from "../components/motion/KineticGallery";
 import { WatchStudio } from "../components/motion/WatchStudio";
@@ -22,6 +23,7 @@ export function Home() {
       <Hero />
       <MeridianChapter />
       <HorizontalLines />
+      <Newsletter source="home" />
 
       <section className="section inspect-home" data-meridian="watch" data-meridian-label="Watch">
         <div className="section-head">

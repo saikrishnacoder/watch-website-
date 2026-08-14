@@ -1,11 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getProduct, site } from "../config/site";
+import { useMoney } from "../context/CurrencyContext";
 import { boutiqueOpen, zonedNow } from "../lib/boutiqueHours";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
 
 export function Boutique() {
+  const { region } = useMoney();
   const [status, setStatus] = useState("");
   const [params] = useSearchParams();
   const requested = getProduct(params.get("watch") ?? "");
@@ -91,10 +93,7 @@ export function Boutique() {
                 <input type="tel" name="phone" placeholder="Phone" />
               </label>
               <label className="field">
-                <select name="boutique" required defaultValue="">
-                  <option value="" disabled>
-                    Boutique
-                  </option>
+                <select name="boutique" required defaultValue={region.city} key={region.city}>
                   {site.boutiques.map((house) => (
                     <option key={house.city} value={house.city}>
                       {house.city}

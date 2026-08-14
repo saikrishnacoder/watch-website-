@@ -29,8 +29,8 @@ export function Privacy() {
         </p>
         <p className="privacy-meta">
           Effective {site.privacy.updated}. Controller: {site.privacy.entity}, {site.privacy.address}. This policy
-          covers the public website, boutique appointment forms, the newsletter, waitlist, client-advisor messages, and
-          timepiece registration.
+          covers the public website, boutique appointment forms, the Meridian early-access letter, waitlist, specialist
+          messages, and timepiece registration.
         </p>
 
         <nav className="privacy-toc" aria-label="Policy sections">
@@ -83,7 +83,15 @@ export function Privacy() {
               <td>Necessary for a feature you use</td>
             </tr>
             <tr>
-              <td>Currency, paper/ivoire theme, reduced motion</td>
+              <td>Maison and currency</td>
+              <td>
+                Remember which maison (Geneva, Paris, London, New York, Tokyo) and which currency to show. May be set
+                from your country or timezone on first visit, then kept if you change it.
+              </td>
+              <td>Necessary for a feature you use</td>
+            </tr>
+            <tr>
+              <td>Paper/ivoire theme, reduced motion</td>
               <td>Keep display preferences you set in the bar.</td>
               <td>Necessary for a feature you use</td>
             </tr>
@@ -119,9 +127,9 @@ export function Privacy() {
           </thead>
           <tbody>
             <tr>
-              <td>Newsletter</td>
-              <td>Email</td>
-              <td>Collection notes, never more than a letter a month. Consent.</td>
+              <td>Newsletter / Meridian early access</td>
+              <td>Email, optional name, which page you joined from</td>
+              <td>Early looks at the Meridian collection, then occasional maison letters. Consent.</td>
             </tr>
             <tr>
               <td>Boutique appointment</td>
@@ -134,8 +142,8 @@ export function Privacy() {
               <td>To write when a waitlisted reference can be seen. Consent.</td>
             </tr>
             <tr>
-              <td>Client advisor</td>
-              <td>Name, email, boutique, message, watch</td>
+              <td>Specialist</td>
+              <td>Name, email, maison, message, watch</td>
               <td>To answer a question about availability or a piece. Consent / steps toward a contract.</td>
             </tr>
             <tr>
@@ -151,7 +159,10 @@ export function Privacy() {
           complete the viewing, waitlist or service, then delete or archive according to Swiss commercial record rules
           where they apply (generally up to ten years for client files tied to a sale or repair).
         </p>
-        <p>Newsletter addresses are used only for maison letters. You may unsubscribe by writing to us. We do not sell lists.</p>
+        <p>
+          Newsletter addresses are used only for Meridian early access and maison letters. You may unsubscribe by
+          writing to us. We do not sell lists.
+        </p>
 
         <h2 id="checkout">Preview checkout</h2>
         <p>
@@ -205,7 +216,7 @@ export function Privacy() {
         <p>
           To exercise rights about data on this device, use Erase below. To exercise rights about a form you sent,
           write to {site.privacy.email} from the same address and name the form (newsletter, appointment, waitlist,
-          advisor, or registration).
+          specialist, or registration).
         </p>
         <p>
           The site is not directed at children under 16. If you believe a child has sent us personal data, write to us
@@ -239,6 +250,10 @@ export function Privacy() {
         </p>
 
         <h2 id="contact">Contact</h2>
+        <p>
+          For a watch, a viewing, or the catalogue,{" "}
+          <Link to="/contact">speak to a specialist</Link> — there is no generic contact form.
+        </p>
         <p>
           {site.privacy.entity}
           <br />

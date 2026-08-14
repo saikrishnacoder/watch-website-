@@ -15,6 +15,7 @@ import { StudioStage } from "../components/watch/StudioStage";
 import { Lightbox } from "../components/motion/Lightbox";
 import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
+import { openSpecialist } from "../lib/specialist";
 import { NotFound } from "./NotFound";
 
 export function Product() {
@@ -173,6 +174,9 @@ export function Product() {
                 Buy — preview
               </MagneticButton>
             )}
+            <MagneticButton variant="ghost" onClick={() => openSpecialist("write")}>
+              Speak to a specialist
+            </MagneticButton>
           </div>
           {waitlisted && (
             <form
@@ -236,6 +240,9 @@ export function Product() {
             </button>
             <button type="button" onClick={openGuide}>
               Size guide
+            </button>
+            <button type="button" onClick={() => openSpecialist("write")}>
+              Speak to a specialist
             </button>
             <Link to={boutiqueTo}>Boutique</Link>
           </div>

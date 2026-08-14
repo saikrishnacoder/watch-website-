@@ -11,7 +11,7 @@ import { WatchFace } from "../watch/WatchFace";
 export function CartDrawer() {
   const { cartOpen, setCartOpen } = useUI();
   const { lines, checkoutLines, waitlistLines, total, setQty, remove } = useCart();
-  const { formatPrice } = useMoney();
+  const { formatPrice, region } = useMoney();
 
   useEffect(() => {
     if (!cartOpen) return;
@@ -78,7 +78,9 @@ export function CartDrawer() {
             )}
             <div className="drawer-foot">
               <div className="total">
-                <span>Total</span>
+                <span>
+                  Total · {region.city} · {region.currency}
+                </span>
                 <strong>{formatPrice(total)}</strong>
               </div>
               {checkoutLines.length > 0 ? (

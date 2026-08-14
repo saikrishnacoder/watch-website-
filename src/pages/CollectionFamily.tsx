@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { getCollection, productsIn, signatureProducts, site } from "../config/site";
 import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
+import { Newsletter } from "../components/sections/Newsletter";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { StudioStage } from "../components/watch/StudioStage";
 import { Reveal } from "../components/ui/Reveal";
@@ -78,6 +79,8 @@ export function CollectionFamily() {
         </div>
         <ProductGrid products={watches} />
       </section>
+
+      {slug === "meridian" && <Newsletter source="meridian" />}
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="section-head">

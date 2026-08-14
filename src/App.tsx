@@ -10,6 +10,8 @@ import { CustomCursor } from "./components/layout/CustomCursor";
 import { Footer } from "./components/layout/Footer";
 import { Navbar } from "./components/layout/Navbar";
 import { Preloader } from "./components/layout/Preloader";
+import { RegionNotice } from "./components/layout/RegionNotice";
+import { RegionPanel } from "./components/layout/RegionSwitch";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { SkipLink } from "./components/layout/SkipLink";
 import { Toast } from "./components/layout/Toast";
@@ -32,6 +34,7 @@ import { Collection } from "./pages/Collection";
 import { CollectionFamily } from "./pages/CollectionFamily";
 import { Compare } from "./pages/Compare";
 import { Compose } from "./pages/Compose";
+import { Contact } from "./pages/Contact";
 import { FindWatch } from "./pages/FindWatch";
 import { Heritage } from "./pages/Heritage";
 import { Home } from "./pages/Home";
@@ -94,6 +97,7 @@ function AppShell() {
             <CanonicalizePath />
             <CustomCursor />
             <Navbar />
+            <RegionNotice />
             <SearchOverlay />
             <CartDrawer />
             <CompareBar />
@@ -130,6 +134,7 @@ function AppShell() {
                   <Route path="/atelier" element={<Atelier />} />
                   <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
+                  <Route path="/contact" element={<Contact />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/404" element={<NotFound />} />
                   <Route path="*" element={<NotFound />} />
@@ -138,6 +143,7 @@ function AppShell() {
               </motion.div>
             </AnimatePresence>
             <CookieBanner />
+            <RegionPanel />
             <Concierge />
             <Toast />
           </div>

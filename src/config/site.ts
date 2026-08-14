@@ -422,12 +422,13 @@ export const site = {
   ],
 
   newsletter: {
-    eyebrow: "Join the maison",
-    title: "Stay ahead of time.",
-    body: "Collection launches, private views, and atelier notes — never more than a letter a month.",
+    eyebrow: "Early access",
+    title: "Join for the Meridian collection.",
+    magnet: "Early access to Meridian.",
+    body: "First look at new Meridian pieces, private views, and the gold line at 12 — never more than a letter a month.",
     placeholder: "Your email address",
-    cta: "Subscribe",
-    success: "Welcome to HORLOGE. We will write when it matters.",
+    cta: "Request access",
+    success: "You are on the Meridian list. We write when a piece is ready to be seen.",
   },
 
   footer: {
@@ -468,6 +469,7 @@ export const site = {
       {
         title: "Support",
         links: [
+          { label: "Speak to a specialist", href: "/contact" },
           { label: "Appointments", href: "/boutique" },
           { label: "Warranty", href: "/services" },
           { label: "Cabinet", href: "/cabinet" },

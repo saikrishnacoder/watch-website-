@@ -21,7 +21,7 @@ type Receipt = {
 
 export function Checkout() {
   const { checkoutLines, waitlistLines, checkoutTotal, clear } = useCart();
-  const { formatPrice } = useMoney();
+  const { formatPrice, region } = useMoney();
   const [state, setState] = useState<PayState>("form");
   const [receipt, setReceipt] = useState<Receipt | null>(null);
   const [card, setCard] = useState("");
@@ -294,8 +294,8 @@ export function Checkout() {
           {error && <p className="form-note checkout-error">{error}</p>}
           <MagneticButton type="submit">Pay {formatPrice(checkoutTotal)} — preview</MagneticButton>
           <p className="form-note">
-            Ending {last4}. This form never leaves the browser. Prefer a viewing?{" "}
-            <Link to="/boutique">Book a boutique</Link>.
+            Ending {last4}. Prices for the {region.city} maison, in {region.currency}. This form never leaves the
+            browser. Prefer a viewing? <Link to="/boutique">Book a boutique</Link>.
           </p>
         </form>
         <aside className="checkout-summary">
@@ -334,7 +334,9 @@ export function Checkout() {
             <span>White-glove or boutique</span>
           </div>
           <div className="checkout-total">
-            <span>Total</span>
+            <span>
+              Total · {region.city} · {region.currency}
+            </span>
             <strong>{formatPrice(checkoutTotal)}</strong>
           </div>
         </aside>

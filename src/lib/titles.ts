@@ -31,6 +31,7 @@ export function documentTitle(pathname: string) {
     "/atelier": `Atelier — ${site.brand.name}`,
     "/motion": `Kinetic atelier — ${site.brand.name}`,
     "/boutique": `Boutiques — ${site.brand.name}`,
+    "/contact": `Speak to a specialist — ${site.brand.name}`,
     "/privacy": `Privacy policy — ${site.brand.name}`,
     "/404": `Lost time — ${site.brand.name}`,
   };

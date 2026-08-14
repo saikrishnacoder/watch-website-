@@ -49,7 +49,7 @@ export function Atelier() {
           ))}
         </div>
       </section>
-      <Newsletter />
+      <Newsletter source="atelier" />
     </div>
   );
 }

@@ -37,7 +37,7 @@ export function briefFromCatalogue(question: string, watching?: Product): Brief 
   if (/boutique|geneva|paris|london|tokyo|new york|viewing|appointment|try on|try it/.test(q)) {
     const house = site.boutiques.find((b) => q.includes(b.city.toLowerCase())) ?? site.boutiques[0]
     return {
-      answer: `${house.city}: ${house.address}. ${house.hours}. Private viewings are by appointment — we prepare the tray, the papers, and a quiet room. An advisor writes within one working day.`,
+      answer: `${house.city}: ${house.address}. ${house.hours}. Private viewings are by appointment — we prepare the tray, the papers, and a quiet room. A specialist writes within one working day.`,
       links: [
         { label: "Book a viewing", href: watching ? `/boutique?watch=${watching.slug}` : "/boutique" },
         { label: house.city, href: "/boutique" },
@@ -127,7 +127,7 @@ export function briefFromCatalogue(question: string, watching?: Product): Brief 
 
   if (watching) {
     return {
-      answer: `You are looking at ${watching.name}, ${watching.reference}. ${watching.tagline} ${watching.availability}. I can open the collection, book a viewing, or take a note for an advisor.`,
+      answer: `You are looking at ${watching.name}, ${watching.reference}. ${watching.tagline} ${watching.availability}. I can open the collection, book a viewing, or take a note for a specialist.`,
       links: [
         { label: watching.name, href: `/watch/${watching.slug}` },
         { label: "Private viewing", href: `/boutique?watch=${watching.slug}` },
@@ -137,7 +137,7 @@ export function briefFromCatalogue(question: string, watching?: Product): Brief 
 
   return {
     answer:
-      "I read the catalogue and the maison pages. Ask about the meridian, a line, a reference, a boutique, or how to register a watch. For a human advisor, leave a note — they write within one working day.",
+      "I read the catalogue and the maison pages. Ask about the meridian, a line, a reference, a boutique, or how to register a watch. For a human specialist, leave a note — they write within one working day.",
     links: [
       { label: "Collection", href: "/collection" },
       { label: "Book a viewing", href: "/boutique" },

@@ -802,6 +802,15 @@ img {
   padding-bottom: 4px;
 }
 
+button.section-link {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--gold);
+  cursor: pointer;
+  padding: 0 0 4px;
+  margin-top: 12px;
+}
+
 /* Products */
 .filters {
   display: flex;
@@ -1215,6 +1224,40 @@ img {
 .newsletter p {
   color: var(--muted);
   margin-bottom: 28px;
+}
+
+.meridian-letter {
+  position: relative;
+}
+
+.meridian-letter-line {
+  margin-bottom: 28px;
+}
+
+.meridian-letter-form {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.meridian-letter-row {
+  max-width: 720px;
+}
+
+.newsletter-compact {
+  margin-top: 28px;
+}
+
+.newsletter-compact-copy {
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+
+.newsletter-compact .form-row {
+  margin: 0;
+  max-width: none;
 }
 
 .form-row {
@@ -1859,6 +1902,12 @@ img {
   .mega,
   .sticky-buy {
     display: none;
+  }
+
+  .region-notice {
+    top: var(--nav-h);
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .cinema-hero {
@@ -3843,6 +3892,174 @@ a.icon-btn {
   padding: 8px 12px;
 }
 
+.region-switch {
+  position: relative;
+}
+
+.region-switch-trigger {
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  letter-spacing: 0.14em;
+  font-size: 10px;
+  padding: 2px 0;
+}
+
+.region-switch-trigger:hover,
+.region-switch.is-open .region-switch-trigger {
+  color: var(--gold);
+}
+
+.region-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: color-mix(in srgb, var(--bg) 45%, transparent);
+}
+
+.region-panel {
+  width: min(320px, calc(100vw - 32px));
+  padding: 22px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.4);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+.region-panel.is-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.region-panel .section-link {
+  margin-top: 16px;
+}
+
+.region-panel-kicker,
+.region-panel-note {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.region-panel-note {
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.region-list {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.region-list button {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 8px 10px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13px;
+}
+
+.region-list button span {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.region-list button.is-on,
+.region-list button:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.region-switch.is-compact {
+  margin-top: 22px;
+}
+
+.region-switch.is-compact .region-list {
+  margin-top: 8px;
+}
+
+.region-notice {
+  position: fixed;
+  top: calc(32px + var(--nav-h));
+  left: 0;
+  right: 0;
+  z-index: 39;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 5%;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.region-notice p {
+  color: var(--muted);
+}
+
+.region-notice div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.region-notice button {
+  background: transparent;
+  border: 0;
+  color: var(--gold);
+  cursor: pointer;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.specialist-live {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.specialist-live.is-open {
+  color: var(--gold);
+}
+
+.specialist-hero .specialist-live {
+  margin-top: 18px;
+}
+
+.footer-specialist {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  padding: 0;
+}
+
+.footer-specialist:hover {
+  color: var(--gold);
+}
+
 .pdp-inclusions {
   list-style: none;
   margin-top: 20px;
@@ -4246,6 +4463,8 @@ a.icon-btn {
   .concierge-panel,
   .maison-toast,
   .cookie-banner,
+  .region-notice,
+  .region-overlay,
   .hero-actions,
   .footer,
   .cursor-ring {
@@ -4686,7 +4905,8 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
     animation: none;
   }
 
-  .journey-stroke {
+  .journey-stroke,
+  .meridian-letter-line {
     animation: none;
     transform: none;
   }

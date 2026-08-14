@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { site } from "../../config/site";
+import { openSpecialist } from "../../lib/specialist";
 import { MagneticButton } from "../ui/MagneticButton";
 import { Reveal } from "../ui/Reveal";
 
@@ -28,22 +29,18 @@ export function ConciergeInvite() {
   return (
     <section className="section concierge-invite" data-meridian="concierge" data-meridian-label="Concierge">
       <Reveal>
-        <div className="eyebrow">Horloge concierge</div>
+        <div className="eyebrow">Speak to a specialist</div>
         <h2 className="display">A quiet word.</h2>
         <p className="lede">
-          Availability, a second strap, or which line sits on your wrist. Ask the catalogue, or leave a note for an
-          advisor in Geneva.
+          Availability, a second strap, or which line sits on your wrist. Ask a specialist, or leave a note for the
+          maison in Geneva.
         </p>
         <div className="hero-actions">
-          <button
-            type="button"
-            className="btn btn-solid"
-            onClick={() => window.dispatchEvent(new Event("horloge-open-concierge"))}
-          >
-            Ask the maison
+          <button type="button" className="btn btn-solid" onClick={() => openSpecialist("ask")}>
+            Speak to a specialist
           </button>
-          <Link className="section-link" to="/boutique">
-            Or write for a viewing
+          <Link className="section-link" to="/contact">
+            Or open the specialist desk
           </Link>
         </div>
       </Reveal>

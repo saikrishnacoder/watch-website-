@@ -1,44 +1,102 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   CURRENCIES,
-  DEFAULT_CURRENCY,
+  DEFAULT_REGION,
   MONEY_KEY,
+  REGION_KEY,
+  REGION_SOURCE_KEY,
   formatMoney,
+  getRegion,
   isCurrency,
+  isRegion,
+  regionForCurrency,
   type CurrencyCode,
+  type Region,
+  type RegionId,
+  type RegionSource,
 } from "../config/money";
+import { detectRegion } from "../lib/geo";
 
 type CurrencyContextValue = {
   code: CurrencyCode;
+  region: Region;
+  source: RegionSource;
   setCode: (code: CurrencyCode) => void;
+  setRegion: (id: RegionId, source?: RegionSource) => void;
   formatPrice: (amountChf: number) => string;
   currencies: typeof CURRENCIES;
 };
 
 const CurrencyContext = createContext<CurrencyContextValue | null>(null);
 
-function readCurrency(): CurrencyCode {
-  if (typeof window === "undefined") return DEFAULT_CURRENCY;
-  const stored = window.localStorage.getItem(MONEY_KEY);
-  return stored && isCurrency(stored) ? stored : DEFAULT_CURRENCY;
+function readStoredRegion(): { id: RegionId; source: RegionSource } {
+  if (typeof window === "undefined") return { id: DEFAULT_REGION, source: "default" };
+  const storedRegion = window.localStorage.getItem(REGION_KEY);
+  const storedSource = window.localStorage.getItem(REGION_SOURCE_KEY);
+  if (storedRegion && isRegion(storedRegion)) {
+    return { id: storedRegion, source: storedSource === "geo" || storedSource === "user" ? storedSource : "user" };
+  }
+  const storedCurrency = window.localStorage.getItem(MONEY_KEY);
+  if (storedCurrency && isCurrency(storedCurrency)) {
+    return { id: regionForCurrency(storedCurrency).id, source: "user" };
+  }
+  return { id: DEFAULT_REGION, source: "default" };
 }
 
 export function CurrencyProvider({ children }: { children: ReactNode }) {
-  const [code, setCodeState] = useState<CurrencyCode>(readCurrency);
+  const initial = readStoredRegion();
+  const [regionId, setRegionId] = useState<RegionId>(initial.id);
+  const [source, setSource] = useState<RegionSource>(initial.source);
 
-  const setCode = useCallback((next: CurrencyCode) => {
-    setCodeState(next);
-    window.localStorage.setItem(MONEY_KEY, next);
+  const persist = useCallback((id: RegionId, nextSource: RegionSource) => {
+    const next = getRegion(id);
+    setRegionId(next.id);
+    setSource(nextSource);
+    window.localStorage.setItem(REGION_KEY, next.id);
+    window.localStorage.setItem(REGION_SOURCE_KEY, nextSource);
+    window.localStorage.setItem(MONEY_KEY, next.currency);
   }, []);
+
+  const setRegion = useCallback(
+    (id: RegionId, nextSource: RegionSource = "user") => {
+      persist(id, nextSource);
+    },
+    [persist],
+  );
+
+  const setCode = useCallback(
+    (code: CurrencyCode) => {
+      persist(regionForCurrency(code).id, "user");
+    },
+    [persist],
+  );
+
+  useEffect(() => {
+    if (source !== "default") return;
+    let cancelled = false;
+    void detectRegion().then((guess) => {
+      if (cancelled || !guess) return;
+      persist(guess.id, "geo");
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [persist, source]);
+
+  const region = getRegion(regionId);
+  const code = region.currency;
 
   const value = useMemo<CurrencyContextValue>(
     () => ({
       code,
+      region,
+      source,
       setCode,
+      setRegion,
       formatPrice: (amountChf: number) => formatMoney(amountChf, code),
       currencies: CURRENCIES,
     }),
-    [code, setCode],
+    [code, region, source, setCode, setRegion],
   );
 
   return <CurrencyContext.Provider value={value}>{children}</CurrencyContext.Provider>;
