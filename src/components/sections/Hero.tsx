@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { getProduct, site } from "../../config/site";
 import { useMotion } from "../../context/MotionContext";
@@ -107,10 +108,12 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: instant ? 0 : 4.6, duration: instant ? 0 : 0.9, ease }}
         >
-          <MagneticButton to={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</MagneticButton>
-          <MagneticButton variant="ghost" to={site.hero.secondaryCta.href}>
-            {site.hero.secondaryCta.label}
+          <MagneticButton className="hero-primary" to={site.hero.primaryCta.href}>
+            {site.hero.primaryCta.label}
           </MagneticButton>
+          <Link className="hero-secondary" to={site.hero.secondaryCta.href}>
+            {site.hero.secondaryCta.label}
+          </Link>
         </motion.div>
       </div>
 

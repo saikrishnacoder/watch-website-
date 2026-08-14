@@ -13,6 +13,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mega, setMega] = useState(false);
   const location = useLocation();
+  const overHero = location.pathname === "/" && !scrolled && !menuOpen;
 
   useEffect(() => {
     setMenuOpen(false);
@@ -41,7 +42,7 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""} ${menuOpen ? "is-open" : ""}`}
+        className={`nav ${scrolled || mega ? "is-scrolled" : ""} ${hidden && !menuOpen ? "is-hidden" : ""} ${menuOpen ? "is-open" : ""} ${overHero ? "is-over-hero" : ""}`}
         onMouseLeave={() => setMega(false)}
       >
         <BrandMark />

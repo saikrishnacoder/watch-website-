@@ -4,6 +4,7 @@ import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import netlify from "@netlify/vite-plugin";
 import { brandedNotFoundHtml } from "./src/lib/not-found-html";
+import { brandedPrivacyHtml } from "./src/lib/privacy-html";
 import { copyForRoute, staticPageMarkup } from "./src/lib/route-static";
 
 const SPA_ROUTES = [
@@ -68,7 +69,7 @@ function spaFallbackPages(): Plugin {
       const html = fs.readFileSync(index, "utf8");
       writeHtml(index, stampRoute(html, "home"));
       for (const route of SPA_ROUTES) {
-        const page = stampRoute(html, route);
+        const page = route === "privacy" ? brandedPrivacyHtml(html) : stampRoute(html, route);
         writeHtml(path.join(dist, `${route}.html`), page);
         writeHtml(path.join(dist, route, "index.html"), page);
       }

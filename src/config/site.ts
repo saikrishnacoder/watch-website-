@@ -108,7 +108,7 @@ export const site = {
     title: "HORLOGE",
     accent: "Tempus compositum",
     body: "Every composition begins from a gold line at 12.",
-    primaryCta: { label: "Discover the collection", href: "/collection" },
+    primaryCta: { label: "Explore the Collection", href: "/collection" },
     secondaryCta: { label: "Private Viewing", href: "/boutique" },
     featuredSlug: "chronograph-one",
     image: "/media/maison-meridian.jpg",

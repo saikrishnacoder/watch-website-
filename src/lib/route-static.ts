@@ -33,7 +33,7 @@ export const routeCopy: Record<string, RouteCopy> = {
     heading: "HORLOGE — Tempus compositum",
     body: "Every HORLOGE composition begins from a gold line at twelve. Cinematic opening, five collections, craft, and a private viewing — not a storefront.",
     nav: [
-      { href: "/collection", label: "Discover the collection" },
+      { href: "/collection", label: "Explore the Collection" },
       { href: "/maison", label: "The Maison" },
       { href: "/atelier", label: "Craft" },
       { href: "/journal", label: "Journal" },
@@ -187,9 +187,10 @@ export const routeCopy: Record<string, RouteCopy> = {
   },
   privacy: {
     title: "Privacy policy — HORLOGE",
-    description: "HORLOGE privacy policy. What we keep, why, and how to write to the maison.",
-    heading: "Privacy",
-    body: "What the maison keeps, and what it does not. Forms, local cabinet, and optional analytics — not a marketing stack.",
+    description:
+      "HORLOGE privacy policy. What stays on this device, what you send the maison, and how to write to the controller — Swiss FADP / GDPR.",
+    heading: "Privacy policy",
+    body: "How Maison Horloge handles personal data — what stays on your device, what you send us, and how you can change your mind. Forms, local cabinet, and optional analytics; not a marketing stack.",
     nav: [
       { href: "/privacy", label: "This policy" },
       { href: "/contact", label: "Write to privacy" },
