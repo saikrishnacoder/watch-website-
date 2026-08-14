@@ -8,6 +8,7 @@ export function Boutique() {
   const [status, setStatus] = useState("");
   const [params] = useSearchParams();
   const requested = getProduct(params.get("watch") ?? "");
+  const [card, setCard] = useState<{ name: string; boutique: string; date: string; watch: string } | null>(null);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -15,10 +16,19 @@ export function Boutique() {
     const data = new FormData(form);
     const params = new URLSearchParams();
     data.forEach((value, key) => params.append(key, String(value)));
+    const name = String(data.get("name") ?? "");
+    const boutique = String(data.get("boutique") ?? "");
+    const date = String(data.get("date") ?? "");
     await fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: params.toString(),
+    });
+    setCard({
+      name,
+      boutique,
+      date,
+      watch: requested ? `${requested.name} · ${requested.reference}` : "A private tray",
     });
     setStatus("Your request is with the maison. We will confirm within one working day.");
     form.reset();
@@ -103,6 +113,20 @@ export function Boutique() {
             {status && <p className="form-note">{status}</p>}
           </form>
         </div>
+        {card && (
+          <article className="appointment-card">
+            <span>{site.brand.seal}</span>
+            <h3>Private viewing</h3>
+            <p>
+              {card.name}
+              <br />
+              {card.boutique} · {card.date}
+              <br />
+              {card.watch}
+            </p>
+            <em>Please arrive five minutes early. The tray will be ready.</em>
+          </article>
+        )}
       </section>
     </div>
   );

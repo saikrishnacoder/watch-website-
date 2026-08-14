@@ -20,6 +20,7 @@ export type {
 import { extraProducts } from "./products-extra";
 import { atelierProducts } from "./generate-catalogue";
 import { collectionLines, journal, photos, products as coreProducts, quiz, services } from "./catalog";
+import { DEFAULT_CURRENCY, formatMoney } from "./money";
 import type { CaseMetal, MarkerStyle, Product, StrapStyle } from "./types";
 
 export { collectionLines, journal, photos, quiz, services };
@@ -70,8 +71,8 @@ export const site = {
       "Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold line at 12.",
   },
 
-  locale: "en-US",
-  currency: "USD",
+  locale: "de-CH",
+  currency: "CHF",
 
   theme: {
     bg: "#070605",
@@ -438,11 +439,7 @@ export function canPreviewCheckout(product: Product) {
 }
 
 export function formatPrice(amount: number) {
-  return new Intl.NumberFormat(site.locale, {
-    style: "currency",
-    currency: site.currency,
-    maximumFractionDigits: 0,
-  }).format(amount);
+  return formatMoney(amount, DEFAULT_CURRENCY);
 }
 
 export function getProduct(slug: string): Product | undefined {

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { site } from "../config/site";
 import { Customizer } from "../components/sections/Customizer";
+import { Features } from "../components/sections/Features";
 import { Hero } from "../components/sections/Hero";
 import { HeritageTeaser } from "../components/sections/HeritageTeaser";
 import { HorizontalLines } from "../components/sections/HorizontalLines";
@@ -11,6 +12,7 @@ import { Marquee } from "../components/sections/Marquee";
 import { Newsletter } from "../components/sections/Newsletter";
 import { Stats } from "../components/sections/Stats";
 import { Story } from "../components/sections/Story";
+import { Testimonials } from "../components/sections/Testimonials";
 import { KineticGallery } from "../components/motion/KineticGallery";
 import { ProductCard } from "../components/ui/ProductCard";
 import { Reveal } from "../components/ui/Reveal";
@@ -45,6 +47,7 @@ export function Home() {
       </section>
 
       <Stats />
+      <Features />
       <Story />
 
       <section className="section kinetic-home">
@@ -82,6 +85,7 @@ export function Home() {
 
       <Customizer />
       <Lookbook />
+      <Testimonials />
 
       <section className="section">
         <div className="section-head">

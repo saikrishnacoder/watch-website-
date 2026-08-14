@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { site } from "../config/site";
 import { ProductGrid } from "../components/ui/ProductGrid";
+import { useMoney } from "../context/CurrencyContext";
 
 const diameters = ["All", "34–36", "38–41", "42+"];
 const materials = ["All", "Steel", "Gold", "Titanium", "DLC"];
@@ -9,6 +10,7 @@ const movements = ["All", "Automatic", "Manual", "Chronograph"];
 const water = ["All", "30–50m", "100m+", "200m+"];
 
 export function WatchFinder() {
+  const { formatPrice } = useMoney();
   const [params] = useSearchParams();
   const [collection, setCollection] = useState(params.get("line") ?? "All");
   const [diameter, setDiameter] = useState("All");
@@ -57,7 +59,7 @@ export function WatchFinder() {
           <Filter label="Movement" value={movement} onChange={setMovement} options={movements} />
           <Filter label="Water resistance" value={depth} onChange={setDepth} options={water} />
           <label className="finder-label">
-            Price up to {maxPrice >= ceiling ? "any" : `$${maxPrice.toLocaleString()}`}
+            Price up to {maxPrice >= ceiling ? "any" : formatPrice(maxPrice)}
             <input
               type="range"
               min={7000}

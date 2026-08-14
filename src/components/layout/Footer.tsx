@@ -9,6 +9,7 @@ export function Footer() {
         <div>
           <BrandMark to="/" />
           <p>{site.footer.blurb}</p>
+          <p className="footer-rates">List prices in Swiss francs. Other currencies use the maison atelier rate.</p>
         </div>
         {site.footer.columns.map((column) => (
           <div key={column.title}>

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { formatPrice, getProduct, relatedProducts, site } from "../config/site";
+import { getProduct, relatedProducts, site } from "../config/site";
+import { papersFor, maisonInclusions } from "../config/papers";
 import { ProductCard } from "../components/ui/ProductCard";
 import { MagneticButton } from "../components/ui/MagneticButton";
+import { Caseback } from "../components/watch/Caseback";
 import { WatchFace } from "../components/watch/WatchFace";
 import { useCabinet } from "../context/CabinetContext";
 import { useCart } from "../context/CartContext";
+import { useMoney } from "../context/CurrencyContext";
 import { useUI } from "../context/UIContext";
 import { WatchStudio } from "../components/motion/WatchStudio";
 import { NotFound } from "./NotFound";
@@ -14,13 +17,15 @@ export function Product() {
   const { slug = "" } = useParams();
   const product = getProduct(slug);
   const { add, addOnce } = useCart();
-  const { setCartOpen } = useUI();
+  const { formatPrice } = useMoney();
+  const { setCartOpen, setToast } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember, recent } = useCabinet();
   const [shot, setShot] = useState(0);
   const [studio, setStudio] = useState<"photo" | "calibre" | "volume">("photo");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
+  const [engraving, setEngraving] = useState("");
 
   useEffect(() => {
     if (product) remember(product.slug);
@@ -150,6 +155,19 @@ export function Product() {
             <button className={compared(product.slug) ? "is-on" : ""} onClick={() => toggleCompare(product.slug)}>
               {compared(product.slug) ? "Added to compare" : "Compare"}
             </button>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(window.location.href);
+                  setToast("Reference link copied.");
+                } catch {
+                  setToast("Copy the address bar to share this reference.");
+                }
+              }}
+            >
+              Share
+            </button>
             <Link to={boutiqueTo}>Boutique</Link>
           </div>
 
@@ -172,6 +190,11 @@ export function Product() {
               </div>
             ))}
           </div>
+          <ul className="pdp-inclusions">
+            {maisonInclusions().map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -199,6 +222,38 @@ export function Product() {
                 onChange={(event) => setWrist(Number(event.target.value))}
               />
             </label>
+          </div>
+        </div>
+      </section>
+
+      <section className="section papers-section">
+        <div className="papers">
+          <div>
+            <div className="eyebrow">The papers</div>
+            <h2 className="display" style={{ fontSize: "clamp(32px, 4vw, 52px)", marginBottom: 16 }}>
+              What leaves Geneva with the watch.
+            </h2>
+            <div className="papers-grid">
+              {papersFor(product).map((item) => (
+                <article key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="caseback-studio">
+            <Caseback metal={product.design.caseMetal} reference={product.reference} engraving={engraving} size={260} />
+            <label className="finder-label">
+              Caseback engraving
+              <input
+                value={engraving}
+                maxLength={12}
+                placeholder="Initials or a short line"
+                onChange={(event) => setEngraving(event.target.value.toUpperCase())}
+              />
+            </label>
+            <p className="form-note">Twelve characters. Cut in the atelier after confirmation — complimentary.</p>
           </div>
         </div>
       </section>

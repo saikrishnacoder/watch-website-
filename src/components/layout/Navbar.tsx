@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring } from "framer-motion";
+import { AtelierClock } from "./AtelierClock";
 import { BrandMark } from "../brand/BrandMark";
+import { CurrencySwitch } from "./CurrencySwitch";
 import { site } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useCart } from "../../context/CartContext";
@@ -40,8 +42,12 @@ export function Navbar() {
   return (
     <>
       <div className="utility-bar">
-        <span>{site.brand.seal}</span>
+        <span>
+          {site.brand.seal}
+          <AtelierClock />
+        </span>
         <div>
+          <CurrencySwitch />
           <NavLink to="/finder">Watch Finder</NavLink>
           <NavLink to="/heritage">Heritage</NavLink>
           <button
@@ -151,6 +157,7 @@ export function Navbar() {
           <NavLink to="/boutique" onClick={() => setMenuOpen(false)}>
             Boutiques
           </NavLink>
+          <CurrencySwitch compact />
         </nav>
       )}
     </>

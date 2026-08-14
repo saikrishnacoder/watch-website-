@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { formatPrice, getProduct, site, type Product } from "../config/site";
+import { getProduct, site, type Product } from "../config/site";
 import { useCabinet } from "../context/CabinetContext";
+import { useMoney } from "../context/CurrencyContext";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { WatchFace } from "../components/watch/WatchFace";
 
@@ -23,6 +24,7 @@ const rows = [
 
 export function Compare() {
   const { compare, toggleCompare, clearCompare } = useCabinet();
+  const { formatPrice } = useMoney();
   const watches = compare
     .map((slug) => getProduct(slug))
     .filter((product): product is Product => Boolean(product));

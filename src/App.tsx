@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { site } from "./config/site";
 import { CartDrawer } from "./components/layout/CartDrawer";
 import { CompareBar } from "./components/layout/CompareBar";
+import { Concierge } from "./components/layout/Concierge";
 import { CookieBanner } from "./components/layout/CookieBanner";
 import { CustomCursor } from "./components/layout/CustomCursor";
 import { Footer } from "./components/layout/Footer";
@@ -11,10 +12,12 @@ import { Navbar } from "./components/layout/Navbar";
 import { Preloader } from "./components/layout/Preloader";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { SkipLink } from "./components/layout/SkipLink";
+import { Toast } from "./components/layout/Toast";
 import { CinematicIntro } from "./components/motion/CinematicIntro";
 import { CabinetProvider } from "./context/CabinetContext";
 import { CartProvider } from "./context/CartContext";
 import { ConsentProvider } from "./context/ConsentContext";
+import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
 import { UIProvider } from "./context/UIContext";
 import { track } from "./lib/analytics";
@@ -86,6 +89,7 @@ function AppShell() {
 
   return (
     <CartProvider>
+      <CurrencyProvider>
       <CabinetProvider>
         <UIProvider>
           <div className="app-shell">
@@ -130,9 +134,12 @@ function AppShell() {
               </motion.div>
             </AnimatePresence>
             <CookieBanner />
+            <Concierge />
+            <Toast />
           </div>
         </UIProvider>
       </CabinetProvider>
+      </CurrencyProvider>
     </CartProvider>
   );
 }

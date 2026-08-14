@@ -33,7 +33,7 @@ export function Features() {
       <div className="section-head">
         <div>
           <div className="eyebrow">Why {site.brand.name}</div>
-          <h2 className="display">Built different.</h2>
+          <h2 className="display">Held to the meridian.</h2>
         </div>
       </div>
       <div className="feature-grid">

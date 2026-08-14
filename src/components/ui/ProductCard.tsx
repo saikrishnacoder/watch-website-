@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { formatPrice, site, type Product } from "../../config/site";
+import { site, type Product } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
+import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
 import { WatchFace } from "../watch/WatchFace";
 
@@ -13,6 +14,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product, index = 0, priority = false }: ProductCardProps) {
   const { toggleWish, toggleCompare, wished, compared } = useCabinet();
+  const { formatPrice } = useMoney();
   const { reduceMotion } = useMotion();
   const photo = product.images[0];
 

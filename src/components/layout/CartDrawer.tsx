@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { formatPrice, site } from "../../config/site";
+import { site } from "../../config/site";
 import { useCart } from "../../context/CartContext";
+import { useMoney } from "../../context/CurrencyContext";
 import { useUI } from "../../context/UIContext";
 import { MagneticButton } from "../ui/MagneticButton";
 import { WatchFace } from "../watch/WatchFace";
@@ -10,6 +11,7 @@ import { WatchFace } from "../watch/WatchFace";
 export function CartDrawer() {
   const { cartOpen, setCartOpen } = useUI();
   const { lines, checkoutLines, waitlistLines, total, setQty, remove } = useCart();
+  const { formatPrice } = useMoney();
 
   useEffect(() => {
     if (!cartOpen) return;
