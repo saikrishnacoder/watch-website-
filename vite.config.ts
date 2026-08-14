@@ -18,7 +18,6 @@ const SPA_ROUTES = [
   "meridian",
   "maison",
   "privacy",
-  "404",
   "finder",
   "find",
   "boutique",
@@ -45,11 +44,11 @@ function spaFallbackPages(): Plugin {
       const index = path.join(dist, "index.html");
       if (!fs.existsSync(index)) return;
       const html = fs.readFileSync(index, "utf8");
-      writeHtml(path.join(dist, "404.html"), brandedNotFoundHtml(html));
       for (const route of SPA_ROUTES) {
         writeHtml(path.join(dist, `${route}.html`), html);
         writeHtml(path.join(dist, route, "index.html"), html);
       }
+      writeHtml(path.join(dist, "404.html"), brandedNotFoundHtml(html));
     },
   };
 }
