@@ -13,6 +13,7 @@ import { Preloader } from "./components/layout/Preloader";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { SkipLink } from "./components/layout/SkipLink";
 import { Toast } from "./components/layout/Toast";
+import { MeridianRail } from "./components/brand/MeridianRail";
 import { CinematicIntro } from "./components/motion/CinematicIntro";
 import { CabinetProvider } from "./context/CabinetContext";
 import { CartProvider } from "./context/CartContext";
@@ -86,6 +87,7 @@ function AppShell() {
           <div className="app-shell">
             <SkipLink />
             <BootSequence />
+            <MeridianRail />
             <Shortcuts />
             <CustomCursor />
             <Navbar />

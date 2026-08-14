@@ -103,7 +103,7 @@ export const site = {
     primaryCta: { label: "Find your watch", href: "/finder" },
     secondaryCta: { label: "Explore the collection", href: "/collection" },
     featuredSlug: "chronograph-one",
-    image: photos.cinematic,
+    image: "/maison/meridian.jpg",
   },
 
   marquee: [
@@ -154,9 +154,8 @@ export const site = {
       "HORLOGE was founded in Geneva in 1924 around a single idea: time should be composed, not merely counted. The gold meridian at 12 is that idea, drawn on every dial.",
       "Five lines — Heritage, Chronograph, Diver, Imperial, Meridian — share one mark, one city, and a refusal to rush the finishing.",
     ],
-    image:
-      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1400&q=80",
-    imageAlt: "Close study of a luxury watch dial",
+    image: "/lines/heritage.jpg",
+    imageAlt: "Heritage enamel dial with the gold meridian at 12",
   },
 
   atelier: {
@@ -188,18 +187,18 @@ export const site = {
     ],
     gallery: [
       {
-        src: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=1200&q=80",
-        alt: "Watchmaker at the bench",
+        src: "/maison/bench.jpg",
+        alt: "Watchmaker’s bench in Geneva",
         caption: "The bench",
       },
       {
-        src: "https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=1200&q=80",
-        alt: "Watch movement macro",
-        caption: "The calibre",
+        src: "/maison/meridian.jpg",
+        alt: "Gold meridian at 12 on a HORLOGE dial",
+        caption: "The meridian",
       },
       {
-        src: "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1200&q=80",
-        alt: "Wristwatch in natural light",
+        src: "/lines/chronograph.jpg",
+        alt: "Chronograph One in studio light",
         caption: "The wrist",
       },
     ],
@@ -253,18 +252,18 @@ export const site = {
   lookbook: [
     {
       title: "Evening gold",
-      caption: "Imperial Gold photographed at dusk, Place de la Fusterie.",
-      src: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1400&q=80",
+      caption: "Imperial, photographed for the maison stills — gold that remembers the lamp.",
+      src: "/lines/imperial.jpg",
     },
     {
       title: "Apex, in motion",
-      caption: "The sport line, built for the commute and the coast.",
-      src: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=1400&q=80",
+      caption: "The Diver line. Ceramic, lume, and a meridian that does not dive.",
+      src: "/lines/diver.jpg",
     },
     {
-      title: "Noir study",
-      caption: "A midnight dial under atelier lamps.",
-      src: "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1400&q=80",
+      title: "The namesake",
+      caption: "Meridian. Dual time, and the gold stroke at 12.",
+      src: "/lines/meridian.jpg",
     },
   ],
 
@@ -332,6 +331,24 @@ export const site = {
   journal,
   services,
   quiz,
+
+  people: [
+    {
+      name: "Élise Moreau",
+      role: "Master watchmaker",
+      note: "Owns each Heritage from casing to final timing. Her punch mark sits inside the caseback.",
+    },
+    {
+      name: "Kenji Arai",
+      role: "Regulator",
+      note: "Five positions, fourteen days. He does not sign a watch until Geneva agrees with it.",
+    },
+    {
+      name: "Clara Voss",
+      role: "Dial painter",
+      note: "The meridian is drawn last, thinner than a hair, in gold that will outlast the first owner.",
+    },
+  ],
 
   boutiques: [
     {
@@ -472,6 +489,11 @@ export function getCollection(slug: string) {
 
 export function productsIn(slug: string) {
   return products.filter((product) => product.collectionSlug === slug);
+}
+
+export function signatureProducts(slug?: string) {
+  const list = slug ? coreProducts.filter((product) => product.collectionSlug === slug) : coreProducts;
+  return list;
 }
 
 export function relatedProducts(slug: string, count = 3) {

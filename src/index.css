@@ -3584,4 +3584,256 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
   color: var(--muted);
 }
 
+.meridian-rail {
+  position: fixed;
+  left: max(16px, calc(5vw - 18px));
+  top: 0;
+  height: 100vh;
+  width: 1px;
+  z-index: 34;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--gold) 22%, transparent);
+}
+
+.meridian-rail i {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: top center;
+}
+
+.watch-meridian {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  animation: meridian-draw 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+@keyframes meridian-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.maison-hero-still,
+.collection-hero {
+  position: relative;
+  min-height: 88vh;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+}
+
+.maison-hero-still > img,
+.collection-hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.maison-hero-still::after,
+.collection-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 6, 5, 0.92) 12%, rgba(7, 6, 5, 0.28) 62%, rgba(7, 6, 5, 0.4));
+}
+
+.maison-hero-copy,
+.collection-hero > div {
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--nav-h) + 48px) 6% 72px;
+  max-width: 760px;
+  color: #f4efe6;
+}
+
+.maison-hero-copy .lede,
+.collection-hero .lede {
+  color: rgba(244, 239, 230, 0.78);
+}
+
+.maison-hero-meridian {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  z-index: 2;
+  width: 1px;
+  height: 0;
+  background: var(--gold);
+  animation: maison-meridian 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+}
+
+@keyframes maison-meridian {
+  to {
+    height: 52%;
+  }
+}
+
+.maison-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.maison-split img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.maison-split .lede {
+  margin-bottom: 16px;
+}
+
+.maison-meridian-essay {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.maison-meridian-copy {
+  max-width: 720px;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.person-card {
+  border: 1px solid var(--line);
+  padding: 28px;
+  background: var(--bg-elevated);
+}
+
+.person-card h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  margin: 8px 0 12px;
+}
+
+.person-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.line-chapters {
+  display: grid;
+  gap: 72px;
+}
+
+.line-chapter {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.line-chapter.is-flip {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.line-chapter.is-flip .line-chapter-media {
+  order: 2;
+}
+
+.line-chapter-media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+.line-chapter h3 {
+  font-size: clamp(32px, 4vw, 52px);
+  margin-bottom: 16px;
+}
+
+.line-chapter p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.studio-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  min-height: 460px;
+  border: 1px solid var(--line);
+  background: #0b0a09;
+}
+
+.studio-stage > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.studio-stage svg {
+  position: relative;
+  z-index: 1;
+}
+
+.studio-stage figcaption {
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--gold);
+}
+
+.pdp-stage .studio-stage {
+  min-height: 70vh;
+}
+
+@media (max-width: 900px) {
+  .meridian-rail,
+  .maison-hero-meridian {
+    display: none;
+  }
+
+  .maison-split,
+  .line-chapter,
+  .line-chapter.is-flip,
+  .people-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .line-chapter.is-flip .line-chapter-media {
+    order: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .watch-meridian {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .maison-hero-meridian {
+    height: 52%;
+    animation: none;
+  }
+}
+
+@media print {
+  .meridian-rail {
+    display: none !important;
+  }
+}
+
 

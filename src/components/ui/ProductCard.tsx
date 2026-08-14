@@ -16,7 +16,6 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
   const { toggleWish, toggleCompare, wished, compared } = useCabinet();
   const { formatPrice } = useMoney();
   const { reduceMotion } = useMotion();
-  const photo = product.images[0];
 
   return (
     <motion.article
@@ -50,11 +49,11 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
         </div>
         <Link to={`/watch/${product.slug}`} className="card-media">
           <img
-            src={photo}
-            alt={`${product.name}, ${product.diameter} mm ${product.material}`}
+            src="/studio/velvet.jpg"
+            alt=""
             className="card-photo"
-            width={1600}
-            height={1067}
+            width={1400}
+            height={1050}
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             fetchPriority={priority ? "high" : "low"}

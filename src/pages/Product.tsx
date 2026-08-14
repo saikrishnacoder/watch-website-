@@ -11,6 +11,7 @@ import { useCart } from "../context/CartContext";
 import { useMoney } from "../context/CurrencyContext";
 import { useUI } from "../context/UIContext";
 import { WatchStudio } from "../components/motion/WatchStudio";
+import { StudioStage } from "../components/watch/StudioStage";
 import { Lightbox } from "../components/motion/Lightbox";
 import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
@@ -24,7 +25,7 @@ export function Product() {
   const { setCartOpen, setToast } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember } = useCabinet();
   const [shot, setShot] = useState(0);
-  const [studio, setStudio] = useState<"photo" | "calibre" | "volume">("photo");
+  const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("render");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
@@ -36,7 +37,7 @@ export function Product() {
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
-    setStudio("photo");
+    setStudio("render");
   }, [product, remember]);
 
   useEffect(() => {
@@ -100,12 +101,17 @@ export function Product() {
               <WatchStudio design={product.design} />
             ) : studio === "calibre" ? (
               <WatchFace {...product.design} brand={site.brand.name} size={420} />
+            ) : studio === "render" ? (
+              <StudioStage product={product} size={400} />
             ) : (
               <button type="button" className="pdp-photo" onClick={() => setLightbox(true)}>
                 <img src={product.images[shot]} alt={product.name} />
               </button>
             )}
             <div className="pdp-toggles">
+              <button className={studio === "render" ? "is-on" : ""} onClick={() => setStudio("render")}>
+                Studio render
+              </button>
               <button className={studio === "photo" ? "is-on" : ""} onClick={() => setStudio("photo")}>
                 Photography
               </button>

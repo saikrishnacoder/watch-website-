@@ -6,6 +6,9 @@ export type CollectionLine = {
   tagline: string;
   description: string;
   image: string;
+  calibre: string;
+  essay: string[];
+  finishing: string;
 };
 
 export const photos = {
@@ -73,7 +76,13 @@ export const collectionLines: CollectionLine[] = [
     tagline: "The origin line",
     description:
       "Enamel dials, railroad minutes and extra-thin calibres — the watches that started the maison, re-proportioned for today.",
-    image: photos.classic,
+    image: "/lines/heritage.jpg",
+    calibre: "H-08",
+    finishing: "Enamel, extra-thin, railroad minutes",
+    essay: [
+      "Heritage is the first sentence the maison ever wrote. A thin case, an enamel dial, and the gold meridian drawn last — after the numerals have dried.",
+      "These are watches for a quiet wrist. 34 to 40 millimetres, box sapphire, a calibre regulated until it agrees with Geneva.",
+    ],
   },
   {
     slug: "chronograph",
@@ -81,7 +90,13 @@ export const collectionLines: CollectionLine[] = [
     tagline: "Time, measured twice",
     description:
       "Column-wheel chronographs with three registers, tachymeter scales and the 10:10 pose the atelier still draws by hand.",
-    image: photos.ivory,
+    image: "/lines/chronograph.jpg",
+    calibre: "H-72",
+    finishing: "Column wheel, three registers, tachymeter",
+    essay: [
+      "The start, the stop, and the reset should feel like three distinct mechanical events. That is why the H-72 is a column-wheel chronograph, not a cam.",
+      "Ivory opaline, blued hands, a sapphire caseback. Chronograph One remains the maison’s most requested reference.",
+    ],
   },
   {
     slug: "diver",
@@ -89,7 +104,13 @@ export const collectionLines: CollectionLine[] = [
     tagline: "Built for depth",
     description:
       "Ceramic bezels, helium-ready gaskets and lume you can read at 200 metres. The professional line, finished like a dress watch.",
-    image: photos.sport,
+    image: "/lines/diver.jpg",
+    calibre: "H-90",
+    finishing: "Ceramic bezel, 200–500 m, lume plots",
+    essay: [
+      "A diver that is finished like a dress watch. Alternating brushed and polished planes, a ceramic bezel that clicks with intent, lume you can still read when the water is black.",
+      "Rated to 200 metres as a rule, 500 when the case asks for it. The meridian stays gold. Depth does not excuse a missing mark.",
+    ],
   },
   {
     slug: "imperial",
@@ -97,7 +118,13 @@ export const collectionLines: CollectionLine[] = [
     tagline: "Precious metal",
     description:
       "Yellow gold, rose gold and black DLC. Numbered editions and moonphases for evenings that last longer than the night.",
-    image: photos.gold,
+    image: "/lines/imperial.jpg",
+    calibre: "H-12",
+    finishing: "18k gold, numbered editions, moonphase",
+    essay: [
+      "Imperial is the maison in metal that remembers the lamp. Yellow gold, rose, white, and a black DLC that drinks the room.",
+      "Cases are finished to be refinished. The first owner is not the last. The meridian is designed to outlast both.",
+    ],
   },
   {
     slug: "meridian",
@@ -105,7 +132,13 @@ export const collectionLines: CollectionLine[] = [
     tagline: "The namesake line",
     description:
       "GMT, worldtimer and dual time — watches built around the gold meridian at 12. HORLOGE is named for the clock. This line is named for the line.",
-    image: photos.cinematic,
+    image: "/lines/meridian.jpg",
+    calibre: "H-24",
+    finishing: "GMT, worldtimer, dual time",
+    essay: [
+      "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is.",
+      "This line carries that agreement around the world: GMT, dual time, a worldtimer. The gold stroke at 12 is not decoration. It is the thesis.",
+    ],
   },
 ];
 

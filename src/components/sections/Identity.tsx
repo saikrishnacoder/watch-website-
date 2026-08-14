@@ -35,8 +35,8 @@ export function Identity({ showCrest = true }: { showCrest?: boolean }) {
             </div>
           ))}
         </div>
-        <Link className="section-link" to="/maison">
-          The maison
+        <Link className="section-link" to={showCrest ? "/maison" : "/heritage"}>
+          {showCrest ? "The maison" : "Heritage timeline"}
         </Link>
       </div>
     </section>
