@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { altFor, getProduct, relatedProducts, site } from "../config/site";
+import { galleryFor, getProduct, relatedProducts, site } from "../config/site";
 import type { WatchDesign } from "../config/site";
 import { papersFor, maisonInclusions } from "../config/papers";
 import { ProductCard } from "../components/ui/ProductCard";
@@ -12,14 +12,15 @@ import { useMoney } from "../context/CurrencyContext";
 import { useUI } from "../context/UIContext";
 import { WatchStudio } from "../components/motion/WatchStudio";
 import { StudioStage } from "../components/watch/StudioStage";
+import { ProductGallery } from "../components/watch/ProductGallery";
 import { Lightbox } from "../components/motion/Lightbox";
 import { SizeGuide, useSizeGuide } from "../components/ui/SizeGuide";
 import { CraftModal, CraftStrip } from "../components/watch/CraftSheet";
-import { PhotoZoom } from "../components/watch/PhotoZoom";
 import { ProductCompose, strapFromDesign } from "../components/watch/ProductCompose";
 import { WaitlistForm } from "../components/watch/WaitlistForm";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 import { braceletColor, isLightDial } from "../lib/composition";
+import { tapFeel } from "../lib/feel";
 import { NotFound } from "./NotFound";
 
 export function Product() {
@@ -30,7 +31,7 @@ export function Product() {
   const { setToast } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember, compare, saveComposition } = useCabinet();
   const [shot, setShot] = useState(0);
-  const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("volume");
+  const [studio, setStudio] = useState<"photo" | "render" | "calibre" | "volume">("photo");
   const [openGroup, setOpenGroup] = useState("Movement");
   const [wrist, setWrist] = useState(170);
   const [sticky, setSticky] = useState(false);
@@ -47,7 +48,7 @@ export function Product() {
   useEffect(() => {
     if (product) remember(product.slug);
     setShot(0);
-    setStudio("volume");
+    setStudio("photo");
     if (product) {
       setDialHex(product.design.dial);
       setStrap(strapFromDesign(product.design));
@@ -83,6 +84,8 @@ export function Product() {
 
   if (!product || !liveProduct || !composedDesign) return <NotFound />;
 
+  const frames = galleryFor(product);
+  const frame = frames[shot] ?? frames[0];
   const waitlisted = product.availability === "Waitlist";
   const scarce = waitlisted || Boolean(product.limited);
   const boutiqueTo = `/boutique?watch=${product.slug}`;
@@ -93,6 +96,7 @@ export function Product() {
     sku: product.reference,
     brand: { "@type": "Brand", name: site.brand.name },
     description: product.description,
+    image: frame?.src,
     offers: {
       "@type": "Offer",
       priceCurrency: "CHF",
@@ -119,43 +123,40 @@ export function Product() {
 
       <section className="pdp">
         <div>
-          <div className="pdp-stage">
-            {studio === "volume" ? (
-              <WatchStudio product={liveProduct} />
-            ) : studio === "calibre" ? (
-              <WatchFace {...composedDesign} brand={site.brand.name} size={420} />
-            ) : studio === "render" ? (
-              <StudioStage product={liveProduct} size={400} />
-            ) : (
-              <PhotoZoom src={product.images[shot]} alt={product.name} />
-            )}
-            <div className="pdp-toggles">
-              <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
-                360°
-              </button>
-              <button className={studio === "render" ? "is-on" : ""} onClick={() => setStudio("render")}>
-                Studio render
-              </button>
-              <button className={studio === "photo" ? "is-on" : ""} onClick={() => setStudio("photo")}>
-                Photography
-              </button>
-              <button className={studio === "calibre" ? "is-on" : ""} onClick={() => setStudio("calibre")}>
-                Studio calibre
-              </button>
-            </div>
-          </div>
-          {studio === "photo" && (
-            <div className="thumbs">
-              {product.images.map((src, index) => (
-                <button key={src} className={shot === index ? "is-on" : ""} onClick={() => setShot(index)}>
-                  <img src={src} alt={altFor(src, `${product.name} · view ${index + 1}`)} />
-                </button>
-              ))}
-              <button type="button" className="text-link" onClick={() => setLightbox(true)}>
-                Open full frame
-              </button>
+          {studio === "photo" ? (
+            <ProductGallery
+              frames={frames}
+              index={shot}
+              name={product.name}
+              onIndex={setShot}
+              onOpen={() => setLightbox(true)}
+              listenKeys={!lightbox}
+            />
+          ) : (
+            <div className="pdp-stage">
+              {studio === "volume" ? (
+                <WatchStudio product={liveProduct} />
+              ) : studio === "calibre" ? (
+                <WatchFace {...composedDesign} brand={site.brand.name} size={420} />
+              ) : (
+                <StudioStage product={liveProduct} size={400} />
+              )}
             </div>
           )}
+          <div className="pdp-toggles">
+            <button className={studio === "photo" ? "is-on" : ""} onClick={() => setStudio("photo")}>
+              Gallery
+            </button>
+            <button className={studio === "volume" ? "is-on" : ""} onClick={() => setStudio("volume")}>
+              360°
+            </button>
+            <button className={studio === "render" ? "is-on" : ""} onClick={() => setStudio("render")}>
+              Live dial
+            </button>
+            <button className={studio === "calibre" ? "is-on" : ""} onClick={() => setStudio("calibre")}>
+              Calibre
+            </button>
+          </div>
         </div>
 
         <div>
@@ -184,11 +185,9 @@ export function Product() {
             design={composedDesign}
             onDial={(hex) => {
               setDialHex(hex);
-              if (studio === "photo") setStudio("volume");
             }}
             onStrap={(next) => {
               setStrap(next);
-              if (studio === "photo") setStudio("volume");
             }}
           />
           <p className="studio-note" style={{ marginBottom: 16 }}>
@@ -230,6 +229,7 @@ export function Product() {
               className={wished(product.slug) ? "is-on" : ""}
               aria-pressed={wished(product.slug)}
               onClick={() => {
+                tapFeel();
                 toggleWish(product.slug);
                 setToast(wished(product.slug) ? "Removed from wishlist." : "Saved to wishlist.");
               }}
@@ -245,6 +245,7 @@ export function Product() {
                   setToast("Three watches is the comparison. Remove one first.");
                   return;
                 }
+                tapFeel();
                 toggleCompare(product.slug);
                 setToast(compared(product.slug) ? "Removed from compare." : "Saved to compare.");
               }}
@@ -310,13 +311,29 @@ export function Product() {
             <WatchFace {...composedDesign} brand={site.brand.name} size={200} />
           </div>
           <div>
-            <div className="eyebrow">On the wrist</div>
+            <div className="eyebrow">How it feels</div>
             <h2 className="display" style={{ fontSize: "clamp(32px, 4vw, 52px)", marginBottom: 16 }}>
-              How {product.name} wears.
+              On the wrist, in the hand.
             </h2>
-            <p className="lede">
-              {product.story} Adjust the slider to preview scale on a {wrist} mm wrist.
-            </p>
+            <p className="lede">{product.story}</p>
+            <div className="feel-strip">
+              {frames.slice(0, 3).map((item, i) => (
+                <button
+                  key={item.kind}
+                  type="button"
+                  className={shot === i && studio === "photo" ? "is-on" : ""}
+                  onClick={() => {
+                    tapFeel();
+                    setStudio("photo");
+                    setShot(i);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  <img src={item.src} alt={item.alt} />
+                  <span>{item.caption}</span>
+                </button>
+              ))}
+            </div>
             <label className="finder-label">
               Wrist circumference · {wrist} mm
               <input
@@ -383,10 +400,12 @@ export function Product() {
       <RecentlyViewed exclude={product.slug} />
       <Lightbox
         open={lightbox}
-        src={product.images[shot]}
+        src={frame?.src ?? frames[0]?.src ?? ""}
         title={product.name}
-        caption={`${product.reference} · ${product.material}`}
+        caption={frame ? `${frame.caption} · ${product.reference} · ${product.material}` : product.reference}
         onClose={() => setLightbox(false)}
+        onPrev={() => setShot((current) => (current - 1 + frames.length) % frames.length)}
+        onNext={() => setShot((current) => (current + 1) % frames.length)}
       />
       <SizeGuide open={sizeOpen} onClose={closeGuide} />
       <CraftModal product={product} open={craftOpen} onClose={() => setCraftOpen(false)} />

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "generate": "python3 scripts/generate_animations.py",
+    "generate": "python3 scripts/generate_animations.py && python3 scripts/generate_gallery.py",
     "dev": "python3 scripts/generate_animations.py && vite",
     "build": "python3 scripts/generate_animations.py && tsc --noEmit && vite build",
     "preview": "vite preview"

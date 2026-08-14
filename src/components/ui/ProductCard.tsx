@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { altFor, site, type Product } from "../../config/site";
+import { galleryFor, type Product } from "../../config/site";
 import { useCabinet } from "../../context/CabinetContext";
 import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
 import { useUI } from "../../context/UIContext";
-import { WatchFace } from "../watch/WatchFace";
+import { tapFeel } from "../../lib/feel";
 import { FrameImage } from "./FrameImage";
 
 type ProductCardProps = {
@@ -19,6 +19,9 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
   const { formatPrice } = useMoney();
   const { reduceMotion } = useMotion();
   const { setToast } = useUI();
+  const frames = galleryFor(product);
+  const hero = frames[0];
+  const hover = frames[1] ?? frames[0];
 
   return (
     <motion.article
@@ -29,7 +32,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
       transition={{ duration: 0.7, delay: reduceMotion ? 0 : index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       layout={!reduceMotion}
     >
-      <div className={`product-visual ${reduceMotion ? "" : "anim-shimmer"}`}>
+      <div className="product-visual">
         {product.badge && <span className="product-badge">{product.badge}</span>}
         {product.availability === "Waitlist" && !product.badge && (
           <span className="product-badge is-wait">Waitlist</span>
@@ -41,32 +44,54 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
           <button
             className={wished(product.slug) ? "is-on" : ""}
             aria-label={`Save ${product.name} to wishlist`}
-            onClick={() => toggleWish(product.slug)}
+            onClick={() => {
+              tapFeel();
+              toggleWish(product.slug);
+              setToast(wished(product.slug) ? "Removed from wishlist." : "Saved to wishlist.");
+            }}
           >
             ♥
           </button>
           <button
             className={compared(product.slug) ? "is-on" : ""}
             aria-label={`Save ${product.name} to compare`}
-            onClick={() => toggleCompare(product.slug)}
+            onClick={() => {
+              if (!compared(product.slug) && compare.length >= 3) {
+                setToast("Three watches is the comparison. Remove one first.");
+                return;
+              }
+              tapFeel();
+              toggleCompare(product.slug);
+              setToast(compared(product.slug) ? "Removed from compare." : "Saved to compare.");
+            }}
           >
             ⧉
           </button>
         </div>
-        <Link to={`/watch/${product.slug}`} className="card-media">
-          <FrameImage
-            src="/studio/velvet.jpg"
-            alt={altFor("/studio/velvet.jpg", `${product.name} on studio velvet`)}
-            className="card-photo"
-            width={1400}
-            height={1050}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={priority ? "high" : "low"}
-          />
-          <div className="card-watch">
-            <WatchFace {...product.design} brand={site.brand.name} size={220} animate={!reduceMotion} />
-          </div>
+        <Link to={`/watch/${product.slug}`} className="card-media" aria-label={`${product.name}, open gallery`}>
+          {hero && (
+            <FrameImage
+              src={hero.src}
+              alt={hero.alt}
+              className="card-photo"
+              width={1600}
+              height={1200}
+              loading={priority ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={priority ? "high" : "low"}
+            />
+          )}
+          {hover && hover.src !== hero?.src && (
+            <FrameImage
+              src={hover.src}
+              alt=""
+              className="card-photo-next"
+              width={1600}
+              height={1200}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
         </Link>
       </div>
       <div className="product-body">
@@ -85,7 +110,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
         <div className="product-price">{formatPrice(product.price)}</div>
         <div className="product-actions">
           <Link className="btn btn-ghost" to={`/watch/${product.slug}`}>
-            Discover
+            Gallery
           </Link>
           <button
             type="button"
@@ -95,6 +120,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
                 setToast("Three watches is the comparison. Remove one first.");
                 return;
               }
+              tapFeel();
               toggleCompare(product.slug);
               setToast(compared(product.slug) ? "Removed from compare." : "Saved to compare.");
             }}

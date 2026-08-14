@@ -1,12 +1,11 @@
 import { Link, useParams } from "react-router-dom";
-import { altFor, getCollection, productsIn, signatureProducts, site } from "../config/site";
+import { altFor, galleryFor, getCollection, productsIn, signatureProducts, site } from "../config/site";
 import { EssayBody } from "../components/ui/EssayBody";
 import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
 import { FrameImage } from "../components/ui/FrameImage";
 import { Newsletter } from "../components/sections/Newsletter";
 import { MagneticButton } from "../components/ui/MagneticButton";
-import { StudioStage } from "../components/watch/StudioStage";
 import { Reveal } from "../components/ui/Reveal";
 import { WaitlistForm } from "../components/watch/WaitlistForm";
 import { NotFound } from "./NotFound";
@@ -46,7 +45,16 @@ export function CollectionFamily() {
           </Reveal>
           {heroWatch && (
             <Reveal delay={0.08}>
-              <StudioStage product={heroWatch} size={340} caption={`${heroWatch.name} · studio render`} />
+              <div className="line-gallery">
+                {galleryFor(heroWatch)
+                  .slice(0, 3)
+                  .map((frame) => (
+                    <figure key={frame.kind}>
+                      <FrameImage src={frame.src} alt={frame.alt} />
+                      <figcaption>{frame.caption}</figcaption>
+                    </figure>
+                  ))}
+              </div>
             </Reveal>
           )}
         </div>

@@ -12,7 +12,7 @@ This is a **maison** template, not a shop. There is no cart and no checkout. Ava
 | --- | --- | --- |
 | Essays | `content/` | Maison, Journal, collection chapters, Craft, Boutique, Heritage — Markdown |
 | Brand & products | `src/config/site.ts`, `src/config/catalog.ts` | Name, palette, nav, watches, boutiques |
-| Photography | `public/lines/`, `public/media/`, `public/journal/`, `public/studio/` | Owned stills (one hero per line, bench, movement, four journal frames, velvet) |
+| Photography | `public/lines/`, `public/gallery/`, `public/media/`, `public/journal/`, `public/studio/` | Line heroes, product gallery (studio / dial / case), bench, movement, journal frames |
 
 React stays for the watch studio (360°), exploded calibre, composer, concierge, and viewing forms. SEO HTML is stamped from the **same** Markdown files — not a second copy of the site.
 
@@ -22,7 +22,7 @@ Authoring map: `content/README.md`.
 
 - `/` — cinematic home (five lines, craft teaser, journal, private viewing)
 - `/collection` and `/collection/:line` — five atmospheres, one meridian
-- `/watch/:slug` — 360°, studio still, specs, waitlist / viewing
+- `/watch/:slug` — product gallery (lean-in zoom, thumbs, lightbox), 360°, specs, waitlist / viewing
 - `/atelier` — exploded calibre, loupe, 360°
 - `/maison`, `/heritage`, `/journal`, `/journal/:slug` — essays
 - `/boutique` — five maisons + appointment

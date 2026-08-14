@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { tapFeel } from "../../lib/feel";
 
 type LightboxProps = {
   open: boolean;
@@ -7,9 +8,11 @@ type LightboxProps = {
   title: string;
   caption?: string;
   onClose: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
 };
 
-export function Lightbox({ open, src, title, caption, onClose }: LightboxProps) {
+export function Lightbox({ open, src, title, caption, onClose, onPrev, onNext }: LightboxProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
 
@@ -21,6 +24,8 @@ export function Lightbox({ open, src, title, caption, onClose }: LightboxProps) 
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft") onPrev?.();
+      if (event.key === "ArrowRight") onNext?.();
       if (event.key === "Tab") {
         event.preventDefault();
         closeRef.current?.focus();
@@ -32,7 +37,7 @@ export function Lightbox({ open, src, title, caption, onClose }: LightboxProps) 
       window.removeEventListener("keydown", onKey);
       lastFocus.current?.focus();
     };
-  }, [open, onClose]);
+  }, [open, onClose, onPrev, onNext]);
 
   return (
     <AnimatePresence>
@@ -50,6 +55,32 @@ export function Lightbox({ open, src, title, caption, onClose }: LightboxProps) 
           <button ref={closeRef} className="lightbox-close" type="button" onClick={onClose}>
             Close
           </button>
+          {onPrev && (
+            <button
+              type="button"
+              className="lightbox-nav is-prev"
+              onClick={(event) => {
+                event.stopPropagation();
+                tapFeel();
+                onPrev();
+              }}
+            >
+              Previous
+            </button>
+          )}
+          {onNext && (
+            <button
+              type="button"
+              className="lightbox-nav is-next"
+              onClick={(event) => {
+                event.stopPropagation();
+                tapFeel();
+                onNext();
+              }}
+            >
+              Next
+            </button>
+          )}
           <figure onClick={(event) => event.stopPropagation()}>
             <img src={src} alt={title} />
             <figcaption>

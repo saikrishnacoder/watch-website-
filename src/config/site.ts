@@ -25,7 +25,7 @@ import { DEFAULT_CURRENCY, formatMoney } from "./money";
 import type { BezelStyle, CaseMetal, HandStyle, MarkerStyle, Product, StrapStyle } from "./types";
 
 export { photos, quiz, services };
-export { altFor, photoAlt } from "./catalog";
+export { altFor, photoAlt, galleryFor, type GalleryFrame } from "./catalog";
 
 export const collectionLines = lineRecords.map((line) => {
   const doc = lineEssay(line.slug);

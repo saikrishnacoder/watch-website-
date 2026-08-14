@@ -5,9 +5,12 @@ import { useMoney } from "../context/CurrencyContext";
 import { boutiqueOpen, zonedNow } from "../lib/boutiqueHours";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { Reveal } from "../components/ui/Reveal";
+import { useUI } from "../context/UIContext";
+import { tapFeel } from "../lib/feel";
 
 export function Boutique() {
   const { region } = useMoney();
+  const { setToast } = useUI();
   const [status, setStatus] = useState("");
   const [params] = useSearchParams();
   const requested = getProduct(params.get("watch") ?? "");
@@ -35,6 +38,8 @@ export function Boutique() {
       watch: requested ? `${requested.name} · ${requested.reference}` : "A private tray",
     });
     setStatus("Your request is with the maison. We will confirm within one working day.");
+    tapFeel();
+    setToast("Viewing requested. We will confirm within one working day.");
     form.reset();
   };
 

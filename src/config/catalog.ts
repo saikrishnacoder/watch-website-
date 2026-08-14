@@ -47,10 +47,68 @@ export const photoAlt: Record<string, string> = {
   "/journal/inside-the-atelier.jpg": "Watchmaker at a Geneva bench with a loupe and kiln light.",
   "/journal/anatomy.jpg": "HORLOGE case, crystal, dial, hands and movement laid out on dark velvet.",
   "/journal/geneva-independent.jpg": "Dusk on a quiet Geneva street, a maison window lit as a gold line.",
+  "/gallery/heritage-hero.jpg": "HORLOGE Heritage in studio light, enamel dial and gold meridian at 12.",
+  "/gallery/heritage-dial.jpg": "Close Heritage enamel: railroad minutes and a gold meridian at 12.",
+  "/gallery/heritage-profile.jpg": "Heritage case profile on dark wood, alligator strap in shadow.",
+  "/gallery/chronograph-hero.jpg": "HORLOGE Chronograph in studio light, ivory dial and gold meridian at 12.",
+  "/gallery/chronograph-dial.jpg": "Chronograph dial close: registers, tachymeter, gold meridian at 12.",
+  "/gallery/chronograph-profile.jpg": "Chronograph case profile, steel and alligator, studio shadow.",
+  "/gallery/diver-hero.jpg": "HORLOGE Diver in studio light, ceramic bezel and gold meridian at 12.",
+  "/gallery/diver-dial.jpg": "Diver dial close: lume plots, ceramic bezel, gold meridian at 12.",
+  "/gallery/diver-profile.jpg": "Diver case profile, sport proportions on a dark bench.",
+  "/gallery/imperial-hero.jpg": "HORLOGE Imperial in gold, dress proportions, gold meridian at 12.",
+  "/gallery/imperial-dial.jpg": "Imperial dial close: ceremony, precious metal, gold meridian at 12.",
+  "/gallery/imperial-profile.jpg": "Imperial case profile in yellow gold, studio shadow.",
+  "/gallery/meridian-hero.jpg": "HORLOGE Meridian, dark dial and GMT reading, gold meridian at 12.",
+  "/gallery/meridian-dial.jpg": "Meridian dial close: dual time and a gold stroke at 12.",
+  "/gallery/meridian-profile.jpg": "Meridian case profile, travel watch on dark velvet.",
 };
 
 export function altFor(src: string, fallback: string) {
   return photoAlt[src] ?? fallback;
+}
+
+export type GalleryFrame = {
+  src: string;
+  alt: string;
+  caption: string;
+  kind: "hero" | "dial" | "profile" | "movement" | "bench";
+};
+
+export function galleryFor(product: Pick<Product, "name" | "collection" | "collectionSlug" | "reference">): GalleryFrame[] {
+  const line = product.collectionSlug;
+  return [
+    {
+      src: `/gallery/${line}-hero.jpg`,
+      alt: `${product.name} (${product.reference}) — ${product.collection} in studio light`,
+      caption: "Studio",
+      kind: "hero",
+    },
+    {
+      src: `/gallery/${line}-dial.jpg`,
+      alt: `${product.name} dial, gold meridian at 12`,
+      caption: "Dial",
+      kind: "dial",
+    },
+    {
+      src: `/gallery/${line}-profile.jpg`,
+      alt: `${product.name} case profile`,
+      caption: "Case",
+      kind: "profile",
+    },
+    {
+      src: photos.movement,
+      alt: altFor(photos.movement, `Open movement for ${product.name}`),
+      caption: "Movement",
+      kind: "movement",
+    },
+    {
+      src: photos.bench,
+      alt: altFor(photos.bench, "Atelier bench in Geneva"),
+      caption: "Bench",
+      kind: "bench",
+    },
+  ];
 }
 
 export function watch(

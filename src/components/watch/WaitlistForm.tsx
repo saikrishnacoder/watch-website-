@@ -1,9 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { MagneticButton } from "../ui/MagneticButton";
 import type { Product } from "../../config/site";
+import { useUI } from "../../context/UIContext";
+import { tapFeel } from "../../lib/feel";
 
 export function WaitlistForm({ product }: { product: Product }) {
   const [status, setStatus] = useState("");
+  const { setToast } = useUI();
   const limited = Boolean(product.limited);
   const waitlisted = product.availability === "Waitlist";
 
@@ -18,11 +21,12 @@ export function WaitlistForm({ product }: { product: Product }) {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: params.toString(),
     });
-    setStatus(
-      limited
-        ? "You are on the atelier list. We write when a numbered piece can be seen."
-        : "You are on the maison waitlist. We write when a piece is released.",
-    );
+    const note = limited
+      ? "You are on the atelier list. We write when a numbered piece can be seen."
+      : "You are on the maison waitlist. We write when a piece is released.";
+    tapFeel();
+    setStatus(note);
+    setToast(note);
     form.reset();
   };
 
