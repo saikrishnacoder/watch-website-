@@ -1990,6 +1990,16 @@ button.section-link {
   color: var(--muted);
 }
 
+.mobile-menu-region {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.mobile-menu-region .region-panel-kicker {
+  margin-bottom: 4px;
+}
+
 .back-to-top {
   position: fixed;
   left: 24px;
@@ -2335,6 +2345,10 @@ button.section-link {
 
   .burger {
     display: block;
+  }
+
+  .nav-actions .region-switch-trigger {
+    display: none;
   }
 }
 
@@ -2968,9 +2982,13 @@ a.icon-btn {
   transition: opacity 0.5s ease;
 }
 
-.watch-card .card-photo {
+.watch-card .card-photo,
+.watch-card .card-photo img {
   width: 100%;
   height: 100%;
+}
+
+.watch-card .card-photo img {
   object-fit: cover;
 }
 
@@ -3034,6 +3052,7 @@ a.icon-btn {
 
 .family-card img,
 .line-tile img,
+.line-tile .frame-image,
 .journal-card img,
 .article-hero {
   width: 100%;
@@ -3046,7 +3065,8 @@ a.icon-btn {
 }
 
 .family-card img,
-.line-tile img {
+.line-tile img,
+.line-tile .frame-image {
   position: absolute;
   inset: 0;
   transition: transform 0.8s ease;
@@ -3100,11 +3120,13 @@ a.icon-btn {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(to top, rgba(7, 6, 5, 0.88), rgba(7, 6, 5, 0.2));
 }
 
 .family-hero > div {
   position: relative;
+  z-index: 2;
   max-width: 640px;
 }
 
@@ -5735,6 +5757,13 @@ a.icon-btn {
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.photo-zoom .frame-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .photo-zoom img {
     transition: none;
@@ -5742,7 +5771,7 @@ a.icon-btn {
   }
 }
 
-.photo-zoom span {
+.photo-zoom-hint {
   position: absolute;
   left: 16px;
   bottom: 16px;
@@ -5949,7 +5978,9 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
 }
 
 .maison-hero-still > img,
-.collection-hero > img {
+.maison-hero-still > .frame-image,
+.collection-hero > img,
+.collection-hero > .frame-image {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -6004,7 +6035,8 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
   margin-top: 28px;
 }
 
-.maison-split img {
+.maison-split img,
+.maison-split .frame-image {
   width: 100%;
   height: 420px;
   object-fit: cover;
@@ -6059,12 +6091,14 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
 }
 
 .line-index-media {
+  position: relative;
   display: block;
   min-height: 320px;
   overflow: hidden;
 }
 
-.line-index-media img {
+.line-index-media img,
+.line-index-media .frame-image {
   width: 100%;
   height: 100%;
   min-height: 320px;
@@ -6327,5 +6361,102 @@ html.reduce-motion .is-settled .cinema-watch {
     display: none !important;
   }
 }
+
+.frame-image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #14110e;
+}
+
+.frame-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.frame-image.is-ready img {
+  opacity: 1;
+}
+
+.frame-image.is-failed img {
+  opacity: 0;
+}
+
+.skeleton-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    #14110e 0%,
+    #1c1814 38%,
+    color-mix(in srgb, var(--gold) 18%, #1c1814) 50%,
+    #1c1814 62%,
+    #14110e 100%
+  );
+  background-size: 220% 100%;
+  animation: skeleton-drift 1.6s ease-in-out infinite;
+}
+
+.frame-image.is-ready .skeleton-shine {
+  opacity: 0;
+  animation: none;
+  transition: opacity 0.4s ease;
+}
+
+@keyframes skeleton-drift {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.route-curtain {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100vh;
+  background: var(--gold);
+  transform-origin: top center;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.family-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.family-hero-photo img,
+.collection-hero > .frame-image img,
+.maison-hero-still > .frame-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shine,
+  .frame-image img {
+    animation: none;
+    transition: none;
+  }
+
+  .route-curtain {
+    display: none;
+  }
+}
+
 
 

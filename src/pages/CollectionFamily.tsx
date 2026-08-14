@@ -2,10 +2,12 @@ import { Link, useParams } from "react-router-dom";
 import { getCollection, productsIn, signatureProducts, site } from "../config/site";
 import { ProductGrid } from "../components/ui/ProductGrid";
 import { ProductCard } from "../components/ui/ProductCard";
+import { FrameImage } from "../components/ui/FrameImage";
 import { Newsletter } from "../components/sections/Newsletter";
 import { MagneticButton } from "../components/ui/MagneticButton";
 import { StudioStage } from "../components/watch/StudioStage";
 import { Reveal } from "../components/ui/Reveal";
+import { WaitlistForm } from "../components/watch/WaitlistForm";
 import { NotFound } from "./NotFound";
 
 export function CollectionFamily() {
@@ -16,10 +18,12 @@ export function CollectionFamily() {
   const signatures = signatureProducts(slug);
   const heroWatch = signatures[0] ?? watches[0];
   const sisters = site.collectionLines.filter((item) => item.slug !== slug);
+  const scarce = signatures.find((item) => item.limited || item.availability === "Waitlist");
 
   return (
     <div className="page">
-      <section className="family-hero" style={{ backgroundImage: `url(${line.image})` }}>
+      <section className="family-hero">
+        <FrameImage src={line.image} alt="" className="family-hero-photo" />
         <div>
           <div className="eyebrow">
             {line.name} · {line.calibre}
@@ -79,6 +83,21 @@ export function CollectionFamily() {
         <ProductGrid products={watches} />
       </section>
 
+      {scarce && (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">Limited</div>
+              <h2 className="display">{scarce.name}.</h2>
+            </div>
+          </div>
+          <p className="lede" style={{ maxWidth: 520, marginBottom: 24 }}>
+            An independent maison does not keep an open tray of every reference. Join the list for {scarce.name}.
+          </p>
+          <WaitlistForm product={scarce} />
+        </section>
+      )}
+
       {slug === "meridian" && <Newsletter source="meridian" />}
 
       <section className="section" style={{ paddingTop: 0 }}>
@@ -88,7 +107,7 @@ export function CollectionFamily() {
         <div className="line-tiles">
           {sisters.map((family) => (
             <Link key={family.slug} to={`/collection/${family.slug}`} className="line-tile">
-              <img src={family.image} alt="" />
+              <FrameImage src={family.image} alt="" />
               <div>
                 <strong>{family.name}</strong>
                 <span>{family.tagline}</span>

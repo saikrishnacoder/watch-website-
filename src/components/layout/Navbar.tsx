@@ -4,6 +4,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { BrandMark } from "../brand/BrandMark";
 import { site } from "../../config/site";
 import { useUI } from "../../context/UIContext";
+import { RegionSwitch } from "./RegionSwitch";
 
 export function Navbar() {
   const { menuOpen, setMenuOpen } = useUI();
@@ -114,6 +115,7 @@ export function Navbar() {
           })}
         </ul>
         <div className="nav-actions">
+          <RegionSwitch />
           <button
             className="burger"
             aria-label={menuOpen ? "Close menu" : "Menu"}
@@ -150,6 +152,9 @@ export function Navbar() {
                 {item.label}
               </NavLink>
             ))}
+          <div className="mobile-menu-region">
+            <RegionSwitch compact />
+          </div>
         </nav>
       )}
     </>

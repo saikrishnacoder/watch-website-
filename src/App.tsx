@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { AnalyticsGate } from "./components/layout/AnalyticsGate";
 import { BackToTop } from "./components/layout/BackToTop";
 import { Breadcrumbs } from "./components/layout/Breadcrumbs";
 import { CartDrawer } from "./components/layout/CartDrawer";
@@ -13,6 +14,7 @@ import { Navbar } from "./components/layout/Navbar";
 import { Preloader } from "./components/layout/Preloader";
 import { RegionNotice } from "./components/layout/RegionNotice";
 import { RegionPanel } from "./components/layout/RegionSwitch";
+import { RouteCurtain } from "./components/layout/RouteCurtain";
 import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { SkipLink } from "./components/layout/SkipLink";
 import { Toast } from "./components/layout/Toast";
@@ -24,8 +26,7 @@ import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { UIProvider, useUI } from "./context/UIContext";
-import { copyForRoute } from "./lib/route-static";
-import { documentTitle } from "./lib/titles";
+import { applySocialTags } from "./lib/social";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
 import { Cabinet } from "./pages/Cabinet";
@@ -74,10 +75,7 @@ function AppShell() {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.title = documentTitle(location.pathname);
-    const meta = document.querySelector('meta[name="description"]');
-    const key = location.pathname.replace(/^\//, "").replace(/\/$/, "") || "home";
-    if (meta) meta.setAttribute("content", copyForRoute(key).description);
+    applySocialTags(location.pathname);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -97,6 +95,7 @@ function AppShell() {
             <CanonicalizePath />
             <CustomCursor />
             <Navbar />
+            <RouteCurtain pathname={location.pathname} quiet={quiet} />
             <RegionNotice />
             <SearchOverlay />
             <CartDrawer />
@@ -150,6 +149,7 @@ function AppShell() {
             <RegionPanel />
             <Concierge />
             <BackToTop />
+            <AnalyticsGate />
             <Toast />
           </div>
         </UIProvider>

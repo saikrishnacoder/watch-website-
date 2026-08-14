@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { signatureProducts, site } from "../config/site";
+import { photos, signatureProducts, site } from "../config/site";
 import { ProductCard } from "../components/ui/ProductCard";
+import { FrameImage } from "../components/ui/FrameImage";
 import { Reveal } from "../components/ui/Reveal";
+import { Newsletter } from "../components/sections/Newsletter";
+import { PressStrip } from "../components/sections/PressStrip";
 
 export function Collection() {
   const signatures = site.collectionLines
@@ -11,7 +14,7 @@ export function Collection() {
   return (
     <div className="page">
       <section className="collection-hero">
-        <img src="/media/maison-meridian.jpg" alt="" />
+        <FrameImage src={photos.luxury} alt="" />
         <div>
           <div className="eyebrow">Five lines · one meridian</div>
           <h1 className="display">{site.collectionPage.title}</h1>
@@ -19,13 +22,15 @@ export function Collection() {
         </div>
       </section>
 
+      <PressStrip compact />
+
       <section className="section">
         <p className="lede collection-grid-intro">{site.collectionPage.gridIntro}</p>
         <div className="line-index">
           {site.collectionLines.map((family, index) => (
             <Reveal key={family.slug} delay={index * 0.04} className="line-index-card">
               <Link to={`/collection/${family.slug}`} className="line-index-media">
-                <img src={family.image} alt="" />
+                <FrameImage src={family.image} alt="" />
               </Link>
               <div>
                 <div className="eyebrow">
@@ -61,6 +66,8 @@ export function Collection() {
           </div>
         </section>
       )}
+
+      <Newsletter source="collection" />
     </div>
   );
 }

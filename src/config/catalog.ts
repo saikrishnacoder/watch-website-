@@ -8,6 +8,7 @@ export type CollectionLine = {
   indexBlurb: string;
   chapterTitle: string;
   image: string;
+  ogImage: string;
   calibre: string;
   essay: string[];
   finishing: string;
@@ -80,7 +81,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "The first sentence.",
     indexBlurb:
       "Time-only enamel, extra-thin H-08, railroad minutes. Heritage is where the gold meridian was drawn first — and has not been redrawn since 1924.",
-    image: "/lines/heritage.jpg",
+    image: photos.classic,
+    ogImage: photos.classic,
     calibre: "H-08",
     finishing: "Enamel, extra-thin, railroad minutes",
     essay: [
@@ -96,7 +98,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Three distinct events.",
     indexBlurb:
       "Column-wheel H-72. Start, stop, and reset as three mechanical sentences. Ivory opaline, blued hands, a tachymeter for those who still measure a road.",
-    image: "/lines/chronograph.jpg",
+    image: photos.ivory,
+    ogImage: photos.ivory,
     calibre: "H-72",
     finishing: "Column wheel, three registers, tachymeter",
     essay: [
@@ -112,7 +115,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Finished for the dark.",
     indexBlurb:
       "A diver finished like a dress watch. Ceramic bezel, lume that holds when the water is black, 200 to 500 metres — and the meridian still gold at 12.",
-    image: "/lines/diver.jpg",
+    image: photos.sport,
+    ogImage: photos.sport,
     calibre: "H-90",
     finishing: "Ceramic bezel, 200–500 m, lume plots",
     essay: [
@@ -128,7 +132,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "Metal that remembers the lamp.",
     indexBlurb:
       "Yellow, rose, and white gold, and a black DLC that drinks the room. Numbered editions and moonphase — cases finished to be refinished by the next owner.",
-    image: "/lines/imperial.jpg",
+    image: photos.gold,
+    ogImage: photos.gold,
     calibre: "H-12",
     finishing: "18k gold, numbered editions, moonphase",
     essay: [
@@ -145,7 +150,8 @@ export const collectionLines: CollectionLine[] = [
     chapterTitle: "The line, carried.",
     indexBlurb:
       "GMT, dual time, worldtimer. HORLOGE is a French word for clock; this line carries the Geneva meridian around the world without moving the gold stroke at 12.",
-    image: "/lines/meridian.jpg",
+    image: photos.black,
+    ogImage: photos.black,
     calibre: "H-24",
     finishing: "GMT, worldtimer, dual time",
     essay: [

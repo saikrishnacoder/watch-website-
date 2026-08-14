@@ -6,6 +6,7 @@ import netlify from "@netlify/vite-plugin";
 import { brandedNotFoundHtml } from "./src/lib/not-found-html";
 import { brandedPrivacyHtml } from "./src/lib/privacy-html";
 import { copyForRoute, staticPageMarkup } from "./src/lib/route-static";
+import { socialMetaMarkup } from "./src/lib/social";
 
 const SPA_ROUTES = [
   "collection",
@@ -50,6 +51,10 @@ function stampRoute(html: string, route: string) {
   next = next.replace(
     /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
     `<meta name="description" content="${description}" />`,
+  );
+  next = next.replace(
+    /<!-- social-meta -->[\s\S]*?<!-- \/social-meta -->/,
+    `<!-- social-meta -->\n    ${socialMetaMarkup(pathName)}\n    <!-- /social-meta -->`,
   );
   next = next.replace(/<noscript>[\s\S]*?<\/noscript>/, `<noscript>\n      ${block}\n    </noscript>`);
   next = next.replace(

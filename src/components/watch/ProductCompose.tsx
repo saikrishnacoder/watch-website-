@@ -22,7 +22,7 @@ export function ProductCompose({
     <div className="pdp-compose">
       <div className="eyebrow">Compose this reference</div>
       <p>
-        Dial and strap update the watch in front of you. A study on this page — not a new SKU. The atelier confirms
+        Dial and strap update the 360° view in front of you. A study on this page — not a new SKU. The atelier confirms
         whether it can be made.
       </p>
       <div className="product-line">Dial</div>

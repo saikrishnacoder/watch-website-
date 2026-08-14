@@ -196,7 +196,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "Optional and off until you allow it. If you choose “Allow analytics”, this browser may record named events such as intro_start, intro_skip and intro_complete. Events stay in this tab (a custom event, and window.dataLayer if a tag manager is added later). We do not load Google Analytics, advertising pixels, or session replay unless you later add them — and those must wait for this same consent.",
+      "Optional and off until you allow it. If you choose “Allow analytics”, this browser may record named events such as intro_start, intro_skip, intro_complete and pageview. Events stay in this tab (a custom event, and window.dataLayer if a tag manager is added later). We then load Vercel Analytics and, if the site owner has set a Plausible domain, Plausible. Neither script runs until you allow it. We do not load Google Analytics, advertising pixels, or session replay unless you later add them — and those must wait for this same consent.",
     ],
   },
   { kind: "slot", name: "analytics" },
@@ -277,7 +277,7 @@ export const privacyBlocks: PolicyBlock[] = [
   {
     kind: "p",
     parts: [
-      "We will update this policy if the site starts to process data differently — for example if a real payment provider or a third-party analytics tool is connected. The date at the top will change.",
+      "We will update this policy if the site starts to process data differently — for example if a real payment provider is connected. Vercel Analytics and optional Plausible already wait for “Allow analytics”. The date at the top will change.",
     ],
   },
 ];

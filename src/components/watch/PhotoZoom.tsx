@@ -1,5 +1,6 @@
 import { useState, type PointerEvent as ReactPointerEvent } from "react";
 import { useMotion } from "../../context/MotionContext";
+import { FrameImage } from "../ui/FrameImage";
 
 export function PhotoZoom({ src, alt }: { src: string; alt: string }) {
   const { reduceMotion, coarsePointer } = useMotion();
@@ -28,7 +29,7 @@ export function PhotoZoom({ src, alt }: { src: string; alt: string }) {
       }}
       aria-label={zoomed ? "Photography, zoomed" : "Photography. Hover or tap to lean in."}
     >
-      <img
+      <FrameImage
         src={src}
         alt={alt}
         style={{
@@ -36,7 +37,7 @@ export function PhotoZoom({ src, alt }: { src: string; alt: string }) {
           transform: zoomed ? "scale(2.35)" : "scale(1)",
         }}
       />
-      <span>{coarsePointer ? "Tap to lean in" : "Hover to lean in"}</span>
+      <span className="photo-zoom-hint">{coarsePointer ? "Tap to lean in" : "Hover to lean in"}</span>
     </button>
   );
 }

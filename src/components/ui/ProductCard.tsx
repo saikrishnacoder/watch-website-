@@ -6,6 +6,7 @@ import { useMoney } from "../../context/CurrencyContext";
 import { useMotion } from "../../context/MotionContext";
 import { useUI } from "../../context/UIContext";
 import { WatchFace } from "../watch/WatchFace";
+import { FrameImage } from "./FrameImage";
 
 type ProductCardProps = {
   product: Product;
@@ -53,7 +54,7 @@ export function ProductCard({ product, index = 0, priority = false }: ProductCar
           </button>
         </div>
         <Link to={`/watch/${product.slug}`} className="card-media">
-          <img
+          <FrameImage
             src="/studio/velvet.jpg"
             alt=""
             className="card-photo"

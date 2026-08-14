@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { site } from "../config/site";
+import { photos, site } from "../config/site";
+import { FrameImage } from "../components/ui/FrameImage";
 import { Monogram } from "../components/brand/Monogram";
 import { HeritageTimeline } from "../components/sections/HeritageTimeline";
 import { Identity } from "../components/sections/Identity";
@@ -11,7 +12,7 @@ export function Maison() {
   return (
     <div className="page">
       <section className="maison-hero-still" data-meridian="origin" data-meridian-label="Origin">
-        <img src="/media/maison-meridian.jpg" alt="The gold meridian at 12 on a HORLOGE dial" />
+        <FrameImage src={photos.cinematic} alt="The gold meridian at 12 on a HORLOGE dial" />
         <div className="maison-hero-copy">
           <Monogram size={72} />
           <h1 className="display">{site.maisonPage.title}</h1>
@@ -38,7 +39,7 @@ export function Maison() {
             ))}
           </Reveal>
           <Reveal delay={0.08}>
-            <img src="/media/maison-bench.jpg" alt="The atelier bench in Geneva" />
+            <FrameImage src={photos.bench} alt="The atelier bench in Geneva" />
           </Reveal>
         </div>
       </section>
