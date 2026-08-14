@@ -71,6 +71,13 @@ export const site = {
       "Maison Horloge, Geneva 1924. Heritage, Chronograph, Diver, Imperial and Meridian — watches composed around a gold line at 12.",
   },
 
+  privacy: {
+    updated: "14 August 2026",
+    email: "privacy@horloge.example",
+    entity: "Maison Horloge",
+    address: "12 Rue du Rhône, 1204 Geneva, Switzerland",
+  },
+
   locale: "de-CH",
   currency: "CHF",
 

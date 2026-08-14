@@ -12,7 +12,7 @@ export function CookieBanner() {
         <p id="cookie-copy">
           Necessary cookies keep your tray and motion preference. Analytics fire only if you allow them — no advertising
           pixels, no third-party heatmaps.{" "}
-          <Link to="/privacy">Privacy</Link>
+          <Link to="/privacy">Privacy policy</Link>
         </p>
       </div>
       <div className="cookie-actions">

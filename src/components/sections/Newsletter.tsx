@@ -40,7 +40,7 @@ export function Newsletter() {
         </form>
         {status && <p className="form-note">{status}</p>}
         <p className="form-note">
-          We will not add you to a list sold onward. See <Link to="/privacy">privacy</Link>.
+          We will not add you to a list sold onward. See <Link to="/privacy">privacy policy</Link>.
         </p>
       </Reveal>
     </section>
