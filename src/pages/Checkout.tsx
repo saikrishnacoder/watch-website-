@@ -8,7 +8,7 @@ import { WatchFace } from "../components/watch/WatchFace";
 type PayState = "form" | "success";
 
 export function Checkout() {
-  const { lines, total, clear } = useCart();
+  const { checkoutLines, waitlistLines, checkoutTotal, clear } = useCart();
   const [state, setState] = useState<PayState>("form");
   const [order, setOrder] = useState("");
   const [card, setCard] = useState("");
@@ -40,14 +40,27 @@ export function Checkout() {
     clear();
   };
 
-  if (lines.length === 0 && state === "form") {
+  if (checkoutLines.length === 0 && state === "form") {
+    const waitlisted = waitlistLines.length > 0;
     return (
       <div className="page">
         <section className="page-hero">
           <div className="eyebrow">Checkout</div>
-          <h1 className="display">Your tray is empty.</h1>
-          <p className="lede">Add a watch from the catalogue, then return here to preview payment.</p>
-          <MagneticButton to="/collection">Browse 1,000 watches</MagneticButton>
+          <h1 className="display">{waitlisted ? "This reference is on waitlist." : "Your tray is empty."}</h1>
+          <p className="lede">
+            {waitlisted
+              ? "Waitlist watches are not available for preview checkout. Enquire at a maison boutique."
+              : "Add a watch from the catalogue, then return here to preview payment."}
+          </p>
+          <MagneticButton
+            to={
+              waitlisted
+                ? `/boutique?watch=${waitlistLines[0].product.slug}`
+                : "/collection"
+            }
+          >
+            {waitlisted ? "Enquire in boutique" : "Browse 1,000 watches"}
+          </MagneticButton>
         </section>
       </div>
     );
@@ -124,7 +137,7 @@ export function Checkout() {
             <strong>{formatCard(card) || "•••• •••• •••• ••••"}</strong>
             <div>
               <em>{name || "Name on card"}</em>
-              <em>{expiry || "MM/YY"}</em>
+              <em>{formatExpiry(expiry) || "MM/YY"}</em>
             </div>
           </div>
           <div className="fields">
@@ -167,7 +180,7 @@ export function Checkout() {
             </label>
           </div>
           {error && <p className="form-note checkout-error">{error}</p>}
-          <MagneticButton type="submit">Pay {formatPrice(total)} — preview</MagneticButton>
+          <MagneticButton type="submit">Pay {formatPrice(checkoutTotal)} — preview</MagneticButton>
           <p className="form-note">
             Ending {last4}. This form never leaves the browser. Prefer a viewing?{" "}
             <Link to="/boutique">Book a boutique</Link>.
@@ -175,7 +188,7 @@ export function Checkout() {
         </form>
         <aside className="checkout-summary">
           <h2>Tray</h2>
-          {lines.map(({ product, qty }) => (
+          {checkoutLines.map(({ product, qty }) => (
             <div className="checkout-line" key={product.slug}>
               <WatchFace {...product.design} brand={site.brand.name} size={72} animate={false} />
               <div>
@@ -187,9 +200,24 @@ export function Checkout() {
               <em>{formatPrice(product.price * qty)}</em>
             </div>
           ))}
+          {waitlistLines.length > 0 && (
+            <div className="checkout-waitlist">
+              <h3>Waitlist — boutique only</h3>
+              {waitlistLines.map(({ product }) => (
+                <div className="checkout-line" key={product.slug}>
+                  <WatchFace {...product.design} brand={site.brand.name} size={72} animate={false} />
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.reference} · not for preview checkout</span>
+                  </div>
+                  <Link to={`/boutique?watch=${product.slug}`}>Boutique</Link>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="checkout-total">
             <span>Total</span>
-            <strong>{formatPrice(total)}</strong>
+            <strong>{formatPrice(checkoutTotal)}</strong>
           </div>
         </aside>
       </section>

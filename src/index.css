@@ -3020,6 +3020,27 @@ a.icon-btn {
   font-size: 12px;
 }
 
+.checkout-waitlist {
+  margin-top: 20px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.checkout-waitlist h3 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.checkout-waitlist .checkout-line a {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .checkout-total {
   display: flex;
   justify-content: space-between;

@@ -1,5 +1,7 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
-import { getProduct, type Product } from "../config/site";
+import { canPreviewCheckout, getProduct, type Product } from "../config/site";
+
+export type CartLine = { product: Product; qty: number };
 
 export type CartItem = {
   slug: string;
@@ -10,11 +12,16 @@ type CartContextValue = {
   items: CartItem[];
   count: number;
   add: (slug: string) => void;
+  addOnce: (slug: string) => void;
   remove: (slug: string) => void;
   setQty: (slug: string, qty: number) => void;
   clear: () => void;
-  lines: { product: Product; qty: number }[];
+  has: (slug: string) => boolean;
+  lines: CartLine[];
+  checkoutLines: CartLine[];
+  waitlistLines: CartLine[];
   total: number;
+  checkoutTotal: number;
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -31,6 +38,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
             item.slug === slug ? { ...item, qty: item.qty + 1 } : item,
           );
         }
+        return [...current, { slug, qty: 1 }];
+      });
+    };
+
+    const addOnce = (slug: string) => {
+      setItems((current) => {
+        if (current.some((item) => item.slug === slug)) return current;
         return [...current, { slug, qty: 1 }];
       });
     };
@@ -54,20 +68,28 @@ export function CartProvider({ children }: { children: ReactNode }) {
         const product = getProduct(item.slug);
         return product ? { product, qty: item.qty } : null;
       })
-      .filter((line): line is { product: Product; qty: number } => Boolean(line));
+      .filter((line): line is CartLine => Boolean(line));
 
+    const checkoutLines = lines.filter((line) => canPreviewCheckout(line.product));
+    const waitlistLines = lines.filter((line) => !canPreviewCheckout(line.product));
     const total = lines.reduce((sum, line) => sum + line.product.price * line.qty, 0);
+    const checkoutTotal = checkoutLines.reduce((sum, line) => sum + line.product.price * line.qty, 0);
     const count = items.reduce((sum, item) => sum + item.qty, 0);
 
     return {
       items,
       count,
       add,
+      addOnce,
       remove,
       setQty,
       clear: () => setItems([]),
+      has: (slug: string) => items.some((item) => item.slug === slug),
       lines,
+      checkoutLines,
+      waitlistLines,
       total,
+      checkoutTotal,
     };
   }, [items]);
 

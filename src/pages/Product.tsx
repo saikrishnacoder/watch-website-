@@ -13,7 +13,7 @@ import { NotFound } from "./NotFound";
 export function Product() {
   const { slug = "" } = useParams();
   const product = getProduct(slug);
-  const { add } = useCart();
+  const { add, addOnce } = useCart();
   const { setCartOpen } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember, recent } = useCabinet();
   const [shot, setShot] = useState(0);
@@ -36,6 +36,9 @@ export function Product() {
 
   if (!product) return <NotFound />;
 
+  const waitlisted = product.availability === "Waitlist";
+  const boutiqueTo = `/boutique?watch=${product.slug}`;
+
   const recentWatches = recent
     .filter((item) => item !== product.slug)
     .map((item) => getProduct(item))
@@ -55,9 +58,15 @@ export function Product() {
           >
             Add to tray
           </MagneticButton>
-          <MagneticButton variant="ghost" to="/checkout" onClick={() => add(product.slug)}>
-            Buy — preview
-          </MagneticButton>
+          {waitlisted ? (
+            <MagneticButton variant="ghost" to={boutiqueTo}>
+              Boutique
+            </MagneticButton>
+          ) : (
+            <MagneticButton variant="ghost" to="/checkout" onClick={() => addOnce(product.slug)}>
+              Buy — preview
+            </MagneticButton>
+          )}
         </div>
       )}
 
@@ -124,13 +133,15 @@ export function Product() {
             >
               Add to tray
             </MagneticButton>
-            <MagneticButton
-              variant="ghost"
-              to="/checkout"
-              onClick={() => add(product.slug)}
-            >
-              Buy — preview
-            </MagneticButton>
+            {waitlisted ? (
+              <MagneticButton variant="ghost" to={boutiqueTo}>
+                Enquire in boutique
+              </MagneticButton>
+            ) : (
+              <MagneticButton variant="ghost" to="/checkout" onClick={() => addOnce(product.slug)}>
+                Buy — preview
+              </MagneticButton>
+            )}
           </div>
           <div className="pdp-tools">
             <button className={wished(product.slug) ? "is-on" : ""} onClick={() => toggleWish(product.slug)}>
@@ -139,7 +150,7 @@ export function Product() {
             <button className={compared(product.slug) ? "is-on" : ""} onClick={() => toggleCompare(product.slug)}>
               {compared(product.slug) ? "Added to compare" : "Compare"}
             </button>
-            <Link to={`/boutique?watch=${product.slug}`}>Boutique</Link>
+            <Link to={boutiqueTo}>Boutique</Link>
           </div>
 
           <div className="specs">

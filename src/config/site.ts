@@ -433,6 +433,10 @@ export type SiteConfig = typeof site;
 
 const productBySlug = new Map(products.map((product) => [product.slug, product]));
 
+export function canPreviewCheckout(product: Product) {
+  return product.availability !== "Waitlist";
+}
+
 export function formatPrice(amount: number) {
   return new Intl.NumberFormat(site.locale, {
     style: "currency",

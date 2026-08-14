@@ -9,7 +9,7 @@ import { WatchFace } from "../watch/WatchFace";
 
 export function CartDrawer() {
   const { cartOpen, setCartOpen } = useUI();
-  const { lines, total, setQty, remove } = useCart();
+  const { lines, checkoutLines, waitlistLines, total, setQty, remove } = useCart();
 
   useEffect(() => {
     if (!cartOpen) return;
@@ -57,11 +57,15 @@ export function CartDrawer() {
                     <div>
                       <h3>{product.name}</h3>
                       <p>{formatPrice(product.price)}</p>
-                      <div className="qty">
-                        <button onClick={() => setQty(product.slug, qty - 1)}>-</button>
-                        <span>{qty}</span>
-                        <button onClick={() => setQty(product.slug, qty + 1)}>+</button>
-                      </div>
+                      {product.availability === "Waitlist" ? (
+                        <p className="form-note">Waitlist — boutique only</p>
+                      ) : (
+                        <div className="qty">
+                          <button onClick={() => setQty(product.slug, qty - 1)}>-</button>
+                          <span>{qty}</span>
+                          <button onClick={() => setQty(product.slug, qty + 1)}>+</button>
+                        </div>
+                      )}
                     </div>
                     <button className="icon-btn" onClick={() => remove(product.slug)} aria-label="Remove">
                       ×
@@ -75,16 +79,28 @@ export function CartDrawer() {
                 <span>Total</span>
                 <strong>{formatPrice(total)}</strong>
               </div>
-              <MagneticButton
-                to={lines.length ? "/checkout" : "/collection"}
-                onClick={() => setCartOpen(false)}
-              >
-                {lines.length ? "Checkout preview" : "Browse collection"}
-              </MagneticButton>
+              {checkoutLines.length > 0 ? (
+                <MagneticButton to="/checkout" onClick={() => setCartOpen(false)}>
+                  Checkout preview
+                </MagneticButton>
+              ) : lines.length > 0 ? (
+                <MagneticButton
+                  to={`/boutique${waitlistLines[0] ? `?watch=${waitlistLines[0].product.slug}` : ""}`}
+                  onClick={() => setCartOpen(false)}
+                >
+                  Reserve in boutique
+                </MagneticButton>
+              ) : (
+                <MagneticButton to="/collection" onClick={() => setCartOpen(false)}>
+                  Browse collection
+                </MagneticButton>
+              )}
               <div style={{ height: 10 }} />
-              <MagneticButton variant="ghost" to="/boutique" onClick={() => setCartOpen(false)}>
-                Reserve in boutique
-              </MagneticButton>
+              {checkoutLines.length > 0 && (
+                <MagneticButton variant="ghost" to="/boutique" onClick={() => setCartOpen(false)}>
+                  Reserve in boutique
+                </MagneticButton>
+              )}
               <p className="form-note">
                 Reservations are confirmed by your nearest maison.{" "}
                 <Link to="/boutique" onClick={() => setCartOpen(false)}>

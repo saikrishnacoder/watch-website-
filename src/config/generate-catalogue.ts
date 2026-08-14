@@ -144,7 +144,7 @@ export function generateAtelierCatalogue(): Product[] {
 
     return watch({
       slug: `${line.slug}-${size}-${dial.id}-${metal.id}-${serial}`,
-      name: `${line.name} ${size} ${dial.name}`,
+      name: `${line.name} ${size} ${dial.name}, ${metal.label.toLowerCase()}`,
       reference: `${line.calibre.replace("H-", "H.")}.${size}.${metal.id.toUpperCase()}.${serial}`,
       collection: line.name,
       collectionSlug: line.slug,
