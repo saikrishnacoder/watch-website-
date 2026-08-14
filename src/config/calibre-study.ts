@@ -1,8 +1,8 @@
 export const calibreStudy = {
   id: "HO-01",
   name: "Study calibre HO-01",
-  eyebrow: "Atelier study",
-  title: "Open the architecture.",
+  eyebrow: "The craft",
+  title: "Case → Dial → Movement",
   disclaimer:
     "HO-01 is a teaching calibre drawn for this page — a concept architecture, not a production specification. Watches on the wrist use H-08, H-72, H-90, H-12 and H-24.",
   facts: [

@@ -19,6 +19,15 @@ export function Concierge() {
   const watching = slug ? getProduct(slug) : undefined;
 
   useEffect(() => {
+    const open = () => {
+      setOpen(true);
+      setTab("ask");
+    };
+    window.addEventListener("horloge-open-concierge", open);
+    return () => window.removeEventListener("horloge-open-concierge", open);
+  }, []);
+
+  useEffect(() => {
     setOpen(false);
     setStatus("");
   }, [location.pathname]);

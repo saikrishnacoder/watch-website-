@@ -279,6 +279,103 @@ img {
   font-size: 11px;
 }
 
+.journey-lockup {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + 24px) 6% 64px;
+}
+
+.journey-lockup.is-close {
+  min-height: 72vh;
+}
+
+.journey-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 11vw, 128px);
+  letter-spacing: 0.18em;
+  line-height: 0.9;
+  margin: 28px 0 12px;
+}
+
+.journey-motto {
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--gold);
+}
+
+.journey-en {
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+.journey-hint {
+  margin-top: 36px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.journey-hint::before {
+  content: "↓";
+  display: block;
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+
+.journey-stroke {
+  display: block;
+  width: 1px;
+  height: 72px;
+  margin: 28px auto 0;
+  background: var(--gold);
+  transform-origin: top center;
+  animation: meridian-draw-line 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.journey-stroke.is-block {
+  margin: 28px 0 32px;
+  height: 88px;
+}
+
+@keyframes meridian-draw-line {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.meridian-chapter-title {
+  max-width: 12ch;
+}
+
+.viewing-cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+.concierge-invite .hero-actions {
+  align-items: center;
+}
+
 .identity-body h2 {
   font-size: clamp(28px, 3.4vw, 44px);
   margin: 8px 0 32px;
@@ -4588,6 +4685,16 @@ html[data-theme="ivoire"] .cinema-featured .product-line {
     height: 52%;
     animation: none;
   }
+
+  .journey-stroke {
+    animation: none;
+    transform: none;
+  }
+}
+
+html.reduce-motion .journey-stroke {
+  animation: none;
+  transform: none;
 }
 
 @media print {

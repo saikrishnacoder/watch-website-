@@ -5,7 +5,7 @@ import { useMotion } from "../../context/MotionContext"
 const ZOOM = 2.4
 const LOUPE = 180
 
-export function CraftLoupe() {
+export function CraftLoupe({ marked = true }: { marked?: boolean }) {
   const { reduceMotion, coarsePointer } = useMotion()
   const bench = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ x: 0.52, y: 0.38 })
@@ -41,7 +41,11 @@ export function CraftLoupe() {
   const radius = LOUPE / 2
 
   return (
-    <section className="section craft-loupe" data-meridian="bench" data-meridian-label="Bench">
+    <section
+      className="section craft-loupe"
+      data-meridian={marked ? "bench" : undefined}
+      data-meridian-label={marked ? "Bench" : undefined}
+    >
       <div className="section-head">
         <div>
           <div className="eyebrow">{finishing.eyebrow}</div>

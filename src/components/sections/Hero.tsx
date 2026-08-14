@@ -19,7 +19,7 @@ export function Hero() {
   const scale = useTransform(scrollY, [0, 720], [1, quiet ? 1 : 1.08]);
 
   return (
-    <section className="cinema-hero" id="home" data-meridian="watch" data-meridian-label="Watch">
+    <section className="cinema-hero" id="home" data-meridian="reveal" data-meridian-label="Reveal">
       <motion.img
         className="cinema-bg"
         src={site.hero.image}

@@ -4,7 +4,7 @@ import { Reveal } from "../ui/Reveal";
 
 export function HorizontalLines() {
   return (
-    <section className="section">
+    <section className="section" data-meridian="collections" data-meridian-label="Collections">
       <div className="section-head">
         <div>
           <div className="eyebrow">Collections</div>

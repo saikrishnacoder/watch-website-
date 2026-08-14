@@ -41,13 +41,13 @@ function ExplodePinned() {
       className="explode-track"
       style={{ height: `${calibreStudy.stages.length * 92}vh` }}
       aria-label="Scroll to open study calibre HO-01"
-      data-meridian="movement"
-      data-meridian-label="Movement"
+      data-meridian="craft"
+      data-meridian-label="Craft"
     >
       <div className="explode-sticky">
         <div className="explode-copy">
           <p className="eyebrow">{calibreStudy.eyebrow}</p>
-          <p className="explode-kicker">Scroll to open</p>
+          <p className="explode-kicker">{calibreStudy.title}</p>
           <h2 className="display explode-stage-name" aria-live="polite">
             {current.label}
           </h2>
@@ -94,7 +94,7 @@ function ExplodePinned() {
 function ExplodeStatic() {
   const frozen = useMotionValue(0.875)
   return (
-    <section className="section explode-static" aria-label="Study calibre HO-01" data-meridian="movement" data-meridian-label="Movement">
+    <section className="section explode-static" aria-label="Study calibre HO-01" data-meridian="craft" data-meridian-label="Craft">
       <div className="section-head">
         <div>
           <div className="eyebrow">{calibreStudy.eyebrow}</div>

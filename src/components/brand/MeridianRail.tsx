@@ -15,7 +15,9 @@ export function MeridianRail() {
 
   useEffect(() => {
     const scan = () => {
-      const nodes = [...document.querySelectorAll<HTMLElement>("[data-meridian]")]
+      const nodes = [...document.querySelectorAll<HTMLElement>("[data-meridian]")].filter(
+        (node) => node.dataset.meridian,
+      )
       const doc = Math.max(document.documentElement.scrollHeight, 1)
       setChapters(
         nodes.map((node) => ({
@@ -25,10 +27,14 @@ export function MeridianRail() {
         })),
       )
     }
-    const id = window.setTimeout(scan, 80)
+    scan()
+    const id = window.setTimeout(scan, 240)
+    const ro = new ResizeObserver(scan)
+    ro.observe(document.documentElement)
     window.addEventListener("resize", scan)
     return () => {
       window.clearTimeout(id)
+      ro.disconnect()
       window.removeEventListener("resize", scan)
     }
   }, [location.pathname])

@@ -5,7 +5,7 @@ import { Reveal } from "../ui/Reveal";
 
 export function Identity({ showCrest = true }: { showCrest?: boolean }) {
   return (
-    <section className="section identity" data-meridian="identity" data-meridian-label="Maison">
+    <section className="section identity" data-meridian="maison" data-meridian-label="Maison">
       {showCrest && (
         <Reveal className="identity-crest">
           <Monogram size={120} />
