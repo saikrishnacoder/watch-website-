@@ -41,7 +41,7 @@ export function Boutique() {
   return (
     <div className="page">
       <section className="page-hero">
-        <div className="eyebrow">Boutiques</div>
+        <div className="eyebrow">Private Viewing</div>
         <h1 className="display">Come closer to the work.</h1>
         <p className="lede">
           Five maisons across Geneva, Paris, London, New York and Tokyo. Private viewings by appointment. Local time on

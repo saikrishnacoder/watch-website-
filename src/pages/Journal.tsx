@@ -7,8 +7,8 @@ export function Journal() {
     <div className="page">
       <section className="page-hero">
         <div className="eyebrow">Journal</div>
-        <h1 className="display">World of HORLOGE</h1>
-        <p className="lede">Notes from the atelier, the calibre bench and the wrist — not a press office.</p>
+        <h1 className="display">Journal</h1>
+        <p className="lede">Four notes. The meridian, the atelier, the movement, and Geneva.</p>
       </section>
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="journal-grid">

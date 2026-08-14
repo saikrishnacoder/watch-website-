@@ -8,23 +8,18 @@ export function HorizontalLines() {
       <div className="section-head">
         <div>
           <div className="eyebrow">Collections</div>
-          <h2 className="display">The five lines</h2>
-          <p>{site.products.length} references, one gold meridian at 12.</p>
+          <h2 className="display">Five atmospheres. One meridian.</h2>
         </div>
-        <Link className="section-link" to="/collection">
-          All models
-        </Link>
       </div>
-      <div className="family-grid">
+      <div className="line-atmospheres">
         {site.collectionLines.map((line, index) => (
-          <Reveal key={line.slug} delay={index * 0.08} className="family-card">
-            <Link to={`/collection/${line.slug}`}>
-              <img src={line.image} alt={line.name} />
-              <div>
-                <strong>{line.name}</strong>
-                <span>{line.tagline}</span>
-              </div>
-            </Link>
+          <Reveal key={line.slug} delay={index * 0.06} className={`line-atmosphere is-${line.slug}`}>
+            <img src={line.image} alt="" />
+            <div>
+              <strong>{line.name}</strong>
+              <span>{line.description}</span>
+              <Link to={`/collection/${line.slug}`}>Explore Collection</Link>
+            </div>
           </Reveal>
         ))}
       </div>

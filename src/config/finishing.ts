@@ -1,10 +1,10 @@
 export type FinishId = "perlage" | "cotes" | "anglage" | "enamel" | "meridian"
 
 export const finishing = {
-  eyebrow: "The bench",
-  title: "Look closer.",
+  eyebrow: "Craftsmanship",
+  title: "Why this watch is valuable.",
   lede:
-    "Move the loupe. Raking light follows. These are atelier techniques — how the maison finishes metal and enamel — not a claim that every wrist watch carries every decoration.",
+    "Case, dial, movement, finishing. A HORLOGE passes through fewer than twelve pairs of hands. Surfaces are finished to be refinished. The meridian is drawn last.",
   spots: [
     {
       id: "perlage" as const,

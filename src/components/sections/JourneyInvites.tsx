@@ -19,7 +19,7 @@ export function ViewingInvite() {
             <li key={house.city}>{house.city}</li>
           ))}
         </ul>
-        <MagneticButton to="/boutique">Book a viewing</MagneticButton>
+        <MagneticButton to="/boutique">Private Viewing</MagneticButton>
       </Reveal>
     </section>
   );

@@ -4,25 +4,15 @@ import { Reveal } from "../ui/Reveal";
 
 export function MaisonChapter() {
   return (
-    <section className="section" data-meridian="maison" data-meridian-label="Maison">
+    <section className="section maison-home" data-meridian="maison" data-meridian-label="Maison">
       <Reveal>
-        <div className="eyebrow">The maison</div>
-        <h2 className="display">Silence, measure, inherit.</h2>
-        <p className="lede">{site.brand.description}</p>
+        <div className="eyebrow">The Maison</div>
+        <h2 className="display">{site.homeMaison.title}</h2>
+        <p className="lede">{site.homeMaison.body}</p>
+        <Link className="section-link" to="/maison">
+          {site.homeMaison.cta}
+        </Link>
       </Reveal>
-      <div className="pillars">
-        {site.brand.pillars.map((pillar) => (
-          <Reveal key={pillar.title}>
-            <article>
-              <h3>{pillar.title}</h3>
-              <p>{pillar.body}</p>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-      <Link className="section-link" to="/maison">
-        Enter the maison
-      </Link>
     </section>
   );
 }

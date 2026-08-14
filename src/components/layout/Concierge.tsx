@@ -111,13 +111,13 @@ export function Concierge() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls="concierge-panel"
-        aria-label={open ? "Close specialist" : "Speak to a specialist"}
+        aria-label={open ? "Close concierge" : "HORLOGE Concierge"}
       >
-        {open ? "Close" : "Specialist"}
+        {open ? "Close" : "Concierge"}
       </button>
       {open && (
         <aside id="concierge-panel" className="concierge-panel" role="dialog" aria-labelledby="concierge-title">
-          <div className="eyebrow">Speak to a specialist</div>
+          <div className="eyebrow">HORLOGE Concierge</div>
           <h2 id="concierge-title">A quiet word.</h2>
           <p className={`specialist-live ${openNow ? "is-open" : ""}`}>
             {openNow

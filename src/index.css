@@ -10,7 +10,7 @@
   --danger: #b5453a;
   --font-display: "Cormorant Garamond", "Times New Roman", serif;
   --font-body: "Outfit", system-ui, sans-serif;
-  --nav-h: 116px;
+  --nav-h: 80px;
 }
 
 * {
@@ -359,6 +359,137 @@ img {
   max-width: 12ch;
 }
 
+.meridian-travel {
+  position: relative;
+  margin: 48px 0 36px;
+  padding: 8px 0 8px 28px;
+}
+
+.meridian-travel-stroke {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gold);
+  transform-origin: top center;
+  animation: meridian-draw-line 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.meridian-travel-stops {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.meridian-travel-stops p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.meridian-travel-stops strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.line-atmospheres {
+  display: grid;
+  gap: 12px;
+}
+
+.line-atmosphere {
+  position: relative;
+  min-height: 52vh;
+  overflow: hidden;
+}
+
+.line-atmosphere img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.line-atmosphere:hover img {
+  transform: scale(1.04);
+}
+
+.line-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(7, 6, 5, 0.88) 12%, rgba(7, 6, 5, 0.2) 58%);
+}
+
+.line-atmosphere.is-heritage::after {
+  background: linear-gradient(to top, rgba(28, 18, 10, 0.88) 10%, rgba(90, 60, 24, 0.18) 62%);
+}
+
+.line-atmosphere.is-chronograph::after {
+  background: linear-gradient(to top, rgba(8, 10, 14, 0.9) 10%, rgba(20, 28, 40, 0.28) 62%);
+}
+
+.line-atmosphere.is-diver::after {
+  background: linear-gradient(to top, rgba(4, 14, 22, 0.92) 8%, rgba(8, 40, 52, 0.4) 64%);
+}
+
+.line-atmosphere.is-imperial::after {
+  background: linear-gradient(to top, rgba(24, 16, 8, 0.9) 10%, rgba(120, 88, 36, 0.22) 62%);
+}
+
+.line-atmosphere.is-meridian::after {
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.9) 10%, rgba(48, 48, 56, 0.22) 62%);
+}
+
+.line-atmosphere div {
+  position: relative;
+  z-index: 1;
+  max-width: 36rem;
+  padding: 12% 7% 8%;
+}
+
+.line-atmosphere strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.line-atmosphere span {
+  display: block;
+  color: var(--gold-soft);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 36ch;
+}
+
+.line-atmosphere a {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+.maison-home .display {
+  font-size: clamp(40px, 7vw, 88px);
+}
+
+.copyright a {
+  color: var(--muted);
+}
+
+.copyright a:hover {
+  color: var(--gold);
+}
+
 .viewing-cities {
   display: flex;
   flex-wrap: wrap;
@@ -443,7 +574,7 @@ img {
 
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 28px;
   list-style: none;
 }
 
@@ -1297,7 +1428,7 @@ button.section-link {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.6fr 1fr 1fr;
   gap: 40px;
   margin-bottom: 48px;
 }
@@ -1910,30 +2041,20 @@ button.section-link {
     align-items: flex-start;
   }
 
-  .cinema-hero {
-    min-height: 88vh;
+  .meridian-travel-stops,
+  .line-atmospheres {
+    grid-template-columns: 1fr;
+  }
+
+  .line-atmosphere {
+    min-height: 70vh;
   }
 }
 
 /* ===== Maison extras ===== */
 
 .utility-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 42;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5%;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+  display: none;
 }
 
 .utility-bar div {
@@ -1946,7 +2067,7 @@ button.section-link {
 }
 
 .nav {
-  top: 32px;
+  top: 0;
 }
 
 .nav-links button {
@@ -1976,7 +2097,7 @@ a.icon-btn {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: repeat(5, 1fr) 160px;
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
   padding: 28px 5% 32px;
 }
@@ -2027,10 +2148,69 @@ a.icon-btn {
 .cinema-hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
+  display: grid;
+  place-items: center;
   overflow: hidden;
-  padding: 0 6% 72px;
+  background: #050403;
+}
+
+.cinema-stage {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--nav-h) + 24px) 6% 72px;
+}
+
+.cinema-meridian {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  width: 1px;
+  height: 42%;
+  background: var(--gold);
+  transform-origin: top center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cinema-watch {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 32px 64px rgba(0, 0, 0, 0.55));
+}
+
+.cinema-lockup {
+  margin-top: 28px;
+}
+
+.cinema-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: 0.42em;
+  font-weight: 500;
+}
+
+.cinema-motto {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 2.4vw, 28px);
+  color: var(--gold);
+}
+
+.cinema-actions {
+  margin-top: 36px;
+  justify-content: center;
+}
+
+.cinema-hero .intro-skip {
+  position: absolute;
+  right: 5%;
+  bottom: 28px;
+  z-index: 4;
 }
 
 .cinema-bg {
@@ -4279,7 +4459,7 @@ a.icon-btn {
 
 .region-notice {
   position: fixed;
-  top: calc(32px + var(--nav-h));
+  top: var(--nav-h);
   left: 0;
   right: 0;
   z-index: 39;
@@ -4566,20 +4746,20 @@ a.icon-btn {
   right: 24px;
   bottom: 24px;
   z-index: 46;
-  border: 1px solid var(--gold);
-  background: var(--bg);
-  color: var(--gold);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-size: 11px;
-  padding: 14px 18px;
+  font-size: 10px;
+  padding: 8px 0;
   cursor: pointer;
 }
 
 .concierge-fab.is-on,
 .concierge-fab:hover {
-  background: var(--gold);
-  color: var(--bg);
+  color: var(--gold);
+  background: transparent;
 }
 
 .concierge-panel {

@@ -8,7 +8,6 @@ import { MagneticButton } from "../components/ui/MagneticButton";
 import { Caseback } from "../components/watch/Caseback";
 import { WatchFace } from "../components/watch/WatchFace";
 import { useCabinet } from "../context/CabinetContext";
-import { useCart } from "../context/CartContext";
 import { useMoney } from "../context/CurrencyContext";
 import { useUI } from "../context/UIContext";
 import { WatchStudio } from "../components/motion/WatchStudio";
@@ -21,16 +20,14 @@ import { ProductCompose, strapFromDesign } from "../components/watch/ProductComp
 import { WaitlistForm } from "../components/watch/WaitlistForm";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 import { braceletColor, isLightDial } from "../lib/composition";
-import { openSpecialist } from "../lib/specialist";
 import { NotFound } from "./NotFound";
 
 export function Product() {
   const { slug = "" } = useParams();
   const location = useLocation();
   const product = getProduct(slug);
-  const { add, addOnce } = useCart();
   const { formatPrice } = useMoney();
-  const { setCartOpen, setToast } = useUI();
+  const { setToast } = useUI();
   const { toggleWish, toggleCompare, wished, compared, remember, compare, saveComposition } = useCabinet();
   const [shot, setShot] = useState(0);
   const [studio, setStudio] = useState<"render" | "photo" | "calibre" | "volume">("volume");
@@ -113,23 +110,10 @@ export function Product() {
         <div className="sticky-buy">
           <strong>{product.name}</strong>
           <span>{formatPrice(product.price)}</span>
-          <MagneticButton
-            onClick={() => {
-              add(product.slug);
-              setCartOpen(true);
-            }}
-          >
-            Add to tray
+          <MagneticButton to={boutiqueTo}>Private Viewing</MagneticButton>
+          <MagneticButton variant="ghost" to={boutiqueTo}>
+            Request Availability
           </MagneticButton>
-          {waitlisted ? (
-            <MagneticButton variant="ghost" to={boutiqueTo}>
-              Boutique
-            </MagneticButton>
-          ) : (
-            <MagneticButton variant="ghost" to="/checkout" onClick={() => addOnce(product.slug)}>
-              Buy — preview
-            </MagneticButton>
-          )}
         </div>
       )}
 
@@ -239,25 +223,9 @@ export function Product() {
           </p>
           {composeNote && <p className="form-note">{composeNote}</p>}
           <div className="hero-actions">
-            <MagneticButton
-              onClick={() => {
-                add(product.slug);
-                setCartOpen(true);
-              }}
-            >
-              Add to tray
-            </MagneticButton>
-            {waitlisted ? (
-              <MagneticButton variant="ghost" to={boutiqueTo}>
-                Enquire in boutique
-              </MagneticButton>
-            ) : (
-              <MagneticButton variant="ghost" to="/checkout" onClick={() => addOnce(product.slug)}>
-                Buy — preview
-              </MagneticButton>
-            )}
-            <MagneticButton variant="ghost" onClick={() => openSpecialist("write")}>
-              Speak to a specialist
+            <MagneticButton to={boutiqueTo}>Private Viewing</MagneticButton>
+            <MagneticButton variant="ghost" to={boutiqueTo}>
+              Request Availability
             </MagneticButton>
           </div>
           {scarce && <WaitlistForm product={product} />}
@@ -309,10 +277,7 @@ export function Product() {
             <button type="button" onClick={() => setCraftOpen(true)}>
               Craftsmanship sheet
             </button>
-            <button type="button" onClick={() => openSpecialist("write")}>
-              Speak to a specialist
-            </button>
-            <Link to={boutiqueTo}>Boutique</Link>
+            <Link to={boutiqueTo}>Private Viewing</Link>
           </div>
 
           <div className="specs">

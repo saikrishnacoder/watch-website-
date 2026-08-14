@@ -567,56 +567,60 @@ export const products: Product[] = [
 ];
 
 export const journal = [
-    {
-      slug: "the-meridian",
-      title: "Why every dial carries a gold line at 12",
-      date: "4 April 2026",
-      category: "Identity",
-      excerpt:
-        "The meridian is not a logo applied to a watch. It is the watch’s thesis: a single, vertical agreement with Geneva.",
-      image: photos.cinematic,
-      body: [
-        "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
-        "You will find it on Heritage enamel and on a Diver 500. If it is missing, it is not ours.",
-      ],
-    },
-    {
-      slug: "column-wheel",
-      title: "Why we still insist on a column wheel",
-    date: "12 March 2026",
-    category: "Calibres",
+  {
+    slug: "the-meridian",
+    title: "The Golden Meridian",
+    date: "4 April 2026",
+    category: "Identity",
     excerpt:
-      "Cam-actuated chronographs are cheaper. They are also less pleasant to use. A short note from the movement atelier.",
-    image: photos.movement,
+      "Every HORLOGE composition begins from twelve. A gold line, thinner than a hair, is the point from which the rest of the watch is built.",
+    image: photos.cinematic,
     body: [
-      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct, mechanical events — not like pressing a plastic shutter.",
-      "It costs more to manufacture. Collectors feel the difference the first time they time a meeting they did not need to time.",
+      "HORLOGE is a French word for clock. The maison’s mark is a meridian — the line by which a city agrees what hour it is. We draw it in gold, thinner than a hair, at 12 on every dial we make.",
+      "The stroke is not applied after the watch is finished. It is the first decision. From that vertical, the chapter ring, the hands, the case, and the movement are composed outward.",
+      "You will find it on Heritage enamel and on a Diver. If it is missing, it is not ours.",
     ],
   },
   {
-    slug: "enamel-firing",
-    title: "Firing the Heritage dial",
-    date: "2 February 2026",
+    slug: "inside-the-atelier",
+    title: "Inside the Atelier",
+    date: "12 March 2026",
     category: "Atelier",
     excerpt:
-      "Grand feu enamel is unforgiving. About four in ten dials crack in the kiln. The rest become Heritage.",
+      "A HORLOGE watch passes through fewer than twelve pairs of hands before it leaves Geneva. The kiln sits eight metres from the casing bench, on purpose.",
     image: photos.bench,
     body: [
-      "Each Heritage dial is fired several times at over 800°C. Dust, a draught, a slightly thick pour — any of these can ruin a day of work.",
+      "The atelier is not a factory. Cases are finished by hand. Movements are regulated individually, not by batch. This is slower than industrial watchmaking — deliberately so.",
+      "Grand feu enamel is unforgiving. About four in ten dials crack in the kiln. The rest become Heritage. Dust, a draught, a slightly thick pour — any of these can ruin a day of work.",
       "We do not outsource this. The kiln sits eight metres from the casing bench, on purpose.",
     ],
   },
   {
-    slug: "wearing-gold",
-    title: "How to wear yellow gold in 2026",
-    date: "19 January 2026",
-    category: "Style",
+    slug: "anatomy",
+    title: "Anatomy of a Mechanical Watch",
+    date: "2 February 2026",
+    category: "Calibres",
     excerpt:
-      "Imperial Gold is not a tuxedo watch. It is a Tuesday watch, if the Tuesday is yours.",
+      "Case, crystal, dial, hands, movement. Opened in that order, then returned to silence. A short anatomy of how a HORLOGE is composed.",
+    image: photos.movement,
+    body: [
+      "A mechanical watch is a small architecture. The case holds the volume. The crystal admits light. The dial carries the meridian. The hands spend the hours. The movement is the reason any of it is true.",
+      "The H-72 is a column-wheel chronograph because the start, stop and reset should feel like three distinct mechanical events — not like pressing a plastic shutter.",
+      "Wrist watches use H-08, H-72, H-90, H-12 and H-24. HO-01, drawn on this site, is a teaching calibre — a concept architecture, not a production specification.",
+    ],
+  },
+  {
+    slug: "geneva-independent",
+    title: "Geneva & Independent Horology",
+    date: "19 January 2026",
+    category: "Maison",
+    excerpt:
+      "Founded in Geneva in 1924. Still independent. No conglomerate owns our movements, our case designs, or our name.",
     image: photos.gold,
     body: [
-      "The 38 mm case was drawn to disappear under a shirt cuff and to appear over a knit. Gold reads quieter when the dial is champagne, not white.",
-      "If you are waiting for a black-tie invitation to wear it, you will wait too long.",
+      "Horloge was founded in Geneva in 1924 by a single watchmaker with a single conviction: that a watch should be composed, not merely assembled.",
+      "We remain an independent maison. Each collection is developed in-house, in the same workshop the Maison has occupied since its founding.",
+      "One hundred years on, the line at twelve has not moved. Everything else has been composed around it.",
     ],
   },
 ];

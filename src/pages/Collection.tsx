@@ -6,7 +6,6 @@ import { ProductCard } from "../components/ui/ProductCard";
 import { RecentlyViewed } from "../components/sections/RecentlyViewed";
 import { PressStrip } from "../components/sections/PressStrip";
 import { Reveal } from "../components/ui/Reveal";
-import { MagneticButton } from "../components/ui/MagneticButton";
 
 export function Collection() {
   const [params] = useSearchParams();
@@ -33,7 +32,6 @@ export function Collection() {
         <div>
           <h1 className="display">{site.collectionPage.title}</h1>
           <p className="lede">{site.collectionPage.lede}</p>
-          <MagneticButton to="/find">Find your watch</MagneticButton>
         </div>
       </section>
 

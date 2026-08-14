@@ -96,21 +96,28 @@ export const site = {
   },
 
   nav: [
-    { label: "Watches", href: "/collection" },
-    { label: "Watch Finder", href: "/finder" },
-    { label: "World of HORLOGE", href: "/maison" },
-    { label: "Boutiques", href: "/boutique" },
+    { label: "Collections", href: "/collection" },
+    { label: "The Maison", href: "/maison" },
+    { label: "Craft", href: "/atelier" },
+    { label: "Journal", href: "/journal" },
+    { label: "Private Viewing", href: "/boutique" },
   ],
 
   hero: {
-    eyebrow: "Maison Horloge · Genève · 1924",
-    title: "Time",
-    accent: "composed.",
-    body: "Independent Geneva watchmaking since 1924. Five lines, one gold meridian at 12. Watches for those who measure life in moments, not minutes.",
-    primaryCta: { label: "Explore the collection", href: "/collection" },
-    secondaryCta: { label: "Find your watch", href: "/finder" },
+    eyebrow: "HORLOGE",
+    title: "HORLOGE",
+    accent: "Tempus compositum",
+    body: "Every composition begins from a gold line at 12.",
+    primaryCta: { label: "Discover the collection", href: "/collection" },
+    secondaryCta: { label: "Private Viewing", href: "/boutique" },
     featuredSlug: "chronograph-one",
     image: "/media/maison-meridian.jpg",
+  },
+
+  homeMaison: {
+    title: "Geneva · 1924",
+    body: "Independent Geneva watchmaking. No conglomerate owns our movements, our cases, or our name. The full history lives with the Maison.",
+    cta: "Discover The Maison",
   },
 
   marquee: [
@@ -484,17 +491,9 @@ export const site = {
       "Maison Horloge, Geneva. Tempus compositum — time, composed. Five lines around a gold meridian at 12.",
     columns: [
       {
-        title: "Collection",
-        links: [
-          { label: "All watches", href: "/collection" },
-          { label: "Watch Finder", href: "/finder" },
-          { label: "Find your watch", href: "/find" },
-          { label: "Checkout preview", href: "/checkout" },
-        ],
-      },
-      {
         title: "Collections",
         links: [
+          { label: "The Collection", href: "/collection" },
           { label: "Heritage", href: "/collection/heritage" },
           { label: "Chronograph", href: "/collection/chronograph" },
           { label: "Diver", href: "/collection/diver" },
@@ -505,25 +504,10 @@ export const site = {
       {
         title: "Maison",
         links: [
-          { label: "The maison", href: "/maison" },
-          { label: "Heritage", href: "/heritage" },
-          { label: "Kinetic atelier", href: "/motion" },
-          { label: "Atelier", href: "/atelier" },
+          { label: "The Maison", href: "/maison" },
+          { label: "Craft", href: "/atelier" },
           { label: "Journal", href: "/journal" },
-          { label: "Services", href: "/services" },
-          { label: "Boutiques", href: "/boutique" },
-        ],
-      },
-      {
-        title: "Support",
-        links: [
-          { label: "Speak to a specialist", href: "/contact" },
-          { label: "Appointments", href: "/boutique" },
-          { label: "Warranty", href: "/services" },
-          { label: "Cabinet", href: "/cabinet" },
-          { label: "Composer", href: "/compose" },
-          { label: "Wishlist", href: "/wishlist" },
-          { label: "Privacy", href: "/privacy" },
+          { label: "Private Viewing", href: "/boutique" },
         ],
       },
     ],

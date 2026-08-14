@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { site } from "./config/site";
@@ -16,7 +16,6 @@ import { SearchOverlay } from "./components/layout/SearchOverlay";
 import { SkipLink } from "./components/layout/SkipLink";
 import { Toast } from "./components/layout/Toast";
 import { MeridianRail } from "./components/brand/MeridianRail";
-import { CinematicIntro } from "./components/motion/CinematicIntro";
 import { CabinetProvider } from "./context/CabinetContext";
 import { CartProvider } from "./context/CartContext";
 import { ConsentProvider } from "./context/ConsentContext";
@@ -24,7 +23,6 @@ import { CurrencyProvider } from "./context/CurrencyContext";
 import { MotionProvider, useMotion } from "./context/MotionContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { UIProvider, useUI } from "./context/UIContext";
-import { track } from "./lib/analytics";
 import { documentTitle } from "./lib/titles";
 import { Atelier } from "./pages/Atelier";
 import { Boutique } from "./pages/Boutique";
@@ -49,8 +47,6 @@ import { ProductCraft } from "./pages/ProductCraft";
 import { Services } from "./pages/Services";
 import { WatchFinder } from "./pages/WatchFinder";
 import { Wishlist } from "./pages/Wishlist";
-
-const INTRO_KEY = "horloge-intro";
 
 export default function App() {
   return (
@@ -134,6 +130,7 @@ function AppShell() {
                   <Route path="/maison" element={<Maison />} />
                   <Route path="/heritage" element={<Heritage />} />
                   <Route path="/atelier" element={<Atelier />} />
+                  <Route path="/craft" element={<Navigate to="/atelier" replace />} />
                   <Route path="/motion" element={<MotionLab />} />
                   <Route path="/boutique" element={<Boutique />} />
                   <Route path="/contact" element={<Contact />} />
@@ -157,37 +154,8 @@ function AppShell() {
 }
 
 function BootSequence() {
-  const location = useLocation();
-  const { reduceMotion, saveData } = useMotion();
-  const booted = useRef(false);
-  const [intro, setIntro] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return sessionStorage.getItem(INTRO_KEY) !== "done";
-  });
-
-  const dismiss = useCallback((reason: "skip" | "complete") => {
-    sessionStorage.setItem(INTRO_KEY, "done");
-    track(reason === "skip" ? "intro_skip" : "intro_complete");
-    booted.current = true;
-    setIntro(false);
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname !== "/") setIntro(false);
-  }, [location.pathname]);
-
-  useEffect(() => {
-    if (intro && (reduceMotion || saveData)) {
-      sessionStorage.setItem(INTRO_KEY, "done");
-      setIntro(false);
-    }
-  }, [intro, reduceMotion, saveData]);
-
-  if (intro && !reduceMotion && !saveData && location.pathname === "/") {
-    return <CinematicIntro open onSkip={dismiss} />;
-  }
-
-  if (booted.current) return null;
+  const { pathname } = useLocation();
+  if (pathname === "/") return null;
   return <Preloader />;
 }
 
@@ -230,6 +198,10 @@ const LINE_ALIASES: Record<string, string> = {
   "/diver": "/collection/diver",
   "/imperial": "/collection/imperial",
   "/meridian": "/collection/meridian",
+  "/craft": "/atelier",
+  "/journal/column-wheel": "/journal/anatomy",
+  "/journal/enamel-firing": "/journal/inside-the-atelier",
+  "/journal/wearing-gold": "/journal/geneva-independent",
 };
 
 function CanonicalizePath() {

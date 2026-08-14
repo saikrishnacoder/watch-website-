@@ -27,10 +27,7 @@ export function CollectionFamily() {
           <h1 className="display">{line.tagline}</h1>
           <p className="lede">{line.description}</p>
           <div className="hero-actions">
-            <MagneticButton to="/finder">Filter this line</MagneticButton>
-            <MagneticButton variant="ghost" to="/boutique">
-              See it in boutique
-            </MagneticButton>
+            <MagneticButton to="/boutique">Private Viewing</MagneticButton>
           </div>
         </div>
       </section>
