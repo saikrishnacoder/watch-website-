@@ -1898,6 +1898,44 @@ a.icon-btn {
   color: var(--gold);
 }
 
+.cinema-copy .hero-actions {
+  align-items: center;
+  gap: 28px;
+  margin-top: 4px;
+}
+
+.cinema-copy .hero-primary {
+  padding: 20px 36px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  min-width: min(100%, 280px);
+  box-shadow: 0 18px 48px rgba(201, 168, 108, 0.28);
+}
+
+.cinema-copy .hero-primary:hover {
+  background: var(--gold-soft);
+  color: var(--bg);
+  border-color: var(--gold-soft);
+}
+
+.cinema-copy .hero-secondary {
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  color: var(--ink);
+  letter-spacing: 0.18em;
+  box-shadow: none;
+}
+
+.cinema-copy .hero-secondary::after {
+  content: " →";
+}
+
+.cinema-copy .hero-secondary:hover {
+  background: none;
+  color: var(--gold);
+}
+
 .cinema-featured {
   position: absolute;
   right: 6%;

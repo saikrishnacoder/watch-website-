@@ -49,8 +49,10 @@ export function Hero() {
         </h1>
         <p className="lede">{site.hero.body}</p>
         <div className="hero-actions">
-          <MagneticButton to={site.hero.primaryCta.href}>{site.hero.primaryCta.label}</MagneticButton>
-          <MagneticButton variant="ghost" to={site.hero.secondaryCta.href}>
+          <MagneticButton to={site.hero.primaryCta.href} className="hero-primary">
+            {site.hero.primaryCta.label}
+          </MagneticButton>
+          <MagneticButton variant="ghost" to={site.hero.secondaryCta.href} className="hero-secondary">
             {site.hero.secondaryCta.label}
           </MagneticButton>
         </div>
