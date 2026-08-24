@@ -1,0 +1,10 @@
+{
+  "name": "HORLOGE watch website",
+  "install": "npm ci && npm run generate",
+  "terminals": [
+    {
+      "name": "vite-dev",
+      "command": "npm run dev"
+    }
+  ]
+}
